@@ -4,16 +4,21 @@ import { useState, useEffect } from "react";
 export default function useApplicationData() {
   const [state, setState] = useState({
     user: {},
-    users: []
+    users: {},
+    interests: {}
   })
 
   useEffect(() => {
     Promise.all([
-      axios.get('api/users')
+      axios.get('/api/users'),
+      axios.get('/api/interests')
     ])
     .then((all) => {
-      const [users] = all;
-      setState(prev => ({...prev, users: users.data}))
+      const [users, interests] = all;
+
+      setState(prev => ({...prev, users: users.data, interests: interests.data}))
     })}, []);
+
+    return state
 
 }
