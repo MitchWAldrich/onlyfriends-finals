@@ -26,7 +26,7 @@ function MainScreen() {
 function MessagesScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>THIS IS YOUR INBOX THAT SHOWS YOUR FRIEND MATCHES</Text>
+      <ForYouPage/>
     </View>
   );
 }

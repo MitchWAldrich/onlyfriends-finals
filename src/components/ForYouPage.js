@@ -1,8 +1,15 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground } from "react-native";
 import ForYouList from './ForYouList'
+import useApplicationData from '../hooks/useApplicationData.js'
 
 const ForYouPage = () => {
+  const {
+    state
+  } = useApplicationData();
+
+  console.log('state', JSON.stringify(state))
+
   return (
     <View style={styles.buttons}>
     <Text style={styles.text}>Barbie,</Text>
