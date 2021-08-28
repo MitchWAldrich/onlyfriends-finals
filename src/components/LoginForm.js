@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Button, Alert } from "react-native";
+import { SafeAreaView, TextInput, Button, Alert, StyleSheet } from "react-native";
 
 
 export default function LoginForm() {
@@ -7,7 +7,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState(null);
 
   return (
-    <View>
+    <SafeAreaView style={styles.container}>
       <TextInput
         placeholder="Email"
         value={email}
@@ -20,6 +20,15 @@ export default function LoginForm() {
       <Button
         title="Login"
         onPress={() => Alert.alert('Login button pressed')} />
-    </View>
-  )
+    </SafeAreaView>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+});
