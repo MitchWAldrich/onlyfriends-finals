@@ -52,11 +52,11 @@ CREATE TABLE matches (
   best_friend BOOLEAN DEFAULT false
 );
 
-CREATE TABLE messages (
-  id SERIAL PRIMARY KEY NOT NULL,
-  match_id INTEGER REFERENCES matches(id) ON DELETE CASCADE,
-  message VARCHAR(512),
-  sent_at TIMESTAMP NOT NULL,
-  user1_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  user2_id INTEGER REFERENCES users(id) ON DELETE CASCADE
-);
+-- CREATE TABLE messages (
+--   id SERIAL PRIMARY KEY NOT NULL,
+--   match_id INTEGER REFERENCES matches(id) ON DELETE CASCADE,
+--   message VARCHAR(512),
+--   sent_at TIMESTAMP NOT NULL,
+--   user1_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+--   user2_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+-- );
