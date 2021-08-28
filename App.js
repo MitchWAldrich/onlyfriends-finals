@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Name from './src/components/MatchCards/Name.js';
-import ForYouPage from './src/components/ForYouPage.js'
+import ForYouPage from './src/components/ForYouPage.js';
 
 function ProfileScreen() {
   return (
@@ -20,6 +20,7 @@ function MainScreen() {
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Name/>
     </View>
+  );
 }
 
 function MessagesScreen() {
