@@ -1,12 +1,13 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, PushNotificationIOS } from "react-native";
 import ForYouListItem from './ForYouListItem'
 
-const ForYouList = () => {
+const ForYouList = (props) => {
+
   return (
     <View style={styles.buttons}>
-    <Text style={styles.text}>Barbie,</Text>
-    <Text style={styles.text}></Text>
+      <ForYouListItem
+        photo={props.photo}/>
     </View>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
+import axios from 'axios';
 import { StyleSheet, View, Text, ImageBackground } from "react-native";
-import ForYouList from './ForYouList'
+import ForYouList from './ForYouList';
 import useApplicationData from '../hooks/useApplicationData.js'
 
 const ForYouPage = () => {
@@ -12,8 +13,9 @@ const ForYouPage = () => {
 
   return (
     <View style={styles.buttons}>
-      <Text style={styles.text}>Barbie,</Text>
-      <Text style={styles.text}></Text>
+      <ForYouList
+        photo={state.photos[0]}
+      />
     </View>
   );
 };
