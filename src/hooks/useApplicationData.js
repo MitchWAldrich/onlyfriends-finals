@@ -22,6 +22,19 @@ export default function useApplicationData() {
       console.log(err.message)
     })}, [])
 
+    const authenticate = (email, password) => {
+      const users = state.users;
+
+      for (const user of users) {
+        if (email === user.email && password === user.password) {
+          setState({...state, user: user})
+          return user;
+        }
+      }
+      return null;
+    }
+
+
     return { state }
 
     return state
