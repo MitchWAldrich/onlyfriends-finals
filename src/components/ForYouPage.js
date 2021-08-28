@@ -8,12 +8,12 @@ const ForYouPage = () => {
     state
   } = useApplicationData();
 
-  console.log('state', JSON.stringify(state))
+  console.log('state', state);
 
   return (
     <View style={styles.buttons}>
-    <Text style={styles.text}>Barbie,</Text>
-    <Text style={styles.text}></Text>
+      <Text style={styles.text}>Barbie,</Text>
+      <Text style={styles.text}></Text>
     </View>
   );
 };
