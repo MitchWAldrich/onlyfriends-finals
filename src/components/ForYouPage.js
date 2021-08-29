@@ -9,8 +9,6 @@ const ForYouPage = () => {
     state
   } = useApplicationData();
 
-  console.log('state', state);
-
   return (
     <View style={styles.buttons}>
       <ForYouList

@@ -7,11 +7,15 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "@react-native-picker/picker": "^1.16.7",
     "@react-navigation/bottom-tabs": "^6.0.5",
     "@react-navigation/elements": "^1.1.0",
     "@react-navigation/native": "^6.0.2",
+<<<<<<< HEAD
+=======
     "@react-navigation/native-stack": "^6.1.0",
     "@react-navigation/stack": "^6.0.7",
+>>>>>>> 6d6683352afc277a362fb9ca2a45a0bd808b0898
     "axios": "^0.21.1",
     "expo": "~42.0.1",
     "expo-splash-screen": "~0.11.2",
