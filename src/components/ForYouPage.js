@@ -1,16 +1,64 @@
 import React from "react";
 import axios from 'axios';
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, Image, ActivityIndicator } from "react-native";
+import { useState, useEffect } from 'react';
 import ForYouList from './ForYouList';
-import useApplicationData from '../hooks/useApplicationData.js'
+import useApplicationData from '../hooks/useApplicationData.js';
+import findUsersByInterest from '../helpers/selectors.js';
+
 
 const ForYouPage = () => {
-  const {
-    state
-  } = useApplicationData();
+  const [state, setState] = useState({
+    user: {},
+    users: {},
+    interests: {},
+    photos: {}
+  })
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([
+      axios.get('http://localhost:8001/api/users'),
+      axios.get('http://localhost:8001/api/interests'),
+      axios.get('http://localhost:8001/api/photos')
+    ])
+    .then((all) => {
+      const [users, interests, photos] = all;
+
+      setState(prev => ({...prev, users: users.data, interests: interests.data, photos: photos.data}))
+      setLoading(false)
+    })
+    .catch(err => {
+      console.log(err.message)
+    })}, [])
+
+  
+  // const {
+  //   state
+  // } = useApplicationData();
+
+  // const users = findUsersByInterest(state, 'travel')
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator 
+          size="large"
+          loading={loading}
+        />
+      </View>
+    )
+  }
+
+  let today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + today.getMilliseconds();
+
+  console.log('state', state)
+  console.log('time', time);
+  console.log('photo1', state.photos[0].photo1_url)
 
   return (
-    <View style={styles.buttons}>
+    <View>
       <ForYouList
         photo={state.photos[0]}
       />
