@@ -30,7 +30,7 @@ CREATE TABLE photos (
 CREATE TABLE interests (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  books BOOLEAN,
+  reading BOOLEAN,
   tv_movies BOOLEAN,
   fitness BOOLEAN,
   hiking BOOLEAN,
@@ -41,8 +41,7 @@ CREATE TABLE interests (
   studying BOOLEAN,
   sports BOOLEAN,
   eating_out BOOLEAN,
-  going_out BOOLEAN,
-  other BOOLEAN
+  going_out BOOLEAN
 );
 
 CREATE TABLE matches (
