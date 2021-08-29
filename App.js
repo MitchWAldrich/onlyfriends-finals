@@ -33,6 +33,14 @@ function MainScreen() {
 function MessagesScreen() {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Inbox goes here!</Text>
+    </SafeAreaView>
+  );
+}
+
+function FYPScreen() {
+  return (
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <ForYouPage/>
     </SafeAreaView>
   );
@@ -74,7 +82,17 @@ function MyTabs() {
           ),
         }}
       />
-    </Tab.Navigator>
+      <Tab.Screen
+        name="For You"
+        component={FYPScreen}
+        options={{
+          tabBarLabel: 'For You',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="people-circle-outline" color={color} size={size} />
+          ),
+        }}
+      />
+      </Tab.Navigator>
   );
 }
 
