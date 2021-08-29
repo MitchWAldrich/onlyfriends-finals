@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground } from "react-native";
+import Swiper from "react-native-deck-swiper";
 import MatchButtons from '../MatchButtons'
 
 const Name = () => {
