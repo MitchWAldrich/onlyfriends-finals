@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox } from "react-native";
+import { Picker } from '@react-native-picker/picker';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Profile = () => {
   const [isSelected, setSelection] = useState(false);
+  const [selectedVaccination, setSelectedVaccination] = useState();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -39,7 +41,14 @@ const Profile = () => {
         </View>
 
         <View style={styles.textArea}>
-          <TextInput placeholder="Vaccinated" />
+          <Picker
+            selectedValue={selectedVaccination}
+            onValueChange={(itemValue, itemIndex) =>
+              setSelectedVaccination(itemValue)
+            }>
+            <Picker.Item label="Vaccinated" value="vaccinated" />
+            <Picker.Item label="Not Vaccinated" value="notVaccinated" />
+          </Picker>
         </View>
 
         <View style={styles.textArea}>
