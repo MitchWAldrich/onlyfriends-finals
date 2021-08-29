@@ -41,6 +41,7 @@ const Profile = () => {
         </View>
 
         <View style={styles.textArea}>
+<<<<<<< HEAD
           <Picker
             selectedValue={selectedVaccination}
             onValueChange={(itemValue, itemIndex) =>
@@ -49,6 +50,28 @@ const Profile = () => {
             <Picker.Item label="Vaccinated" value="vaccinated" />
             <Picker.Item label="Not Vaccinated" value="notVaccinated" />
           </Picker>
+=======
+          <Text>Vaccinated:</Text>
+          <View style={styles.container}>
+            <View style={styles.checkboxContainer}>
+              <CheckBox
+                value={isSelected}
+                onValueChange={setSelection}
+                style={styles.checkbox}
+              />
+              <Text style={styles.label}>Yes</Text>
+            </View>
+
+            <View style={styles.checkboxContainer}>
+              <CheckBox
+                value={isSelected}
+                onValueChange={setSelection}
+                style={styles.checkbox}
+              />
+              <Text style={styles.label}>No</Text>
+            </View>
+          </View>
+>>>>>>> feature-profile
         </View>
 
         <View style={styles.textArea}>
