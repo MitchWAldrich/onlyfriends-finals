@@ -1,11 +1,7 @@
 import React from "react";
 import axios from 'axios';
 import { StyleSheet, View, Text, ImageBackground } from "react-native";
-<<<<<<< HEAD
-import ForYouList from './ForYouList';
-=======
 import ForYouList from './ForYouList'
->>>>>>> 8292451a52d12671df8778ecf60f355edd5cba7a
 import useApplicationData from '../hooks/useApplicationData.js'
 
 const ForYouPage = () => {
@@ -13,11 +9,8 @@ const ForYouPage = () => {
     state
   } = useApplicationData();
 
-<<<<<<< HEAD
-=======
   console.log('state', state);
 
->>>>>>> 8292451a52d12671df8778ecf60f355edd5cba7a
   return (
     <View style={styles.buttons}>
       <Text style={styles.text}>Barbie,</Text>
