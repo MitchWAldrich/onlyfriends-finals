@@ -14,13 +14,13 @@ VALUES
 (4, 'https://i.imgur.com/BB7vcgK.jpg', 'https://i.imgur.com/UIgzJIH.jpg', 'https://i.imgur.com/zkzV4Yk.jpg','https://i.imgur.com/fKKEwdz.jpg'),
 (5, 'https://i.imgur.com/msEdEpF.jpg', 'https://i.imgur.com/MVYCtJ6.jpg', 'https://i.imgur.com/oMTz2Ug.jpg','https://i.imgur.com/wvwQRr4.jpg');
 
-INSERT INTO interests (user_id, books, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out, other)
+INSERT INTO interests (user_id, reading, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out)
 VALUES 
-(1, true, true, false, false, true, true, true, false, true, false, false, true, false),
-(2, false, false, false, false, true, true, false, false, false, true, false, true, false),
-(3, true, false, true, false, true, false, false, false, true, true, false, true, false),
-(4, false, true, false, false, true, true, false, false, true, false, true, true, false),
-(5, true, false, false, true, true, false, true, false, false, true, true, false, false);
+(1, true, true, false, false, true, true, true, false, true, false, false, true),
+(2, false, false, false, false, true, true, false, false, false, true, false, true),
+(3, true, false, true, false, true, false, false, false, true, true, false, true),
+(4, false, true, false, false, true, true, false, false, true, false, true, true),
+(5, true, false, false, true, true, false, true, false, false, true, true, false);
 
 INSERT INTO matches (user1_id, user2_id, best_friend)
 VALUES 
