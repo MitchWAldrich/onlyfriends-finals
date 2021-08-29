@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, Image, ActivityIndicator } from "react-native";
 
 const ForYouListItem = (props) => {
 
@@ -7,12 +7,15 @@ const ForYouListItem = (props) => {
   var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + today.getMilliseconds();
 
   console.log('time', time);
-  console.log('photo1', props.photo)
+  console.log('photo1', props.photo.photo1_url)
   
  
   return (
     <View style={styles.buttons}>
-      <Image src={props.photo}/>
+      <Image
+        source={{uri: props.photo.photo1_url}}
+        style={{width: 400, height: 400}}
+      />
     </View>
   );
 };
