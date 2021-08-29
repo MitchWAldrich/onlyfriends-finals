@@ -1,14 +1,17 @@
 import React from "react";
 import { View, Image } from "react-native";
 
+import { Foundation } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 
 
 const MatchButtons = () => {
   return (
     <View style={{flexDirection: "row", justifyContent: "space-around"}}>
-      <Image style={{height:70, width: 95, marginLeft: 15, marginRight: 15}} source={require("../../public/images/redX.jpeg")}/>
-      <Image style={{height:70, width: 70, marginLeft: 15, marginRight: 15}} source={require("../../public/images/blueStar.png")}/>
-      <Image style={{height:70, width: 70, marginLeft: 15, marginRight: 15}} source={require("../../public/images/greenCheck.png")}/>
+      <Foundation name="x-circle" size={24} color="red" />
+      <FontAwesome5 name="grin-stars" size={24} color="blue" />
+      <FontAwesome name="check-circle-o" size={24} color="green" />
     </View>
   );
 };
