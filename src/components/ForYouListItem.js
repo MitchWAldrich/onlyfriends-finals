@@ -3,7 +3,13 @@ import { StyleSheet, View, Text, ImageBackground, Image } from "react-native";
 
 const ForYouListItem = (props) => {
 
-  console.log('props', props)
+  let today = new Date();
+  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + today.getMilliseconds();
+
+  console.log('time', time);
+  console.log('photo1', props.photo)
+  
+ 
   return (
     <View style={styles.buttons}>
       <Image src={props.photo}/>
