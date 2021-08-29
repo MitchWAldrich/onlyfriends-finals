@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox } from "react-native";
+import { Picker } from '@react-native-picker/picker';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Profile = () => {
@@ -39,7 +40,26 @@ const Profile = () => {
         </View>
 
         <View style={styles.textArea}>
-          <TextInput placeholder="Vaccinated" />
+          <Text>Vaccinated:</Text>
+          <View style={styles.container}>
+            <View style={styles.checkboxContainer}>
+              <CheckBox
+                value={isSelected}
+                onValueChange={setSelection}
+                style={styles.checkbox}
+              />
+              <Text style={styles.label}>Yes</Text>
+            </View>
+
+            <View style={styles.checkboxContainer}>
+              <CheckBox
+                value={isSelected}
+                onValueChange={setSelection}
+                style={styles.checkbox}
+              />
+              <Text style={styles.label}>No</Text>
+            </View>
+          </View>
         </View>
 
         <View style={styles.textArea}>
