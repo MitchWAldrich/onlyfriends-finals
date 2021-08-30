@@ -1,22 +1,19 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
-
-
-import useApplicationData from "../../hooks/useApplicationData";
+import { StyleSheet, SafeAreaView, Text, ImageBackground, View } from "react-native";
 
 
 const Name = (props) => {
 
   return (
     
-      <View style={styles.card}>
+      <SafeAreaView style={styles.card}>
         <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
           <View style={styles.innerText}>
             <Text style={styles.name}>Barbie</Text>
             <Text style={styles.bio}>When I'm not shopping, I love helping others!</Text>
           </View>
         </ImageBackground>
-      </View>
+      </SafeAreaView>
     
   );
 };
@@ -28,7 +25,8 @@ const styles = StyleSheet.create({
     height: '85%',
     borderRadius: 10,
     backgroundColor: '#fefefe',
-
+    alignItems: 'center',
+    justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -47,12 +45,12 @@ const styles = StyleSheet.create({
 
     justifyContent: 'flex-end',
   },
-  cardInner: {
-    padding: 10,
+  innerText: {
+    padding: 12,
   },
   name: {
     fontSize: 30,
-    color: 'teal',
+    color: 'white',
     fontWeight: 'bold',
   },
   bio: {
