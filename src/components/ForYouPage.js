@@ -50,17 +50,12 @@ const ForYouPage = () => {
     )
   }
 
-  let today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + today.getMilliseconds();
-
-  console.log('state', state)
-  console.log('time', time);
-  console.log('photo1', state.photos[0].photo1_url)
-
   return (
     <View>
       <ForYouList
-        photo={state.photos[0]}
+        photos={state.photos}
+        users={state.users}
+        interests={state.interests}
       />
     </View>
   );
