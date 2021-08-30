@@ -1,13 +1,18 @@
 import React, { useState } from "react";
+import axios from 'axios';
+
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Profile = () => {
-  const [isSelected, setSelection] = useState(false);
+import { fullUserObject } from '../helpers/selectors.js';
+import { useEffect } from "react";
 
+const Profile = () => {
+ 
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
+         
         <View style={styles.titleBar}>
           <Ionicons name="ios-arrow-back" size={24} color="#52575D"></Ionicons>
           <Ionicons name="reorder-three-sharp" size={24} color="#52575D"></Ionicons>
@@ -15,7 +20,7 @@ const Profile = () => {
 
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
-            <Image source={require("../../public/images/ProfilePic.png")} style={styles.image} resizeMode="center"></Image>
+            <Image source={state.photos} style={styles.image} resizeMode="center"></Image>
           </View>
           <View style={{ alignSelf: "center" }}>
             <Text style={styles.profileDetails}>Diane, 26</Text>
