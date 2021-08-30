@@ -14,6 +14,7 @@ import 'react-native-gesture-handler';
 import Name from './src/components/MatchCards/Name.js';
 import ForYouPage from './src/components/ForYouPage.js';
 import Profile from './src/components/Profile.js';
+import Cards from './src/components/MatchCards/index.js';
 
 // function useApplicationData() {
 export default function App() {
@@ -68,7 +69,7 @@ function ProfileScreen() {
 function MainScreen() {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Name/>
+      <Cards />
     </SafeAreaView>
   );
 }
