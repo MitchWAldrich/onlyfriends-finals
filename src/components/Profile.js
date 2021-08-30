@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Chip } from 'react-native-elements';
 
 import { fullUserObject, userAge } from '../helpers/selectors.js';
 import { isVaccinated } from '../helpers/isVaccinated.js';
@@ -17,6 +18,13 @@ const Profile = (props) => {
   const detailedUsers = props.users.map( user => fullUserObject({'users': props.users, 'interests': props.interests, 'photos': props.photos}, user))  
   console.log('detailedUsers', detailedUsers)
 
+  const userInterests = detailedUsers[0].interests.map((interest, id) =>
+    <Chip
+      key={id}
+      title={interest}
+      type="outline"
+    />)
+  
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
@@ -92,9 +100,8 @@ const Profile = (props) => {
 
         <View style={styles.textArea}>
           <Text>My Interests</Text>
-          <Text>{detailedUsers[0].interests}</Text>
+          <View>{userInterests}</View>
         </View>
-
        </ScrollView>
     </SafeAreaView>
   );
