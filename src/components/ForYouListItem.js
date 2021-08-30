@@ -1,21 +1,15 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground, Image, ActivityIndicator } from "react-native";
 
-const ForYouListItem = (props) => {
-
-  let today = new Date();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds() + ":" + today.getMilliseconds();
-
-  console.log('time', time);
-  console.log('photo1', props.photo.photo1_url)
-  
+const ForYouListItem = (props) => {  
  
   return (
     <View style={styles.buttons}>
       <Image
-        source={{uri: props.photo.photo1_url}}
-        style={{width: 400, height: 400}}
+        source={{uri: props.photo}}
+        style={{width: 100, height: 100}}
       />
+      <Text>{props.name}, {props.age}, {props.gender}</Text>
     </View>
   );
 };
