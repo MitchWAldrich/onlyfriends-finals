@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground } from "react-native";
+
 import MatchButtons from '../MatchButtons'
 
 const Name = () => {

@@ -14,7 +14,7 @@ const ForYouList = (props) => {
     <ForYouListItem
       key={user.id}
       photo={user.photos[0]}
-      name={user.firstname}
+      name={user.first_name}
       age={user.age}
       gender={user.gender}
     />

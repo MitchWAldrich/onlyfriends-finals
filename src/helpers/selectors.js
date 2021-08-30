@@ -223,10 +223,15 @@ export function userAge(user) {
 export function fullUserObject(state, newUser) {
   const userObject = {
     id: newUser.id,
-    firstname: newUser.first_name,
-    lastname: newUser.last_name,
+    first_name: newUser.first_name,
+    last_name: newUser.last_name,
+    date_of_birth: newUser.date_of_birth,
+    about_me: newUser.about_me,
+    address: newUser.address,
     gender: newUser.gender,
-    age: userAge(newUser)
+    age: userAge(newUser),
+    starsign: newUser.starsign,
+    vaccinated: newUser.vaccinated
   };
     
     for (let category of state.interests) {
@@ -241,7 +246,7 @@ export function fullUserObject(state, newUser) {
       
       if (photo.user_id === newUser.id) {
         const userPhotos = [];
-        userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo2_url, photo.photo4_url);
+        userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo3_url, photo.photo4_url);
         userObject['photos'] = userPhotos;
       }
     }

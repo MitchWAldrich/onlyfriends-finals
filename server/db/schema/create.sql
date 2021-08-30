@@ -14,7 +14,7 @@ CREATE TABLE users (
   address VARCHAR(255) NOT NULL,
   gender VARCHAR(255) NOT NULL,
   about_me TEXT NOT NULL,
-  starsign BOOLEAN DEFAULT false,
+  starsign VARCHAR(255) NOT NULL,
   vaccinated BOOLEAN NOT NULL
 );
 

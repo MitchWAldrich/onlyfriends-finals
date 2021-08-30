@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 import axios from 'axios';
 
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Chip } from 'react-native-elements';
 
-import { fullUserObject } from '../helpers/selectors.js';
+import { fullUserObject, userAge } from '../helpers/selectors.js';
+import { isVaccinated } from '../helpers/isVaccinated.js';
+import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
 import { useEffect } from "react";
 
-const Profile = () => {
+const Profile = (props) => {
   const [isSelected, setSelection] = useState(false);
+
+  // {'users': props.users, 'interests': props.interests}
+
+  const detailedUsers = props.users.map( user => fullUserObject({'users': props.users, 'interests': props.interests, 'photos': props.photos}, user))  
+  console.log('detailedUsers', detailedUsers)
+
+  const userInterests = detailedUsers[0].interests.map((interest, id) =>
+    <Chip
+      key={id}
+      title={interest}
+      type="outline"
+    />)
   
   return (
     <SafeAreaView style={styles.container}>
@@ -21,12 +36,14 @@ const Profile = () => {
 
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
-            <Image source={require("../../public/images/ProfilePic.png")} style={styles.image} resizeMode="center"></Image>
+            <Image 
+              source={{uri: detailedUsers[0].photos[0]}} 
+              style={styles.image} 
+            />
           </View>
           <View style={{ alignSelf: "center" }}>
-            <Text style={styles.profileDetails}>Diane, 26</Text>
-            <Text style={styles.starSign}>Sagittarius <MaterialCommunityIcons name="zodiac-sagittarius" color="black" /></Text>
-            
+            <Text style={styles.profileDetails}>{detailedUsers[0].first_name}, {userAge(detailedUsers[0])}</Text>
+            <Text style={styles.starSign}>{detailedUsers[0].starsign} <MaterialCommunityIcons name={`zodiac-${detailedUsers[0].starsign.toLowerCase()}`} color="black" /></Text>
           </View>
         </View>
 
@@ -35,170 +52,56 @@ const Profile = () => {
             <Text style={styles.editButtonText}>EDIT PROFILE</Text>
           </View>
         </View>
-
+        {/* if edit profile is not clicked yet, render information saved */}
         <View style={styles.textArea}>
-          <TextInput placeholder="Gender" />
+          <Text>Gender: {detailedUsers[0].gender}</Text>
         </View>
 
         <View style={styles.textArea}>
-          <TextInput placeholder="Location" />
+          <Text>Location: {detailedUsers[0].address}</Text>
         </View>
 
         <View style={styles.textArea}>
-          <Text>Vaccinated:</Text>
-          <View style={styles.container}>
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Yes</Text>
-            </View>
+          <Text>Vaccinated: {vaccinatedDisplay(detailedUsers[0])}</Text>
+        </View>
 
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>No</Text>
-            </View>
-
+        <View style={styles.textArea}>
+          <Text>Photos</Text>
+          <View style={styles.aboutMePhotos}>
+            <Image 
+              source={{uri: detailedUsers[0].photos[0]}} 
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.aboutMePhotos}>
+            <Image 
+              source={{uri: detailedUsers[0].photos[1]}} 
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.aboutMePhotos}>
+            <Image 
+              source={{uri: detailedUsers[0].photos[2]}} 
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.aboutMePhotos}>
+            <Image 
+              source={{uri: detailedUsers[0].photos[3]}} 
+              style={styles.image}
+            />
           </View>
         </View>
 
         <View style={styles.textArea}>
-          <Text>EDIT PHOTOS</Text>
+          <Text>About Me</Text>
+          <Text>{detailedUsers[0].about_me}</Text>
         </View>
 
         <View style={styles.textArea}>
-          <Text>ABOUT ME</Text>
-          <TextInput placeholder="THIS IS THE ABOUT ME" />
+          <Text>My Interests</Text>
+          <View>{userInterests}</View>
         </View>
-
-        <View style={styles.textArea}>
-          <Text>MY INTERESTS</Text>
-          <View style={styles.container}>
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Books</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>TV & Movies</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Fitness & Working Out</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Hiking</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Arts & Culture</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Music</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Gaming</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Travel</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Studying & Coworking</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Sports</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Eating Out</Text>
-            </View>
-
-            <View style={styles.checkboxContainer}>
-              <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-                style={styles.checkbox}
-              />
-              <Text style={styles.label}>Going Out</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.buttonSaveCancel}>
-          <View style={styles.editButton}>
-            <Text style={styles.editButtonText}>SAVE</Text>
-          </View>
-          <View style={styles.editButton}>
-            <Text style={styles.editButtonText}>CANCEL</Text>
-          </View>
-        </View>
-
        </ScrollView>
     </SafeAreaView>
   );
@@ -220,7 +123,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     height: undefined,
-    width: undefined
+    width: undefined,
   },
   titleBar: {
     flexDirection: "row",
@@ -275,6 +178,12 @@ const styles = StyleSheet.create({
   buttonSaveCancel: {
     flexDirection: "row",
     alignSelf: "center"
+  },
+  aboutMePhotos: {
+    width: 125,
+    height: 200,
+    flexDirection: "row",
+    flexWrap: "wrap"
   }
 });
 
