@@ -20,7 +20,7 @@ const Profile = () => {
 
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
-            <Image source={state.photos} style={styles.image} resizeMode="center"></Image>
+            <Image source={require("../../public/images/ProfilePic.png")} style={styles.image} resizeMode="center"></Image>
           </View>
           <View style={{ alignSelf: "center" }}>
             <Text style={styles.profileDetails}>Diane, 26</Text>
