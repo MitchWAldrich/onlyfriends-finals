@@ -63,13 +63,6 @@ const AnimatedStack = props => {
     ),
   }));
 
-  const likeStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(translateX.value, [0, hiddenTranslateX / 5], [0, 1]),
-  }));
-
-  const nopeStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(translateX.value, [0, -hiddenTranslateX / 5], [0, 1]),
-  }));
 
   const gestureHandler = useAnimatedGestureHandler({
     onStart: (_, context) => {
@@ -85,6 +78,7 @@ const AnimatedStack = props => {
       }
 
       translateX.value = withSpring(
+
         hiddenTranslateX * Math.sign(event.velocityX),
         {},
         () => runOnJS(setCurrentIndex)(currentIndex + 1),

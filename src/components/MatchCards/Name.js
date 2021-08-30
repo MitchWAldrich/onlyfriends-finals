@@ -13,7 +13,7 @@ const Name = (props) => {
         <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
           <View style={styles.innerText}>
             <Text style={styles.name}>Barbie</Text>
-            <Text style={styles.bio}>When I'm not busy shopping, I love helping others!</Text>
+            <Text style={styles.bio}>When I'm not shopping, I love helping others!</Text>
           </View>
         </ImageBackground>
       </View>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 30,
-    color: 'white',
+    color: 'teal',
     fontWeight: 'bold',
   },
   bio: {
