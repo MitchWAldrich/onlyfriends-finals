@@ -7,8 +7,6 @@ import useApplicationData from "../../hooks/useApplicationData";
 
 const Name = (props) => {
 
-  const { cards } = props;
-
   return (
     <View style={styles.pageContainer}>
       <View style={styles.card}>
@@ -34,7 +32,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: "95%",
-    height: "75%",
+    height: "80%",
     borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -51,6 +49,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     justifyContent: "flex-end",
+    marginBottom: 12,
   },
   innerText: {
     padding: 10,
