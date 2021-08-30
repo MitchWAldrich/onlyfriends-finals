@@ -1,12 +1,29 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
-import ForYouListItem from './ForYouListItem'
+import { StyleSheet, View, Text, ImageBackground, PushNotificationIOS } from "react-native";
+import ForYouListItem from './ForYouListItem';
+import { fullUserObject, findUsersByInterest } from '../helpers/selectors.js';
 
-const ForYouList = () => {
+const ForYouList = (props) => {
+
+  const filteredUsers = findUsersByInterest({'users': props.users, 'interests': props.interests}, 'books')
+
+  const detailedFilteredUsers = filteredUsers.map( user => fullUserObject({'photos': props.photos, 'users': props.users, 'interests': props.interests}, user))
+  console.log('detailed', detailedFilteredUsers)
+
+  const parsedDFUs = detailedFilteredUsers.map( user => 
+    <ForYouListItem
+      key={user.id}
+      photo={user.photos[0]}
+      name={user.firstname}
+      age={user.age}
+      gender={user.gender}
+    />
+    )
+
   return (
     <View style={styles.buttons}>
-    <Text style={styles.text}>Barbie,</Text>
-    <Text style={styles.text}></Text>
+      <Text>Future friends who like Books</Text>
+      {parsedDFUs}
     </View>
   );
 };
