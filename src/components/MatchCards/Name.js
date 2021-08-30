@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, ImageBackground } from "react-native";
-import Swiper from "react-native-deck-swiper";
+
 import MatchButtons from '../MatchButtons';
 import useApplicationData from "../../hooks/useApplicationData";
 
@@ -10,55 +10,60 @@ const Name = (props) => {
   const { cards } = props;
 
   return (
-    <Swiper>
-      
-    </Swiper>
+    <View style={styles.pageContainer}>
+      <View style={styles.card}>
+        <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
+          <View style={styles.innerText}>
+            <Text style={styles.name}>Barbie</Text>
+            <Text style={styles.bio}>When I'm not busy shopping, I love helping others!</Text>
+          </View>
+        </ImageBackground>
+        <MatchButtons />
+      </View>
+    </View>
 
-
-  //   <View style={{flex: 1}}>
-  //   <View style={styles.header}>
-  //   </View>
-  //   <ImageBackground
-  //     source={require("../../../public/images/barbieProfile.jpeg")}style={styles.container}
-  //   >
-  //   <View style={styles.buttons}>
-  //   <Text style={styles.text}>Barbie,</Text>
-  //   <Text style={styles.text}>26</Text>
-  //     <MatchButtons/>
-  //   </View>
-  //   </ImageBackground>
-  //   <View style={styles.footer}>
-  //   </View>
-  // </View>
+    
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  pageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
     flex: 1,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  header: {
-    height: 100,
-    backgroundColor: 'teal'
+  card: {
+    width: "95%",
+    height: "75%",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 6.68, 
+    elevation: 11,
   },
-  footer: {
-    height: 100,
-    backgroundColor: 'teal'
-  },
-  buttons: {
-    height: 75,
-    flex: 1,
+  image: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 10,
+    overflow: "hidden",
     justifyContent: "flex-end",
   },
-  text: {
-    height: 75,
-    fontSize: 35,
-    fontWeight: 'bold',
-    justifyContent: "flex-end",
-    margin: -20
+  innerText: {
+    padding: 10,
+  },
+  name: {
+    fontSize: 30,
+    color: "white",
+    fontWeight: "bold",
+  },
+  bio: {
+    fontSize: 18,
+    color: "white",
+    lineHeight: 24
   }
 });
 
