@@ -5,7 +5,7 @@ import { fullUserObject, findUsersByInterest } from '../helpers/selectors.js';
 
 const ForYouList = (props) => {
 
-  const filteredUsers = findUsersByInterest({'users': props.users, 'interests': props.interests}, 'books')
+  const filteredUsers = findUsersByInterest({'users': props.users, 'interests': props.interests}, 'reading')
 
   const detailedFilteredUsers = filteredUsers.map( user => fullUserObject({'photos': props.photos, 'users': props.users, 'interests': props.interests}, user))
   console.log('detailed', detailedFilteredUsers)
