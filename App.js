@@ -14,6 +14,7 @@ import 'react-native-gesture-handler';
 import Name from './src/components/MatchCards/Name.js';
 import ForYouPage from './src/components/ForYouPage.js';
 import Profile from './src/components/Profile.js';
+import Messages from './src/components/Messages.js';
 import Cards from './src/components/MatchCards/index.js';
 
 // function useApplicationData() {
@@ -77,7 +78,7 @@ function MainScreen() {
 function MessagesScreen() {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Inbox goes here!</Text>
+      <Messages/>
     </SafeAreaView>
   );
 }
