@@ -197,6 +197,68 @@ const state = {
       ]
 }; 
 
+export function allUserInterests(state, user) {
+
+  for (const category of state.interests) {
+
+    if (category.user_id === user.id) {
+      const interestsArray = Object.entries((category));
+
+      const trueInterests = interestsArray.filter(([key, value]) => value === true)
+
+      const filteredInterests = trueInterests.map( arr => arr[0])
+
+      return filteredInterests
+    }
+  }
+}
+
+export function userAge(user) {
+  const ageDifferenceMs = Date.now() - Date.parse(user.date_of_birth)
+  const calculateAge = new Date(ageDifferenceMs);
+
+  return Math.abs(calculateAge.getUTCFullYear() - 1970);
+}
+
+export function fullUserObject(state, newUser) {
+  const userObject = {
+    id: newUser.id,
+    firstname: newUser.first_name,
+    lastname: newUser.last_name,
+    gender: newUser.gender,
+    age: userAge(newUser)
+  };
+    
+    for (let category of state.interests) {
+
+      if (category.user_id === newUser.id) {
+        const userInterests = allUserInterests(state, newUser);
+        userObject['interests'] = userInterests
+      }
+    }
+
+    for (let photo of state.photos) {
+      
+      if (photo.user_id === newUser.id) {
+        const userPhotos = [];
+        userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo2_url, photo.photo4_url);
+        userObject['photos'] = userPhotos;
+      }
+    }
+  
+  return userObject 
+}
+
+/*userObj
+id
+firstname
+lastname
+gender
+age
+interests: [array]
+photos: [array]
+*/
+
 export function findUsersByInterest(state, interest) {
   const filteredUsers = []
   
