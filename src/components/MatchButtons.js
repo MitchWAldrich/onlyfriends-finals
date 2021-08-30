@@ -1,21 +1,34 @@
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-import { Foundation } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
-
+import CloseIcon from "@material-ui/icons/Close";
+import StarRateIcon from "@material-ui/icons/StarRate";
+import Favorite from "@material-ui/icons/Favorite";
+import { IconButton } from "@material-ui/core";
 
 const MatchButtons = () => {
   return (
-    <View style={{flexDirection: "row", justifyContent: "space-around"}}>
-      <Foundation name="x-circle" size={50} color="red" />
-      <FontAwesome5 name="grin-stars" size={44} color="blue" />
-      <FontAwesome name="check-circle-o" size={50} color="green" />
+    <View style={[styles.buttons, {flexDirection: "row"}]}>
+      <IconButton style={{color: "red", fontSize: 44}}>
+        <CloseIcon />
+      </IconButton>
+      <IconButton style={{color: "lightBlue", fontSize: 44}}>
+        <StarRateIcon />
+      </IconButton>
+      <IconButton styles={{color: "green", fontSize: 44}}>
+        <Favorite />
+      </IconButton>
     </View>
   );
 };
 
-
+const styles = StyleSheet.create({
+  buttons: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "space-evenly",
+    alignItems: "flex-end",
+  },
+})
 
 export default MatchButtons;
