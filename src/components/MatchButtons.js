@@ -12,7 +12,7 @@ const MatchButtons = () => {
       <IconButton style={{color: "red", fontSize: 44}}>
         <CloseIcon />
       </IconButton>
-      <IconButton style={{color: "lightBlue", fontSize: 44}}>
+      <IconButton style={{color: "skyBlue", fontSize: 44}}>
         <StarRateIcon />
       </IconButton>
       <IconButton styles={{color: "green", fontSize: 44}}>
