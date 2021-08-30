@@ -58,7 +58,10 @@ export default function App() {
 function ProfileScreen() {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Profile/>
+      <Profile
+        photos={state.photos}
+        users={state.users}
+        interests={state.interests}/>
     </SafeAreaView>
   );
 }
