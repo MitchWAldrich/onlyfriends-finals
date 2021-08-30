@@ -8,7 +8,7 @@ import useApplicationData from "../../hooks/useApplicationData";
 const Name = (props) => {
 
   return (
-    <View style={styles.pageContainer}>
+    
       <View style={styles.card}>
         <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
           <View style={styles.innerText}>
@@ -18,18 +18,12 @@ const Name = (props) => {
         </ImageBackground>
         <MatchButtons />
       </View>
-    </View>
-
     
   );
 };
 
 const styles = StyleSheet.create({
-  pageContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
-  },
+  
   card: {
     width: "95%",
     height: "80%",
