@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, ActivityIndicator } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -13,6 +14,45 @@ import 'react-native-gesture-handler';
 import Name from './src/components/MatchCards/Name.js';
 import ForYouPage from './src/components/ForYouPage.js';
 import Profile from './src/components/Profile.js';
+
+// function useApplicationData() {
+export default function App() {
+  const [state, setState] = useState({
+    user: {},
+    users: {},
+    interests: {},
+    photos: {}
+  })
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    Promise.all([
+      axios.get('http://localhost:8001/api/users'),
+      axios.get('http://localhost:8001/api/interests'),
+      axios.get('http://localhost:8001/api/photos')
+    ])
+    .then((all) => {
+      const [users, interests, photos] = all;
+  
+      setState(prev => ({...prev, users: users.data, interests: interests.data, photos: photos.data}))
+      setLoading(false)
+    })
+    .catch(err => {
+      console.log(err.message)
+    })}, [])
+  
+    if (loading) {
+      return (
+        <View >
+          <ActivityIndicator 
+            size="large"
+            loading={loading}
+          />
+        </View>
+      )
+    }
+  //   return { state, loading }
+  // }
 
 function ProfileScreen() {
   return (
@@ -39,9 +79,14 @@ function MessagesScreen() {
 }
 
 function FYPScreen() {
+
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ForYouPage/>
+      <ForYouPage
+        photos={state.photos}
+        users={state.users}
+        interests={state.interests}
+      />
     </SafeAreaView>
   );
 }
@@ -95,11 +140,16 @@ function MyTabs() {
       </Tab.Navigator>
   );
 }
-
-export default function App() {
-  return (
-      <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
-  );
+return (
+  <NavigationContainer>
+    <MyTabs />
+  </NavigationContainer>
+);
 }
+// export default function App() {
+//   return (
+//       <NavigationContainer>
+//         <MyTabs />
+//       </NavigationContainer>
+//   );
+// }
