@@ -8,7 +8,8 @@ import { fullUserObject } from '../helpers/selectors.js';
 import { useEffect } from "react";
 
 const Profile = () => {
- 
+  const [isSelected, setSelection] = useState(false);
+  
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
