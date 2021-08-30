@@ -1,15 +1,18 @@
 import React, { useState } from "react";
+import axios from 'axios';
+
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox } from "react-native";
-import { Picker } from '@react-native-picker/picker';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
-const Profile = () => {
-  const [isSelected, setSelection] = useState(false);
-  const [selectedVaccination, setSelectedVaccination] = useState();
+import { fullUserObject } from '../helpers/selectors.js';
+import { useEffect } from "react";
 
+const Profile = () => {
+ 
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
+         
         <View style={styles.titleBar}>
           <Ionicons name="ios-arrow-back" size={24} color="#52575D"></Ionicons>
           <Ionicons name="reorder-three-sharp" size={24} color="#52575D"></Ionicons>
@@ -60,6 +63,7 @@ const Profile = () => {
               />
               <Text style={styles.label}>No</Text>
             </View>
+
           </View>
         </View>
 
@@ -182,7 +186,6 @@ const Profile = () => {
               />
               <Text style={styles.label}>Going Out</Text>
             </View>
-
           </View>
         </View>
 

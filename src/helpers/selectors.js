@@ -302,3 +302,94 @@ age
 interests: [array]
 photos: [array]
 */
+export function findZodiacSign(day, month) {
+  const zodiacSign = "";
+       
+    // checks month and date within the
+    // valid range of a specified zodiac
+    if (month === "December") {    
+        if (day < 22)
+        zodiacSign = "Sagittarius";
+        else
+        zodiacSign = "Capricorn";
+    }
+           
+    else if (month === "January") {
+        if (day < 20)
+        zodiacSign = "Capricorn";
+        else
+        zodiacSign = "Aquarius";
+    }
+           
+    else if (month === "February"){
+        if (day < 19)
+        zodiacSign = "Aquarius";
+        else
+        zodiacSign = "Pisces";
+    }
+           
+    else if(month === "March"){
+        if (day < 21)
+        zodiacSign = "Pisces";
+        else
+        zodiacSign = "Aries";
+    }
+
+    else if (month === "April"){
+        if (day < 20)
+        zodiacSign = "Aries";
+        else
+        zodiacSign = "Taurus";
+    }
+           
+    else if (month === "May"){
+        if (day < 21)
+        zodiacSign = "Taurus";
+        else
+        zodiacSign = "Gemini";
+    }
+           
+    else if( month === "June"){
+        if (day < 21)
+        zodiacSign = "Gemini";
+        else
+        zodiacSign = "Cancer";
+    }
+           
+    else if (month === "July"){
+        if (day < 23)
+        zodiacSign = "Cancer";
+        else
+        zodiacSign = "Leo";
+    }
+           
+    else if ( month === "August"){
+        if (day < 23)
+        zodiacSign = "Leo";
+        else
+        zodiacSign = "Virgo";
+    }
+           
+    else if (month === "September"){
+        if (day < 23)
+        zodiacSign = "Virgo";
+        else
+        zodiacSign = "Libra";
+    }
+           
+    else if (month === "October"){
+        if (day < 23)
+        zodiacSign = "Libra";
+        else
+        zodiacSign = "Scorpio";
+    }
+           
+    else if (month === "November"){
+        if (day < 22)
+        zodiacSign = "Scorpio";
+        else
+        zodiacSign = "Sagittarius";
+    }
+           
+    return zodiacSign;
+}

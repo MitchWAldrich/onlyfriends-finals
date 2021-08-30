@@ -19,7 +19,8 @@ const ForYouList = (props) => {
       gender={user.gender}
     />
     )
-
+    // console.log("THIS IS WHAT WE WANT TO SEE: ", parsedDFUs)
+    // console.log("THIS IS THE FILTERED USERS: ", filteredUsers)
   return (
     <View style={styles.buttons}>
       <Text>Future friends who like Books</Text>
