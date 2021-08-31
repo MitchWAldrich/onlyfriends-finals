@@ -12,8 +12,13 @@ import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
 import { StateContext } from '../../StateProvider.js';
 
 const Profile = (props) => {
-  const { state, loading } = useContext(StateContext)
+  const { state, loading, logout } = useContext(StateContext)
+  const user = state.user;
 
+  const onSubmit = function(event) {
+    event.preventDefault;
+    return logout(user);
+  }
   // {'users': props.users, 'interests': props.interests}
 
   const detailedUsers = state.users.map( user => fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user))  
@@ -97,6 +102,9 @@ const Profile = (props) => {
         <View style={styles.textArea}>
           <Text>My Interests</Text>
           <View>{userInterests}</View>
+        </View>
+        <View style={{ alignSelf: "center" }}>
+          <Button title="Logout" onPress={onSubmit} style={styles.editButton}/>
         </View>
        </ScrollView>
     </SafeAreaView>
