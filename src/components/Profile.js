@@ -15,11 +15,18 @@ const Profile = (props) => {
   const { state, loading, logout } = useContext(StateContext)
   const user = state.user;
 
+  const navigation = useNavigation(); 
+
+  //Logout button function
   const onSubmit = function(event) {
     event.preventDefault;
     return logout(user);
   }
   // {'users': props.users, 'interests': props.interests}
+  
+  if (user.id === undefined) {
+
+  
 
   const detailedUsers = state.users.map( user => fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user))  
   console.log('detailedUsers', detailedUsers)
@@ -31,7 +38,7 @@ const Profile = (props) => {
       type="outline"
     />)
 
-  const navigation = useNavigation(); 
+  
   
   return (
     <SafeAreaView style={styles.container}>
@@ -45,7 +52,7 @@ const Profile = (props) => {
             />
           </View>
           <View style={{ alignSelf: "center" }}>
-            <Text style={styles.profileDetails}>{detailedUsers[0].first_name}, {userAge(detailedUsers[0])}</Text>
+            <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text>
             <Text style={styles.starSign}>{detailedUsers[0].starsign} <MaterialCommunityIcons name={`zodiac-${detailedUsers[0].starsign.toLowerCase()}`} color="black" /></Text>
           </View>
         </View>
@@ -109,7 +116,99 @@ const Profile = (props) => {
        </ScrollView>
     </SafeAreaView>
   );
+  }
+  else {
+    const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user)  
+  console.log('detailedUsers', detailedUser)
+
+  const userInterests = detailedUser.interests.map((interest, id) =>
+    <Chip
+      key={id}
+      title={interest}
+      type="outline"
+    />)
+
+  
+  
+  return (
+    <SafeAreaView style={styles.container}>
+       <ScrollView style={styles.scrollView}>
+
+        <View style={{ alignSelf: "center" }}>
+          <View style={styles.profileImage}>
+            <Image 
+              source={{uri: detailedUser.photos[0]}} 
+              style={styles.image} 
+            />
+          </View>
+          <View style={{ alignSelf: "center" }}>
+            <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text>
+            <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
+          </View>
+        </View>
+
+        <View style={{ alignSelf: "center" }}>
+          <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
+        </View>
+        {/* if edit profile is not clicked yet, render information saved */}
+        <View style={styles.textArea}>
+          <Text>Gender: {detailedUser.gender}</Text>
+        </View>
+
+        <View style={styles.textArea}>
+          <Text>Location: {detailedUser.address}</Text>
+        </View>
+
+        <View style={styles.textArea}>
+          <Text>Vaccinated: {vaccinatedDisplay(detailedUser)}</Text>
+        </View>
+
+        <View style={styles.textArea}>
+          <Text>Photos</Text>
+          <View style={styles.aboutMePhotos}>
+            <Image 
+              source={{uri: detailedUser.photos[0]}} 
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.aboutMePhotos}>
+            <Image 
+              source={{uri: detailedUser.photos[1]}} 
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.aboutMePhotos}>
+            <Image 
+              source={{uri: detailedUser.photos[2]}} 
+              style={styles.image}
+            />
+          </View>
+          <View style={styles.aboutMePhotos}>
+            <Image 
+              source={{uri: detailedUser.photos[3]}} 
+              style={styles.image}
+            />
+          </View>
+        </View>
+
+        <View style={styles.textArea}>
+          <Text>About Me</Text>
+          <Text>{detailedUser.about_me}</Text>
+        </View>
+
+        <View style={styles.textArea}>
+          <Text>My Interests</Text>
+          <View>{userInterests}</View>
+        </View>
+        <View style={{ alignSelf: "center" }}>
+          <Button title="Logout" onPress={onSubmit} style={styles.editButton}/>
+        </View>
+       </ScrollView>
+    </SafeAreaView>
+  );
 }
+  }
+
 
 const styles = StyleSheet.create({
   container: {

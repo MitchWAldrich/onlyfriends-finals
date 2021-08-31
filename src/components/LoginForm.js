@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { SafeAreaView, TextInput, Button, Alert, StyleSheet } from "react-native";
 import { StateContext } from '../../StateProvider.js';
 
+import { useNavigation } from '@react-navigation/native'
 
 
 export default function LoginForm() {
@@ -9,6 +10,8 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   
   const { state, login } = useContext(StateContext)
+
+  const navigation = useNavigation();
 
   const users = state.users;
 
@@ -19,7 +22,7 @@ export default function LoginForm() {
       if (email === user.email) {
         if (password === user.password) {
           login(user);
-          return;
+          return  
         }
       }
     } 
@@ -38,7 +41,7 @@ export default function LoginForm() {
         onChangeText={password => setPassword(password)}/>
       <Button
         title="Login"
-        onPress={onSubmit} />
+        onPress={(onSubmit) => navigation.navigate('AppStack')} />
     </SafeAreaView>
   );
 }
