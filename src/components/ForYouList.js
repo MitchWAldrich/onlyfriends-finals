@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Text, ImageBackground, PushNotificationIOS } from "react-native";
 import ForYouListItem from './ForYouListItem';
 import { fullUserObject, findUsersByInterest } from '../helpers/selectors.js';
+import { StateContext } from '../../StateProvider.js';
 
-const ForYouList = (props) => {
+const ForYouList = () => {
 
-  const filteredUsers = findUsersByInterest({'users': props.users, 'interests': props.interests}, 'reading')
+  const { state, loading } = useContext(StateContext)
 
-  const detailedFilteredUsers = filteredUsers.map( user => fullUserObject({'photos': props.photos, 'users': props.users, 'interests': props.interests}, user))
-  console.log('detailed', detailedFilteredUsers)
+  const filteredUsers = findUsersByInterest({'users': state.users, 'interests': state.interests}, 'reading')
+
+  const detailedFilteredUsers = filteredUsers.map( user => fullUserObject({'photos': state.photos, 'users': state.users, 'interests': state.interests}, user))
 
   const parsedDFUs = detailedFilteredUsers.map( user => 
     <ForYouListItem
@@ -19,8 +21,7 @@ const ForYouList = (props) => {
       gender={user.gender}
     />
     )
-    // console.log("THIS IS WHAT WE WANT TO SEE: ", parsedDFUs)
-    // console.log("THIS IS THE FILTERED USERS: ", filteredUsers)
+   
   return (
     <View style={styles.buttons}>
       <Text>Future friends who like Books</Text>
@@ -57,7 +58,5 @@ const styles = StyleSheet.create({
     margin: -20
   }
 });
-
-
 
 export default ForYouList;

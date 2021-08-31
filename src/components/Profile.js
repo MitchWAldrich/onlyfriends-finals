@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight } from "react-native";
@@ -8,14 +8,14 @@ import { Chip } from 'react-native-elements';
 import { fullUserObject, userAge } from '../helpers/selectors.js';
 import { isVaccinated } from '../helpers/isVaccinated.js';
 import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
-import { useEffect } from "react";
+import { StateContext } from '../../StateProvider.js';
 
 const Profile = (props) => {
-  const [isSelected, setSelection] = useState(false);
+  const { state, loading } = useContext(StateContext)
 
   // {'users': props.users, 'interests': props.interests}
 
-  const detailedUsers = props.users.map( user => fullUserObject({'users': props.users, 'interests': props.interests, 'photos': props.photos}, user))  
+  const detailedUsers = state.users.map( user => fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user))  
   console.log('detailedUsers', detailedUsers)
 
   const userInterests = detailedUsers[0].interests.map((interest, id) =>
