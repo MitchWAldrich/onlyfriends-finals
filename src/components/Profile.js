@@ -1,9 +1,10 @@
 import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight, TouchableOpacity, Button } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Chip } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
 import { fullUserObject, userAge } from '../helpers/selectors.js';
 import { isVaccinated } from '../helpers/isVaccinated.js';
@@ -24,15 +25,12 @@ const Profile = (props) => {
       title={interest}
       type="outline"
     />)
+
+  const navigation = useNavigation(); 
   
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
-         
-        <View style={styles.titleBar}>
-          <Ionicons name="ios-arrow-back" size={24} color="#52575D"></Ionicons>
-          <Ionicons name="reorder-three-sharp" size={24} color="#52575D"></Ionicons>
-        </View>
 
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
@@ -48,9 +46,7 @@ const Profile = (props) => {
         </View>
 
         <View style={{ alignSelf: "center" }}>
-          <View style={styles.editButton}>
-            <Text style={styles.editButtonText}>EDIT PROFILE</Text>
-          </View>
+          <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
         </View>
         {/* if edit profile is not clicked yet, render information saved */}
         <View style={styles.textArea}>
@@ -111,7 +107,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
-    width: '100%'
+    width: '100%',
+    paddingTop: 20
   },
   scrollView: {
     marginHorizontal: 20,
@@ -119,6 +116,10 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: "HelveticaNeue",
     color: "#52575D"
+  },
+  editButton: {
+    paddingTop: 20,
+    paddingBottom: 20
   },
   image: {
     flex: 1,

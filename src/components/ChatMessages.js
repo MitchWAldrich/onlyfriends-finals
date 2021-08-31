@@ -9,6 +9,16 @@ const ChatMessages = () => {
   useEffect(() => {
     setMessages([
       {
+        _id: 1,
+        text: 'Hello Kleir',
+        createdAt: new Date(),
+        user: {
+          _id: 2,
+          name: 'React Native',
+          avatar: 'https://placeimg.com/140/140/any',
+        },
+      },
+      {
         _id: 2,
         text: 'Hello developer',
         createdAt: new Date(),
@@ -19,15 +29,15 @@ const ChatMessages = () => {
         },
       },
       {
-        _id: 1,
-        text: 'Hello Kleir',
+        _id: 3,
+        text: 'Hello again',
         createdAt: new Date(),
         user: {
           _id: 2,
           name: 'React Native',
           avatar: 'https://placeimg.com/140/140/any',
         },
-      },
+      }
     ])
   }, [])
 
