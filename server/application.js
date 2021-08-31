@@ -14,6 +14,7 @@ const users = require("./routes/users");
 const photos = require("./routes/photos");
 const interests = require("./routes/interests");
 const matches = require("./routes/matches");
+const messages = require("./routes/messages");
 
 function read(file) {
   return new Promise((resolve, reject) => {
@@ -42,6 +43,8 @@ module.exports = function application(
   app.use("/api", photos(db));
   app.use("/api", interests(db));
   app.use("/api", matches(db));
+  app.use("/api", messages(db));
+
 
     Promise.all([
       read(path.resolve(__dirname, `db/schema/create.sql`)),
