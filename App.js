@@ -17,53 +17,14 @@ import Profile from './src/components/Profile.js';
 import Messages from './src/components/Messages.js';
 import ChatMessages from './src/components/ChatMessages.js';
 import Cards from './src/components/MatchCards/index.js';
+import StateProvider from './StateProvider.js'
 
-// function useApplicationData() {
 export default function App() {
-  const [state, setState] = useState({
-    user: {},
-    users: {},
-    interests: {},
-    photos: {}
-  })
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    Promise.all([
-      axios.get('http://localhost:8001/api/users'),
-      axios.get('http://localhost:8001/api/interests'),
-      axios.get('http://localhost:8001/api/photos')
-    ])
-    .then((all) => {
-      const [users, interests, photos] = all;
-  
-      setState(prev => ({...prev, users: users.data, interests: interests.data, photos: photos.data}))
-      setLoading(false)
-    })
-    .catch(err => {
-      console.log(err.message)
-    })}, [])
-  
-    if (loading) {
-      return (
-        <View >
-          <ActivityIndicator 
-            size="large"
-            loading={loading}
-          />
-        </View>
-      )
-    }
-  //   return { state, loading }
-  // }
 
 function ProfileScreen() {
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Profile
-        photos={state.photos}
-        users={state.users}
-        interests={state.interests}/>
+      <Profile/>
     </SafeAreaView>
   );
 }
@@ -96,11 +57,7 @@ function FYPScreen() {
 
   return (
     <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ForYouPage
-        photos={state.photos}
-        users={state.users}
-        interests={state.interests}
-      />
+      <ForYouPage />
     </SafeAreaView>
   );
 }
@@ -134,7 +91,6 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-circle-outline" color={color} size={size} />
           ),
-
         }}
       />
       <Tab.Screen
@@ -170,17 +126,11 @@ function MyTabs() {
       </Tab.Navigator>
   );
 }
-
-  return (
-    <NavigationContainer>
+return (
+  <NavigationContainer>
+    <StateProvider>
       <MyTabs />
-    </NavigationContainer>
-  );
+    </StateProvider>
+  </NavigationContainer>
+);
 }
-// export default function App() {
-//   return (
-//       <NavigationContainer>
-//         <MyTabs />
-//       </NavigationContainer>
-//   );
-// }
