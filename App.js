@@ -70,8 +70,8 @@ export default function App() {
       </SafeAreaView>
     );
   }
-
-  const Stack = createStackNavigator();
+  
+const Stack = createStackNavigator();
 
   const MessageStack = ({navigation}) => (
     <Stack.Navigator>
