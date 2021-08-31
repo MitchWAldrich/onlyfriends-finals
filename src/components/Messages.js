@@ -47,7 +47,7 @@ const Messages = () => {
         data={Inbox}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Chat', {userName: item.userName})}>
             <View styles={styles.userCard}> 
               <View styles={styles.userInfoCard}>
                 <View styles={styles.userImgWrapper}>
