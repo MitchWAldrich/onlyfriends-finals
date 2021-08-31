@@ -19,6 +19,7 @@ import Messages from './src/components/Messages.js';
 import ChatMessages from './src/components/ChatMessages.js';
 import Cards from './src/components/MatchCards/index.js';
 import StateProvider from './StateProvider.js'
+import Login from './Login.js';
 
 export default function App() {
 
@@ -151,6 +152,16 @@ const Stack = createStackNavigator();
           component={FYPScreen}
           options={{
             tabBarLabel: 'For You',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="people-circle-outline" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Login Test"
+          component={Login}
+          options={{
+            tabBarLabel: 'Login',
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="people-circle-outline" color={color} size={size} />
             ),

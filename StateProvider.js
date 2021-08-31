@@ -11,6 +11,7 @@ export default function StateProvider(props) {
     photos: {}
   })
   const [loading, setLoading] = useState(true);
+  const [ auth, setAuth ] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -40,7 +41,17 @@ export default function StateProvider(props) {
         </View>
   )}
 
-  const providerData = {state, loading};
+  const login = function(user) {
+    setState({...state, user});
+    setAuth(true);
+  }
+
+  const logout = function(user) {
+    setState({...state, user: {}});
+    setAuth(false);
+  }
+
+  const providerData = {state, loading, login, logout};
 
   return (
     <StateContext.Provider value={providerData}>
