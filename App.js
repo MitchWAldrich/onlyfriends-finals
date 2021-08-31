@@ -6,7 +6,7 @@ import axios from 'axios';
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, ActivityIndicator } from "react-native";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { createStackNavigator } from '@react-navigation/stack';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 import 'react-native-gesture-handler';
@@ -15,6 +15,7 @@ import Name from './src/components/MatchCards/Name.js';
 import ForYouPage from './src/components/ForYouPage.js';
 import Profile from './src/components/Profile.js';
 import Messages from './src/components/Messages.js';
+import ChatMessages from './src/components/ChatMessages.js';
 import Cards from './src/components/MatchCards/index.js';
 
 // function useApplicationData() {
@@ -83,6 +84,14 @@ function MessagesScreen() {
   );
 }
 
+function ChatScreen() {
+  return (
+    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <ChatMessages/>
+    </SafeAreaView>
+  );
+}
+
 function FYPScreen() {
 
   return (
@@ -95,6 +104,22 @@ function FYPScreen() {
     </SafeAreaView>
   );
 }
+
+const Stack = createStackNavigator();
+
+const MessageStack = ({navigation}) => (
+  <Stack.Navigator>
+    <Stack.Screen name="Messages" component={MessagesScreen} />
+    <Stack.Screen
+      name="Chat"
+      component={ChatScreen}
+      options={({route}) => ({
+        title: 'Chat',
+        headerBackTitleVisible: false,
+      })}
+    />
+  </Stack.Navigator>
+);
 
 const Tab = createBottomTabNavigator();
 
@@ -124,7 +149,7 @@ function MyTabs() {
       />
       <Tab.Screen
         name="Messages"
-        component={MessagesScreen}
+        component={MessageStack}
         options={{
           tabBarLabel: 'Messages',
           tabBarIcon: ({ color, size }) => (
@@ -145,11 +170,12 @@ function MyTabs() {
       </Tab.Navigator>
   );
 }
-return (
-  <NavigationContainer>
-    <MyTabs />
-  </NavigationContainer>
-);
+
+  return (
+    <NavigationContainer>
+      <MyTabs />
+    </NavigationContainer>
+  );
 }
 // export default function App() {
 //   return (

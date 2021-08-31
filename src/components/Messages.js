@@ -1,17 +1,10 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList, SafeAreaView, Image, ScrollView } from 'react-native';
+import { View, Text, Button, StyleSheet, FlatList, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native'
 // console.log("INBOX", Inbox)
 
 const Inbox = [
-  {
-    id: '1',
-    userName: 'Jordan P',
-    userImg: require("../../public/images/user1.jpeg"),
-    messageTime: '4 mins ago',
-    messageText:
-      'Wanna see a movie together?',
-  },
   {
     id: '2',
     userName: 'Yuti R',
@@ -47,30 +40,31 @@ const Inbox = [
 ];
 
 const Messages = () => {
+  const navigation = useNavigation(); 
   return (
     <SafeAreaView style={styles.container}>
-       <ScrollView style={styles.scrollView}>
       <FlatList 
         data={Inbox}
         keyExtractor={item => item.id}
         renderItem={({item}) => (
-          <View styles={styles.userCard}>
-            <View styles={styles.userInfoCard}>
-              <View styles={styles.userImgWrapper}>
-                <Image source={item.userImg}/>
-              </View>
-              <View styles={styles.textSection}>
-                <View styles={styles.userInfoText}>
-                  <Text styles={styles.userName}>{item.userName}</Text>
-                  <Text styles={styles.messageSent}>{item.messageTime}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+            <View styles={styles.userCard}> 
+              <View styles={styles.userInfoCard}>
+                <View styles={styles.userImgWrapper}>
+                  <Image source={item.userImg} style={styles.userAvatar}/>
                 </View>
-                <Text>{item.messageText}</Text>
+                <View styles={styles.textSection}>
+                  <View styles={styles.userInfoText}>
+                    <Text styles={styles.userName}>{item.userName}</Text>
+                    <Text styles={styles.messageSent}>{item.messageTime}</Text>
+                  </View>
+                  <Text>{item.messageText}</Text>
+                </View>
               </View>
             </View>
-          </View>
+          </TouchableOpacity>
           )}
         />
-       </ScrollView>
     </SafeAreaView>
   )
 }
@@ -79,10 +73,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
-    width: '100%'
-  },
-  scrollView: {
-    marginHorizontal: 20
+    width: '100%',
+    paddingTop: 10,
+    paddingLeft:10
   },
   userCard: {
     width: '100%'
@@ -95,7 +88,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
     paddingBottom:15
   },
-  userImg: {
+  userAvatar: {
     width: 50,
     height: 50,
     borderRadius: 25
