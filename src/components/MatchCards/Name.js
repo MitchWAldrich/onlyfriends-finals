@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, SafeAreaView, Text, ImageBackground, View } from "react-native";
+import { fullUserObject, userAge } from "../../helpers/selectors";
+import { StateContext } from "../../../StateProvider";
 
 
 const Name = (props) => {
+  // const { state } = useContext(StateContext);
+
+  // const detailedUsers = state.users.map( user => fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user))  
 
   return (
     

@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import Extras from './Extras';
+import Name from './Name';
 import MatchButtons from '../MatchButtons';
 import Swiper from 'react-native-deck-swiper';
 
@@ -12,7 +12,7 @@ const SwipeCards = () => {
     <SafeAreaView style={styles.pageContainer}>
       <Swiper
         cards={users}
-        renderCard={Extras}
+        renderCard={Name}
         infinite
         backgroundColor="white"
         cardHorizontalMargin={0}
