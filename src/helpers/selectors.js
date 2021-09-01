@@ -197,6 +197,14 @@ const state = {
       ]
 }; 
 
+export function getUserByEmail(state, email) {
+  for (const user of state.users) {
+    if (email === user.email) {
+      return user
+    }
+  }
+}
+
 export function allUserInterests(state, user) {
 
   for (const category of state.interests) {
