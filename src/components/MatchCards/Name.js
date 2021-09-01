@@ -9,8 +9,11 @@ const Name = (props) => {
       <SafeAreaView style={styles.card}>
         <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
           <View style={styles.innerText}>
-            <Text style={styles.name}>Barbie</Text>
-            <Text style={styles.bio}>When I'm not shopping, I love helping others!</Text>
+            <Text style={styles.name}>Barbie, 26</Text>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.text}>Toronto (4km away)</Text>
+              <Text style={styles.text}>Non-Binary</Text>
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -52,11 +55,26 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     fontWeight: 'bold',
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
+
   },
-  bio: {
+  text: {
     fontSize: 18,
     color: 'white',
     lineHeight: 25,
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
   },
 });
 

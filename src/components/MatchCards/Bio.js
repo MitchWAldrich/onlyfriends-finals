@@ -7,10 +7,12 @@ const Bio = (props) => {
   return (
     
       <SafeAreaView style={styles.card}>
-        <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
+        <ImageBackground source={require("../../../public/images/BarbieDocs.jpg")} style={styles.image}>
           <View style={styles.innerText}>
             <Text style={styles.name}>Barbie</Text>
-            <Text style={styles.bio}>When I'm not shopping, I love helping others!</Text>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.text}>When I'm not busy shopping I love helping others!</Text>            
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -52,11 +54,26 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     fontWeight: 'bold',
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
+
   },
-  bio: {
+  text: {
     fontSize: 18,
     color: 'white',
     lineHeight: 25,
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
   },
 });
 

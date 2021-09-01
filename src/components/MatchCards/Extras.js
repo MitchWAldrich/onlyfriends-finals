@@ -52,11 +52,26 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     fontWeight: 'bold',
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
+
   },
-  bio: {
+  text: {
     fontSize: 18,
     color: 'white',
     lineHeight: 25,
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
   },
 });
 

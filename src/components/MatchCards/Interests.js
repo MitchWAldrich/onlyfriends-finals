@@ -1,16 +1,27 @@
 import React from "react";
 import { StyleSheet, SafeAreaView, Text, ImageBackground, View } from "react-native";
+import InterestTag from "./InterestTag";
 
 
 const Interests = (props) => {
+  const interests = ['reading', 'hiking', 'going out', 'eating out'];
+
+  const parsedInterests = interests.map((interest) => {
+    return (<InterestTag interest={interest} key={interest}/>)
+  })
+
+  console.log(parsedInterests)
 
   return (
     
       <SafeAreaView style={styles.card}>
-        <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
+        <ImageBackground source={require("../../../public/images/user1.jpeg")} style={styles.image}>
           <View style={styles.innerText}>
             <Text style={styles.name}>Barbie</Text>
-            <Text style={styles.bio}>When I'm not shopping, I love helping others!</Text>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.text}>My Interests:</Text>
+              <View>{parsedInterests}</View>
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
@@ -52,11 +63,26 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white',
     fontWeight: 'bold',
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
+
   },
-  bio: {
+  text: {
     fontSize: 18,
     color: 'white',
     lineHeight: 25,
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
   },
 });
 
