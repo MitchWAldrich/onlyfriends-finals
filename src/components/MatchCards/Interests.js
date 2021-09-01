@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, SafeAreaView, Text, ImageBackground, View } from "react-native";
 
 
-const Bio = (props) => {
+const Interests = (props) => {
 
   return (
     
@@ -62,4 +62,4 @@ const styles = StyleSheet.create({
 
 
 
-export default Bio;
+export default Interests;
