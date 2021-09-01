@@ -12,6 +12,7 @@ export default function StateProvider(props) {
   })
   const [loading, setLoading] = useState(true);
   const [ auth, setAuth ] = useState(false);
+  const [ email, setEmail ] = useState('')
 
   useEffect(() => {
     Promise.all([
@@ -51,7 +52,7 @@ export default function StateProvider(props) {
     setAuth(false);
   }
 
-  const providerData = {state, loading, login, logout};
+  const providerData = {state, setState, loading, login, logout, auth, setAuth, email, setEmail};
 
   return (
     <StateContext.Provider value={providerData}>
