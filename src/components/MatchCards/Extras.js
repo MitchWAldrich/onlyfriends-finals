@@ -7,10 +7,13 @@ const Extras = (props) => {
   return (
     
       <SafeAreaView style={styles.card}>
-        <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
+        <ImageBackground source={require("../../../public/images/user2.jpeg")} style={styles.image}>
           <View style={styles.innerText}>
             <Text style={styles.name}>Barbie</Text>
-            <Text style={styles.bio}>When I'm not shopping, I love helping others!</Text>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.text}>My Star Sign: Leo</Text>
+              <Text style={styles.text}>Vaccinated: Yes</Text>
+            </View>
           </View>
         </ImageBackground>
       </SafeAreaView>
