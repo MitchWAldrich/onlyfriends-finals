@@ -21,116 +21,116 @@ import StateProvider from './StateProvider.js'
 
 export default function App() {
 
-function ProfileScreen() {
-  return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Profile/>
-    </SafeAreaView>
-  );
-}
+  function ProfileScreen() {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Profile/>
+      </SafeAreaView>
+    );
+  }
 
-function MainScreen() {
-  return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Cards />
-    </SafeAreaView>
-  );
-}
+  function MainScreen() {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Cards />
+      </SafeAreaView>
+    );
+  }
 
-function MessagesScreen() {
-  return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Messages/>
-    </SafeAreaView>
-  );
-}
+  function MessagesScreen() {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Messages/>
+      </SafeAreaView>
+    );
+  }
 
-function ChatScreen() {
-  return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ChatMessages/>
-    </SafeAreaView>
-  );
-}
+  function ChatScreen() {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ChatMessages/>
+      </SafeAreaView>
+    );
+  }
 
-function FYPScreen() {
+  function FYPScreen() {
 
-  return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <ForYouPage />
-    </SafeAreaView>
-  );
-}
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ForYouPage />
+      </SafeAreaView>
+    );
+  }
 
-const Stack = createStackNavigator();
+  const Stack = createStackNavigator();
 
-const MessageStack = ({navigation}) => (
-  <Stack.Navigator>
-    <Stack.Screen name="Messages" component={MessagesScreen} />
-    <Stack.Screen
-      name="Chat"
-      component={ChatScreen}
-      options={({route}) => ({
-        title: route.params.userName,
-        headerBackTitleVisible: false,
-      })}
-    />
-  </Stack.Navigator>
-);
-
-const Tab = createBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen 
-        name="Profile" // THIS IS WHAT SHOWS UP ON TOP, we need the onlyFriends logo to replace this
-        component={ProfileScreen}
-        options={{
-          tabBarLabel: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-circle-outline" color={color} size={size} />
-          ),
-        }}
+  const MessageStack = ({navigation}) => (
+    <Stack.Navigator>
+      <Stack.Screen name="Messages" component={MessagesScreen} />
+      <Stack.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={({route}) => ({
+          title: route.params.userName,
+          headerBackTitleVisible: false,
+        })}
       />
-      <Tab.Screen
-        name="Main"
-        component={MainScreen}
-        options={{
-          tabBarLabel: 'Main',
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="home" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Messages"
-        component={MessageStack}
-        options={{
-          tabBarLabel: 'Messages',
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="message1" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="For You"
-        component={FYPScreen}
-        options={{
-          tabBarLabel: 'For You',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people-circle-outline" color={color} size={size} />
-          ),
-        }}
-      />
-      </Tab.Navigator>
+    </Stack.Navigator>
   );
-}
-return (
-  <NavigationContainer>
-    <StateProvider>
-      <MyTabs />
-    </StateProvider>
-  </NavigationContainer>
-);
+
+  const Tab = createBottomTabNavigator();
+
+  function MyTabs() {
+    return (
+      <Tab.Navigator>
+        <Tab.Screen 
+          name="Profile" // THIS IS WHAT SHOWS UP ON TOP, we need the onlyFriends logo to replace this
+          component={ProfileScreen}
+          options={{
+            tabBarLabel: 'Profile',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person-circle-outline" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Main"
+          component={MainScreen}
+          options={{
+            tabBarLabel: 'Main',
+            tabBarIcon: ({ color, size }) => (
+              <AntDesign name="home" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Messages"
+          component={MessageStack}
+          options={{
+            tabBarLabel: 'Messages',
+            tabBarIcon: ({ color, size }) => (
+              <AntDesign name="message1" color={color} size={size} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="For You"
+          component={FYPScreen}
+          options={{
+            tabBarLabel: 'For You',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="people-circle-outline" color={color} size={size} />
+            ),
+          }}
+        />
+        </Tab.Navigator>
+    );
+  }
+  return (
+    <NavigationContainer>
+      <StateProvider>
+        <MyTabs />
+      </StateProvider>
+    </NavigationContainer>
+  );
 }
