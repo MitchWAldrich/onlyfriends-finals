@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet, FlatList, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 // console.log("INBOX", Inbox)
 
 const Inbox = [
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   userInfoCard: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between'
   },
   userImgWrapper: {
