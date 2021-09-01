@@ -1,17 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useContext } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
-import StateProvider, { StateContext } from './StateProvider';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+
 import LoginForm from './src/components/LoginForm';
-import AppStack from './src/navigation/AppStack';
+
 
 export default function Login() {
-  const {auth} = useContext(StateContext);
-
-  if (!auth) {
-
+  
   return (
     
       <View style={styles.container}>
@@ -26,13 +21,7 @@ export default function Login() {
       </View>
     
   );
-  }
 
-  return (
-    <StateProvider>
-      <AppStack />
-    </StateProvider>  
-  )
 }
 
 const styles = StyleSheet.create({

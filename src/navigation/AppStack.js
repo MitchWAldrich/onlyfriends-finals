@@ -1,13 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
 import React, { useContext } from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
-import StateProvider from '../../StateProvider';
+import { StyleSheet, SafeAreaView } from 'react-native';
+import { StateContext } from '../../StateProvider';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
+import Login from '../../Login';
+
+import ForYouPage from '../../src/components/ForYouPage';
+import Profile from '../../src/components/Profile'
+import ProfileEdit from '../../src/components/ProfileEdit';
+import Messages from '../../src/components/Messages.js';
+import ChatMessages from '../../src/components/ChatMessages.js';
+import Cards from '../../src/components/MatchCards/index.js';
+
 
 
 export default function AppStack() {
-
+  const { auth } = useContext(StateContext);
 
   function ProfileScreen() {
     return (
@@ -62,7 +71,7 @@ const Stack = createStackNavigator();
 
   const MessageStack = ({navigation}) => (
     <Stack.Navigator>
-      <Stack.Screen name="Messages" component={MessagesScreen} />
+      <Stack.Screen name="Messages" component={MessagesScreen}/>
       <Stack.Screen
         name="Chat"
         component={ChatScreen}
@@ -71,35 +80,22 @@ const Stack = createStackNavigator();
           headerBackTitleVisible: false
         })}
       />
-      <Stack.Screen name="Edit Profile" component={ProfileScreen} />
-      <Stack.Screen
-        name="Edit"
-        component={ProfileEditScreen}
-        options={({route}) => ({
-          title: 'Edit Profile',
-          headerBackTitleVisible: false
-        })}
-      />
     </Stack.Navigator>
   );
 
   const ProfileStack = ({navigation}) => (
-    <Stack.Navigator>
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Profile" component={ProfileScreen}  />
       <Stack.Screen
         name="Edit Profile"
         component={ProfileEditScreen}
-        options={({route}) => ({
-          title: 'Edit Profile',
-          headerBackTitleVisible: false
-        })}
       />
     </Stack.Navigator>
   );
 
   const Tab = createBottomTabNavigator();
 
-  function MyTabs() {
+ const MyTabs = ({navigation}) => {
     return (
       <Tab.Navigator screenOptions={{ headerShown: false }}>
         <Tab.Screen 
@@ -142,33 +138,25 @@ const Stack = createStackNavigator();
             ),
           }}
         />
-        <Tab.Screen
-          name="Login Test"
-          component={Login}
-          options={{
-            tabBarLabel: 'Login',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="people-circle-outline" color={color} size={size} />
-            ),
-          }}
-        />
         </Tab.Navigator>
     );
 }
 
  
   return (
-    <StateProvider>
-      <MyTabs />
-    </StateProvider>  
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      {auth ? (
+        // Screens for logged in users
+        <Stack.Group>
+          {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
+        </Stack.Group>
+      ) : (
+        // Auth screens
+        <Stack.Group screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={Login}/>
+        </Stack.Group>
+      )}
+      <Stack.Screen name="MyTabs" component={MyTabs}/>
+    </Stack.Navigator>   
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

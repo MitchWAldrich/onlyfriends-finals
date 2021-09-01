@@ -9,7 +9,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const { state, login } = useContext(StateContext)
+  const { state } = useContext(StateContext)
 
   const navigation = useNavigation();
 
@@ -20,10 +20,12 @@ export default function LoginForm() {
     
     for (const user of users) {
       if (email === user.email) {
-        if (password === user.password) {
-          login(user);
+        if (password === user.password) {                        
+          setState(prev => ({...prev, user}));
           return  
+            
         }
+        
       }
     } 
   };
@@ -41,7 +43,10 @@ export default function LoginForm() {
         onChangeText={password => setPassword(password)}/>
       <Button
         title="Login"
-        onPress={(onSubmit) => navigation.navigate('AppStack')} />
+        onPress={onSubmit} 
+        onPress={() => navigation.navigate('MyTabs')} />
+
+    {/* onPress={() => navigation.navigate('Chat', {userName: item.userName})} */}
     </SafeAreaView>
   );
 }

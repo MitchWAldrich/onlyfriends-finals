@@ -42,7 +42,7 @@ export default function StateProvider(props) {
   )}
 
   const login = function(user) {
-    setState({...state, user});
+    setState(prev => ({...prev, user}));
     setAuth(true);
   }
 
