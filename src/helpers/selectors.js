@@ -197,6 +197,14 @@ const state = {
       ]
 }; 
 
+export function getUserByEmail(state, email) {
+  for (const user of state.users) {
+    if (email === user.email) {
+      return user
+    }
+  }
+}
+
 export function allUserInterests(state, user) {
 
   for (const category of state.interests) {
@@ -222,16 +230,16 @@ export function userAge(user) {
 
 export function fullUserObject(state, newUser) {
   const userObject = {
-    id: newUser.id,
-    first_name: newUser.first_name,
-    last_name: newUser.last_name,
-    date_of_birth: newUser.date_of_birth,
-    about_me: newUser.about_me,
-    address: newUser.address,
-    gender: newUser.gender,
-    age: userAge(newUser),
-    starsign: newUser.starsign,
-    vaccinated: newUser.vaccinated
+    'id': newUser.id,
+    'first_name': newUser.first_name,
+    'last_name': newUser.last_name,
+    'date_of_birth': newUser.date_of_birth,
+    'about_me': newUser.about_me,
+    'address': newUser.address,
+    'gender': newUser.gender,
+    'age': userAge(newUser),
+    'starsign': newUser.starsign,
+    'vaccinated': newUser.vaccinated
   };
     
     for (let category of state.interests) {
@@ -253,16 +261,6 @@ export function fullUserObject(state, newUser) {
   
   return userObject 
 }
-
-/*userObj
-id
-firstname
-lastname
-gender
-age
-interests: [array]
-photos: [array]
-*/
 
 export function findUsersByInterest(state, interest) {
   const filteredUsers = []
@@ -296,17 +294,7 @@ export function findPhotosByUser(state, user) {
   return photos
 }
 
-// findUsersByInterest(state, 'books')
 
-/*userObj
-id
-firstname
-lastname
-gender
-age
-interests: [array]
-photos: [array]
-*/
 export function findZodiacSign(day, month) {
   const zodiacSign = "";
        
