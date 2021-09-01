@@ -1,18 +1,17 @@
 import React, { useContext } from "react";
-import { StyleSheet, SafeAreaView, Text, ImageBackground, View } from "react-native";
+import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
 import { fullUserObject, userAge } from "../../helpers/selectors";
 import { StateContext } from "../../../StateProvider";
 
 
 const Name = (props) => {
-  // const { state } = useContext(StateContext);
-
-  // const detailedUsers = state.users.map( user => fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user))  
+  const {next} = props;
 
   return (
     
       <SafeAreaView style={styles.card}>
         <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
+          <Button title="Next" onPress={next} style={styles.navigate}/>
           <View style={styles.innerText}>
             <Text style={styles.name}>Barbie, 26</Text>
             <View style={{flexDirection: 'column'}}>
@@ -29,7 +28,7 @@ const Name = (props) => {
 const styles = StyleSheet.create({
   
   card: {
-    width: '100%',
+    width: '90%',
     height: '85%',
     borderRadius: 10,
     backgroundColor: '#fefefe',
@@ -44,6 +43,10 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
 
     elevation: 11,
+  },
+  navigate: {
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
   image: {
     width: '100%',
