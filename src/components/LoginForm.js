@@ -1,25 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { SafeAreaView, TextInput, Button, Alert, StyleSheet } from "react-native";
+import { StateContext } from '../../StateProvider.js';
+
+import { useNavigation } from '@react-navigation/native'
 
 
 export default function LoginForm() {
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const { state } = useContext(StateContext)
+
+  const navigation = useNavigation();
+
+  const users = state.users;
+
+  const onSubmit = function (event) {
+    event.preventDefault();
+    
+    for (const user of users) {
+      if (email === user.email) {
+        if (password === user.password) {                        
+          setState(prev => ({...prev, user}));
+          return  
+            
+        }
+        
+      }
+    } 
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <TextInput
         placeholder="Email"
         value={email}
-        onChangeText={setEmail} />
+        onChangeText={email => setEmail(email)} />
       <TextInput
         secureTextEntry={true}
         placeholder="Password" 
         value={password} 
-        onChangeText={setPassword}/>
+        onChangeText={password => setPassword(password)}/>
       <Button
         title="Login"
-        onPress={() => Alert.alert('Login button pressed')} />
+        onPress={onSubmit} 
+        onPress={() => navigation.navigate('MyTabs')} />
+
+    {/* onPress={() => navigation.navigate('Chat', {userName: item.userName})} */}
     </SafeAreaView>
   );
 }
