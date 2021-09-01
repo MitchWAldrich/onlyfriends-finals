@@ -5,134 +5,78 @@ import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, Che
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Chip } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-
-import { fullUserObject, userAge } from '../helpers/selectors.js';
+import { fullUserObject, userAge, getUserByEmail } from '../helpers/selectors.js';
 import { isVaccinated } from '../helpers/isVaccinated.js';
 import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
 import { StateContext } from '../../StateProvider.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = (props) => {
-  const { state, loading, logout } = useContext(StateContext)
-  const user = state.user;
+  const { state, loading, logout, email, setEmail, auth, setAuth } = useContext(StateContext)
+console.log('state.email', email)
 
-  const navigation = useNavigation(); 
+const navigation = useNavigation(); 
 
-  //Logout button function
-  const onSubmit = function(event) {
-    event.preventDefault;
-    return logout(user);
-  }
-  // {'users': props.users, 'interests': props.interests}
-  
-  if (user.id === undefined) {
 
-  
+//Logout button function
+const onSubmit = async () => {
+    try {
+      await AsyncStorage.removeItem('MyEmail')
 
-  const detailedUsers = state.users.map( user => fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user))  
-  console.log('detailedUsers', detailedUsers)
+    } catch (err) {
+      
+      alert(err)
 
-  const userInterests = detailedUsers[0].interests.map((interest, id) =>
-    <Chip
-      key={id}
-      title={interest}
-      type="outline"
-    />)
+    } finally {
+      setEmail("")
+      setAuth(false)
+    }
+ 
 
-  
-  
-  return (
-    <SafeAreaView style={styles.container}>
-       <ScrollView style={styles.scrollView}>
+  return
+}
 
-        <View style={{ alignSelf: "center" }}>
-          <View style={styles.profileImage}>
-            <Image 
-              source={{uri: detailedUsers[0].photos[0]}} 
-              style={styles.image} 
-            />
-          </View>
-          <View style={{ alignSelf: "center" }}>
-            <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text>
-            <Text style={styles.starSign}>{detailedUsers[0].starsign} <MaterialCommunityIcons name={`zodiac-${detailedUsers[0].starsign.toLowerCase()}`} color="black" /></Text>
-          </View>
-        </View>
+// const getData = async () => {
+//   try {
+//     console.log('email', email)
+//     // const jsonValue = await AsyncStorage.getItem('user')
+//     const email = await AsyncStorage.getItem('MyEmail')
+//     if (email !== null) {
+//       // parsedValue = JSON.parse(user)
+//       setEmail(( email ))
+//       setAuth((true))
+//       console.log('auth2', auth)
+//     }
+//   } catch (e) {
+//     console.log(e)
+//     // error reading value
+//   }
+// }
 
-        <View style={{ alignSelf: "center" }}>
-          <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
-        </View>
-        {/* if edit profile is not clicked yet, render information saved */}
-        <View style={styles.textArea}>
-          <Text>Gender: {detailedUsers[0].gender}</Text>
-        </View>
+// useEffect(() => {
+//   getData();
+// }, [])
 
-        <View style={styles.textArea}>
-          <Text>Location: {detailedUsers[0].address}</Text>
-        </View>
 
-        <View style={styles.textArea}>
-          <Text>Vaccinated: {vaccinatedDisplay(detailedUsers[0])}</Text>
-        </View>
-
-        <View style={styles.textArea}>
-          <Text>Photos</Text>
-          <View style={styles.aboutMePhotos}>
-            <Image 
-              source={{uri: detailedUsers[0].photos[0]}} 
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.aboutMePhotos}>
-            <Image 
-              source={{uri: detailedUsers[0].photos[1]}} 
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.aboutMePhotos}>
-            <Image 
-              source={{uri: detailedUsers[0].photos[2]}} 
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.aboutMePhotos}>
-            <Image 
-              source={{uri: detailedUsers[0].photos[3]}} 
-              style={styles.image}
-            />
-          </View>
-        </View>
-
-        <View style={styles.textArea}>
-          <Text>About Me</Text>
-          <Text>{detailedUsers[0].about_me}</Text>
-        </View>
-
-        <View style={styles.textArea}>
-          <Text>My Interests</Text>
-          <View>{userInterests}</View>
-        </View>
-        <View style={{ alignSelf: "center" }}>
-          <Button title="Logout" onPress={onSubmit} style={styles.editButton}/>
-        </View>
-       </ScrollView>
-    </SafeAreaView>
-  );
-  }
-  else {
-    const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user)  
-  console.log('detailedUsers', detailedUser)
-
+  const signedInUser = getUserByEmail(state, email)
+  console.log('signedInUser', signedInUser)
+  const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, signedInUser)
+  console.log('dUs', detailedUser)
   const userInterests = detailedUser.interests.map((interest, id) =>
     <Chip
       key={id}
       title={interest}
       type="outline"
     />)
-
-  
   
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
+         
+        <View style={styles.titleBar}>
+          <Ionicons name="ios-arrow-back" size={24} color="#52575D"></Ionicons>
+          <Ionicons name="reorder-three-sharp" size={24} color="#52575D"></Ionicons>
+        </View>
 
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
@@ -142,13 +86,17 @@ const Profile = (props) => {
             />
           </View>
           <View style={{ alignSelf: "center" }}>
-            <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text>
+          {/* <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text> */}
+          <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
             <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
           </View>
         </View>
 
         <View style={{ alignSelf: "center" }}>
-          <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
+        <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
+          <View style={styles.editButton}>
+            <Text style={styles.editButtonText}>EDIT PROFILE</Text>
+          </View>
         </View>
         {/* if edit profile is not clicked yet, render information saved */}
         <View style={styles.textArea}>
@@ -206,16 +154,15 @@ const Profile = (props) => {
        </ScrollView>
     </SafeAreaView>
   );
+  
 }
-  }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
     width: '100%',
-    paddingTop: 20
+    paddingTop: 20  
   },
   scrollView: {
     marginHorizontal: 20,
