@@ -1,7 +1,7 @@
 import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight, TouchableOpacity, Button } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight, TouchableOpacity, Button, ActivityIndicator } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Chip } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
@@ -10,65 +10,35 @@ import { isVaccinated } from '../helpers/isVaccinated.js';
 import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
 import { StateContext } from '../../StateProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { remove, getData } from '../helpers/persistLogin.js';
 
 const Profile = (props) => {
-  const { state, loading, logout, email, setEmail, auth, setAuth } = useContext(StateContext)
-console.log('state.email', email)
+  const { state, setState, loading, logout, email, setEmail, auth, setAuth } = useContext(StateContext)
 
 const navigation = useNavigation(); 
 
+  if (state.user) { 
 
-//Logout button function
-const onSubmit = async () => {
-    try {
-      await AsyncStorage.removeItem('MyEmail')
-
-    } catch (err) {
-      
-      alert(err)
-
-    } finally {
-      setEmail("")
-      setAuth(false)
-    }
- 
-
-  return
-}
-
-// const getData = async () => {
-//   try {
-//     console.log('email', email)
-//     // const jsonValue = await AsyncStorage.getItem('user')
-//     const email = await AsyncStorage.getItem('MyEmail')
-//     if (email !== null) {
-//       // parsedValue = JSON.parse(user)
-//       setEmail(( email ))
-//       setAuth((true))
-//       console.log('auth2', auth)
-//     }
-//   } catch (e) {
-//     console.log(e)
-//     // error reading value
-//   }
-// }
-
-// useEffect(() => {
-//   getData();
-// }, [])
-
-
-  const signedInUser = getUserByEmail(state, email)
-  console.log('signedInUser', signedInUser)
-  const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, signedInUser)
+  const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, state.user)
   console.log('dUs', detailedUser)
-  const userInterests = detailedUser.interests.map((interest, id) =>
-    <Chip
-      key={id}
-      title={interest}
-      type="outline"
-    />)
   
+  const userInterests = detailedUser.interests.map((interest, id) =>
+  <Chip
+  key={id}
+  title={interest}
+  type="outline"
+  />)
+  
+  //Logout button function
+  const onSubmit = async () => {
+   
+    remove(state, setState, auth, setAuth);
+    
+  }
+  
+  useEffect(() => {
+    getData();
+  }, [])
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
@@ -155,8 +125,19 @@ const onSubmit = async () => {
     </SafeAreaView>
   );
   
-}
+} else {
+ 
+    return (
+      <View >
+        <ActivityIndicator 
+          size="large"
+          loading={loading}
+        />
+      </View>
+)}
 
+
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
