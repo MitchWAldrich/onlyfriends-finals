@@ -268,8 +268,8 @@ const state = {
     },
     {
     "id": 2,
-    "user1_id": 1,
-    "user2_id": 3,
+    "user1_id": 3,
+    "user2_id": 1,
     "best_friend": false
     },
     {
@@ -278,66 +278,142 @@ const state = {
     "user2_id": 4,
    "best_friend": false
     }
-    ]
+  ],
+  messages:
+  [
+    {
+    "id": 1,
+    "match_id": 1,
+    "sender_id": 2,
+    "receiver_id": 1,
+    "message": "I think my other friend and I are watching the Raps tonight. Want to come with us?",
+    "sent_at": "2021-08-19T14:23:54.000Z"
+    },
+    {
+    "id": 2,
+    "match_id": 2,
+    "sender_id": 3,
+    "receiver_id": 1,
+    "message": "I might visit Toronto next week. We can go for a hike!",
+    "sent_at": "2021-08-19T12:30:01.000Z"
+  },
+  {
+    "id": 3,
+    "match_id": 3,
+    "sender_id": 4,
+    "receiver_id": 1,
+    "message": "Let me know when you want to link up and take some pictures xx",
+    "sent_at": "2021-08-23T03:23:54.000Z"
+  }
+]
 }; 
 
-// {
-//   id: '2',
-//   userName: 'Yuti R',
-//   userImg: require("../../public/images/user2.jpeg"),
-//   messageTime: '2 hours ago',
-//   messageText:
-//   'I think my other friend and I are watching the Raps tonight. Want to come with us?',
-// },
-function findMatchesByUser(state, user) {
+export function allUserInterests(state, user) {
+
+ for (const category of state.interests) {
+
+   if (category.user_id === user.id) {
+     const interestsArray = Object.entries((category));
+
+     const trueInterests = interestsArray.filter(([key, value]) => value === true)
+
+     const filteredInterests = trueInterests.map( arr => arr[0])
+
+     return filteredInterests
+   }
+ }
+}
+
+export function fullUserObject(state, newUser) {
+ const userObject = {
+   'id': newUser.id,
+   'first_name': newUser.first_name,
+   'last_name': newUser.last_name,
+   'date_of_birth': newUser.date_of_birth,
+   'about_me': newUser.about_me,
+   'address': newUser.address,
+   'gender': newUser.gender,
+   'age': userAge(newUser),
+   'starsign': newUser.starsign,
+   'vaccinated': newUser.vaccinated === true ? 'Yes' : 'No'
+ };
+   
+   for (let category of state.interests) {
+
+     if (category.user_id === newUser.id) {
+       const userInterests = allUserInterests(state, newUser);
+       userObject['interests'] = userInterests
+     }
+   }
+
+   for (let photo of state.photos) {
+     
+     if (photo.user_id === newUser.id) {
+       const userPhotos = [];
+       userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo3_url, photo.photo4_url);
+       userObject['photos'] = userPhotos;
+     }
+   }
+ 
+ return userObject 
+}
+
+export function findMatchesByUser(state, user) {
   const userMatchIDs = [];
   const matchedUsers = [];
+  
   for (const person of state.users) {
-
     for (const match of state.matches) {
-      if (match.user1_id === user.id) {
-        userMatchIDs.push(match.user2_id)
-      }
-      if (match.user2_id === user.id) {
-        userMatchIDs.push(match.user1_id)
+      if (person.id === user.id) {
+        if (user.id === match.user1_id) {
+          userMatchIDs.push(match.user2_id)
+        }
+        if (user.id === match.user2_id) {
+          userMatchIDs.push(match.user1_id)
+        }
       }
     }
-    for (const id of userMatchIDs) {
-      if (id === user.id) {
-        matchedUsers.push(person)
+    for (const person of state.users) {
+      for (const id of userMatchIDs) { 
+        if (person.id === id) {
+          if (!matchedUsers.includes(person)) {
+            matchedUsers.push(person) 
+          }
+        }
       }
     }
   }
-  return matchedUsers
+
+  const matchedFullUsers = matchedUsers.map(user => fullUserObject(state, user));
+  return matchedFullUsers
 }
 
-// function inboxObject(state, user) {}
-//find all matches
+// find all matches
 
-export function matchUsers(state, user1, user2) {
-
+export function matchedUsers(state, user1, user2) {
+  
   // filter through potential_matches for user1_id
-    //Object.entries
+  //Object.entries
   
   // filter through newArray for user2_id
-
+  
   //if exists = match
-
+  
   const user1Matches = [];
-
+  
   for (const potentialMatch of state.potential_matches) {
     if (potentialMatch.user1_id === user1.id) {
       user1Matches.push(potentialMatch)
     }
   }
-
+  
   const user2Matches = [];
   for (const potentialMatch of state.potential_matches) {
     if (potentialMatch.user1_id === user2.id) {
       user2Matches.push(potentialMatch)
     }
   }
-
+  
   const match = [];
   for (const match1 of user1Matches) {
     
@@ -351,12 +427,49 @@ export function matchUsers(state, user1, user2) {
   if (match.length === 0) {
     return null;
   } else {
-
-  return match
+    
+    return match
   }
 }
 
- function getUserByEmail(state, email) {
+
+export function inboxObjects(state, user) {
+  const inboxObject = [];
+  
+  const userMatches = findMatchesByUser(state, user);
+
+  const allConversationMessages = [];
+
+  let matchID;
+  for (const match of userMatches) {
+
+    for (const conversationID of state.matches) {
+      if (conversationID.user1_id === user.id && conversationID.user2_id === match.id) {
+        matchID = conversationID.id;
+      }
+    }
+
+    for (const message of state.messages) {
+      if (message.match_id === matchID) {
+        allConversationMessages.push(message);
+      }
+    }
+    console.log('convoMessages', allConversationMessages)
+    const conversation = {
+      'id': match.id,
+      'userName': `${match.first_name} ${match.last_name.charAt(0)}`,
+      'userImg': match.photos[0],
+      'messageTime': allConversationMessages[allConversationMessages.length - 1].sent_at,
+      'messageText': allConversationMessages[allConversationMessages.length - 1].message
+    }
+
+    inboxObject.push(conversation)
+    
+  }
+    return inboxObject
+}
+
+export function getUserByEmail(state, email) {
   for (const user of state.users) {
     if (email === user.email) {
       return user
@@ -364,21 +477,6 @@ export function matchUsers(state, user1, user2) {
   }
 }
 
-export function allUserInterests(state, user) {
-
-  for (const category of state.interests) {
-
-    if (category.user_id === user.id) {
-      const interestsArray = Object.entries((category));
-
-      const trueInterests = interestsArray.filter(([key, value]) => value === true)
-
-      const filteredInterests = trueInterests.map( arr => arr[0])
-
-      return filteredInterests
-    }
-  }
-}
 
 export function userAge(user) {
   const ageDifferenceMs = Date.now() - Date.parse(user.date_of_birth)
@@ -387,39 +485,6 @@ export function userAge(user) {
   return Math.abs(calculateAge.getUTCFullYear() - 1970);
 }
 
-export function fullUserObject(state, newUser) {
-  const userObject = {
-    'id': newUser.id,
-    'first_name': newUser.first_name,
-    'last_name': newUser.last_name,
-    'date_of_birth': newUser.date_of_birth,
-    'about_me': newUser.about_me,
-    'address': newUser.address,
-    'gender': newUser.gender,
-    'age': userAge(newUser),
-    'starsign': newUser.starsign,
-    'vaccinated': newUser.vaccinated === true ? 'Yes' : 'No'
-  };
-    
-    for (let category of state.interests) {
-
-      if (category.user_id === newUser.id) {
-        const userInterests = allUserInterests(state, newUser);
-        userObject['interests'] = userInterests
-      }
-    }
-
-    for (let photo of state.photos) {
-      
-      if (photo.user_id === newUser.id) {
-        const userPhotos = [];
-        userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo3_url, photo.photo4_url);
-        userObject['photos'] = userPhotos;
-      }
-    }
-  
-  return userObject 
-}
 
 export function findUsersByInterest(state, interest) {
   const filteredUsers = []
@@ -433,7 +498,6 @@ export function findUsersByInterest(state, interest) {
       }
     }
   }
-  console.log(filteredUsers)
   return filteredUsers;
 }
 
