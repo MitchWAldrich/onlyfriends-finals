@@ -368,7 +368,7 @@ export function allUserInterests(state, user) {
 
   for (const category of state.interests) {
 
-    if (category.user1_id === user.id) {
+    if (category.user_id === user.id) {
       const interestsArray = Object.entries((category));
 
       const trueInterests = interestsArray.filter(([key, value]) => value === true)
