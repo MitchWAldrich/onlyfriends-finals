@@ -1,10 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native';
-<<<<<<< HEAD
-import { StateContext } from '../../StateProvider.js' 
-=======
 import { StateContext } from '../../StateProvider.js';
->>>>>>> master
 import { useNavigation } from '@react-navigation/native';
 import { inboxObjects } from '../../src/helpers/selectors.js';
 
