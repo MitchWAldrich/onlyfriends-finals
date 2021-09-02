@@ -2,20 +2,19 @@ import React from "react";
 import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
 
 
-const Bio = (props) => {
-  const { next, back, detailedUser } = props;
-
+const Extras = (props) => {
+  const { back, detailedUser } = props;
 
   return (
     
       <SafeAreaView style={styles.card}>
-        <ImageBackground source={{uri: detailedUser.photos[1]}} style={styles.image}>
-        <Button title="Next" onPress={next} style={styles.navigate}/>
-          <Button title="Back" onPress={back} style={styles.navigate}/>
+        <ImageBackground source={{uri: detailedUser.photos[3]}} style={styles.image}>
+        <Button title="Back" onPress={back} style={styles.navigate}/>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}</Text>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.text}>{detailedUser.about_me}</Text>            
+              <Text style={styles.text}>{detailedUser.starsign}</Text>
+              <Text style={styles.text}>Vaccinated: {detailedUser.vaccinated}</Text>
             </View>
           </View>
         </ImageBackground>
@@ -83,4 +82,4 @@ const styles = StyleSheet.create({
 
 
 
-export default Bio;
+export default Extras;
