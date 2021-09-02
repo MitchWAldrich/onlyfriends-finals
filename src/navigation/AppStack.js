@@ -12,6 +12,7 @@ import ProfileEdit from '../../src/components/ProfileEdit';
 import Messages from '../../src/components/Messages.js';
 import ChatMessages from '../../src/components/ChatMessages.js';
 import SwipeCards from '../components/MatchCards/SwipeCards.js';
+import Cards from '../components/MatchCards/index.js';
 
 
 
@@ -37,7 +38,7 @@ export default function AppStack() {
   function MainScreen() {
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <SwipeCards />
+        <Cards />
       </SafeAreaView>
     );
   }

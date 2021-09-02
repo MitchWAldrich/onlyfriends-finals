@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     color: 'white',
-    lineHeight: 25,
     textShadowColor: '#525252',
     textShadowOffset: {
       width: 4,

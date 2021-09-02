@@ -1,18 +1,20 @@
 import React from "react";
-import { StyleSheet, SafeAreaView, Text, ImageBackground, View } from "react-native";
+import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
 
 
 const Extras = (props) => {
+  const { back, detailedUser } = props;
 
   return (
     
       <SafeAreaView style={styles.card}>
-        <ImageBackground source={require("../../../public/images/user2.jpeg")} style={styles.image}>
+        <ImageBackground source={{uri: detailedUser.photos[3]}} style={styles.image}>
+        <Button title="Back" onPress={back} style={styles.navigate}/>
           <View style={styles.innerText}>
-            <Text style={styles.name}>Barbie</Text>
+            <Text style={styles.name}>{detailedUser.first_name}</Text>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.text}>My Star Sign: Leo</Text>
-              <Text style={styles.text}>Vaccinated: Yes</Text>
+              <Text style={styles.text}>{detailedUser.starsign}</Text>
+              <Text style={styles.text}>Vaccinated: {detailedUser.vaccinated}</Text>
             </View>
           </View>
         </ImageBackground>

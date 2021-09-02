@@ -1,25 +1,28 @@
 import React from "react";
-import { StyleSheet, SafeAreaView, Text, ImageBackground, View } from "react-native";
+import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
 import InterestTag from "./InterestTag";
 
 
 const Interests = (props) => {
-  const interests = ['reading', 'hiking', 'going out', 'eating out'];
+  const {next, back, detailedUser } = props;
 
-  const parsedInterests = interests.map((interest) => {
+  const interests = ['reading', 'hiking', 'going out', 'eating out'];
+  
+
+  const parsedInterests = detailedUser.interests.map((interest) => {
     return (<InterestTag interest={interest} key={interest}/>)
   })
 
-  console.log(parsedInterests)
 
   return (
     
       <SafeAreaView style={styles.card}>
-        <ImageBackground source={require("../../../public/images/user1.jpeg")} style={styles.image}>
+        <ImageBackground source={{uri: detailedUser.photos[2]}} style={styles.image}>
+        <Button title="Next" onPress={next} style={styles.navigate}/>
+          <Button title="Back" onPress={back} style={styles.navigate}/>
           <View style={styles.innerText}>
-            <Text style={styles.name}>Barbie</Text>
+            <Text style={styles.name}>{detailedUser.first_name}</Text>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.text}>My Interests:</Text>
               <View>{parsedInterests}</View>
             </View>
           </View>

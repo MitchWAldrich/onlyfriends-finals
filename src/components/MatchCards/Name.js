@@ -5,18 +5,20 @@ import { StateContext } from "../../../StateProvider";
 
 
 const Name = (props) => {
-  const {next} = props;
+  const {next, detailedUser} = props;
 
+ console.log(detailedUser);
+  
   return (
     
       <SafeAreaView style={styles.card}>
-        <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
+        <ImageBackground source={{uri: detailedUser.photos[0]}} style={styles.image}>
           <Button title="Next" onPress={next} style={styles.navigate}/>
           <View style={styles.innerText}>
-            <Text style={styles.name}>Barbie, 26</Text>
+            <Text style={styles.name}>{detailedUser.first_name}, {detailedUser.age}</Text>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.text}>Toronto (4km away)</Text>
-              <Text style={styles.text}>Non-Binary</Text>
+              <Text style={styles.text}>{detailedUser.address} (4km away)</Text>
+              <Text style={styles.text}>{detailedUser.gender}</Text>
             </View>
           </View>
         </ImageBackground>
