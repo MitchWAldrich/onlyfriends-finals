@@ -22,20 +22,27 @@ VALUES
 (4, false, true, false, false, true, true, false, false, true, false, true, true),
 (5, true, false, false, true, true, false, true, false, false, true, true, false);
 
-INSERT INTO matches (user1_id, user2_id, best_friend)
+INSERT INTO potential_matches (user1_id, user2_id, best_friend)
 VALUES 
 (1, 2, false),
 (1, 3, false),
 (1, 4, false),
 (1, 5, false),
 (4, 5, true),
-(2, 4, false);
+(2, 4, false),
+(2, 1, true),
+(3, 1, false),
+(4, 1, true),
+(5, 4, true);
+
+INSERT INTO matches (user1_id, user2_id, best_friend)
+VALUES 
+(1, 2, false),
+(1, 3, false),
+(1, 4, false);
 
 INSERT INTO messages (match_id, sender_id, receiver_id, message, sent_at)
 VALUES
 (1, 2, 1, 'I think my other friend and I are watching the Raps tonight. Want to come with us?', 1),
 (2, 3, 1, 'I might visit Toronto next week. We can go for a hike!', 2),
-(3, 4, 1, 'Let me know when you want to link up and take some pictures xx', 3),
-(4, 5, 1, 'Just finished reading the book you told me about. My mind is blown.', 4),
-(5, 1, 2, 'Wanna see a movie together?', 5),
-(6, 5, 3, 'Should not show up.', 6);
+(3, 4, 1, 'Let me know when you want to link up and take some pictures xx', 3);

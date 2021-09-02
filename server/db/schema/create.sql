@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS photos CASCADE;
 DROP TABLE IF EXISTS interests CASCADE;
 DROP TABLE IF EXISTS matches CASCADE;
+DROP TABLE IF EXISTS potential_matches CASCADE;
 DROP TABLE IF EXISTS messages CASCADE;
 
 CREATE TABLE users (
@@ -42,6 +43,13 @@ CREATE TABLE interests (
   sports BOOLEAN,
   eating_out BOOLEAN,
   going_out BOOLEAN
+);
+
+CREATE TABLE potential_matches (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user1_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  user2_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  best_friend BOOLEAN DEFAULT false
 );
 
 CREATE TABLE matches (
