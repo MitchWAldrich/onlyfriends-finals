@@ -9,7 +9,8 @@ export default function StateProvider(props) {
     users: {},
     interests: {},
     photos: {},
-    messages: {}
+    messages: {},
+    matches: {}
   })
   const [loading, setLoading] = useState(true);
   const [ auth, setAuth ] = useState(false);
