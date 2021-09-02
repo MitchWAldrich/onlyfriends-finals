@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Button } from 'react-native';
 import { StateContext } from '../../../StateProvider';
 import { fullUserObject } from '../../helpers/selectors';
+import MatchButtons from '../MatchButtons';
 
 //All of the different modes
 import Name from './Name';
@@ -34,7 +35,6 @@ const Cards = function(props)  {
     if (index === detailedUsers.length - 1) {
       return setIndex(0)
     }
-  
     return setIndex(index += 1)
   }
 
@@ -66,11 +66,11 @@ const Cards = function(props)  {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Button title="New" onPress={() => incrementUser(index)} style={styles.navigate}/>
       {mode === NAME && <Name next={() => next(BIO)} detailedUser={displayedUser} /> }
       {mode === BIO && <Bio next={() => next(INTERESTS)} back={() => back(NAME)} detailedUser={displayedUser}/>}
       {mode === INTERESTS && <Interests next={() => next(EXTRAS)} back={() => back(BIO)} detailedUser={displayedUser}/>}
       {mode === EXTRAS && <Extras back={() => back(INTERESTS)} detailedUser={displayedUser}/>}
+      <MatchButtons newUser={() => incrementUser(index)}/>
     </SafeAreaView>
   )
 };

@@ -1,25 +1,27 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
 
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 
-const MatchButtons = () => {
+const MatchButtons = (props) => {
+  const { newUser } = props;
+
   return (
     <View style={styles.buttonContainer}>
       
-      <View style={styles.button}>
+      <Pressable style={styles.button} onPress={newUser}>
       <Entypo name="cross" size={30} color="#F76C6B" />  
-      </View>
+      </Pressable>
 
-      <View style={styles.button}>
+      <Pressable style={styles.button} onPress={newUser}>
       <FontAwesome name="star" size={24} color="#3AB4CC" />  
-      </View>
+      </Pressable>
 
-      <View style={styles.button}>
+      <Pressable style={styles.button} onPress={newUser}>
       <FontAwesome name="heart" size={24} color="#4FCC94" />  
-      </View>
+      </Pressable>
     
     </View>
   );
