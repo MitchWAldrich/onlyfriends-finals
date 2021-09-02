@@ -485,7 +485,6 @@ export function userAge(user) {
   return Math.abs(calculateAge.getUTCFullYear() - 1970);
 }
 
-
 export function findUsersByInterest(state, interest) {
   const filteredUsers = []
   
