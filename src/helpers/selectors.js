@@ -194,10 +194,38 @@ const state = {
       "photo3_url": "https://i.imgur.com/oMTz2Ug.jpg",
       "photo4_url": "https://i.imgur.com/wvwQRr4.jpg"
       }
-      ]
+    ]
 }; 
 
-export function getUserByEmail(state, email) {
+// {
+//   id: '2',
+//   userName: 'Yuti R',
+//   userImg: require("../../public/images/user2.jpeg"),
+//   messageTime: '2 hours ago',
+//   messageText:
+//   'I think my other friend and I are watching the Raps tonight. Want to come with us?',
+// },
+function findMatchesByUser(state, user) {
+
+}
+findMatchesByUser(state, state,)
+
+function inboxObject(state, user) {
+//find all matches
+
+
+}
+
+ function getphotosByUser(state, user) {
+  for (const user of state.users) {
+
+    for (const photo of state.photos) {
+
+    }
+  }
+}
+
+ function getUserByEmail(state, email) {
   for (const user of state.users) {
     if (email === user.email) {
       return user
@@ -205,7 +233,7 @@ export function getUserByEmail(state, email) {
   }
 }
 
-export function allUserInterests(state, user) {
+ function allUserInterests(state, user) {
 
   for (const category of state.interests) {
 
@@ -221,14 +249,14 @@ export function allUserInterests(state, user) {
   }
 }
 
-export function userAge(user) {
+ function userAge(user) {
   const ageDifferenceMs = Date.now() - Date.parse(user.date_of_birth)
   const calculateAge = new Date(ageDifferenceMs);
 
   return Math.abs(calculateAge.getUTCFullYear() - 1970);
 }
 
-export function fullUserObject(state, newUser) {
+ function fullUserObject(state, newUser) {
   const userObject = {
     'id': newUser.id,
     'first_name': newUser.first_name,
@@ -262,7 +290,7 @@ export function fullUserObject(state, newUser) {
   return userObject 
 }
 
-export function findUsersByInterest(state, interest) {
+ function findUsersByInterest(state, interest) {
   const filteredUsers = []
   
   for (let user of state.users) {
@@ -278,7 +306,7 @@ export function findUsersByInterest(state, interest) {
   return filteredUsers;
 }
 
-export function findPhotosByUser(state, user) {
+ function findPhotosByUser(state, user) {
   const photos = []
 
   for (let obj of state.users) {
@@ -295,7 +323,7 @@ export function findPhotosByUser(state, user) {
 }
 
 
-export function findZodiacSign(day, month) {
+ function findZodiacSign(day, month) {
   const zodiacSign = "";
        
     // checks month and date within the
