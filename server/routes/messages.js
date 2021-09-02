@@ -10,7 +10,7 @@ module.exports = db => {
 
   // router.get for the messages under a match_id 
 
-  router.post("/message", (request, response) => {
+  router.post("/messages", (request, response) => {
     const { matchID, senderID, receiverID, message, sentAt } = request.body;
     
     db.query(`
