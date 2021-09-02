@@ -43,28 +43,30 @@ const Messages = () => {
   const navigation = useNavigation(); 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList 
-        data={Inbox}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <TouchableOpacity onPress={() => navigation.navigate('Chat', {userName: item.userName})}>
-            <View styles={styles.userCard}> 
-              <View styles={styles.userInfoCard}>
-                <View styles={styles.userImgWrapper}>
-                  <Image source={item.userImg} style={styles.userAvatar}/>
-                </View>
-                <View styles={styles.textSection}>
-                  <View styles={styles.userInfoText}>
-                    <Text styles={styles.userName}>{item.userName}</Text>
-                    <Text styles={styles.messageSent}>{item.messageTime}</Text>
+      <View style={styles.messagesContainer}>
+        <FlatList 
+          data={Inbox}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <TouchableOpacity onPress={() => navigation.navigate('Chat', {userName: item.userName})}>
+              <View styles={styles.userCard}> 
+                <View styles={styles.userInfoCard}>
+                  <View styles={styles.userImgWrapper}>
+                    <Image source={item.userImg} style={styles.userAvatar}/>
                   </View>
-                  <Text>{item.messageText}</Text>
+                  <View styles={styles.textSection}>
+                    <View styles={styles.userInfoText}>
+                      <Text styles={styles.userName}>{item.userName}</Text>
+                      <Text styles={styles.messageSent}>{item.messageTime}</Text>
+                    </View>
+                    <Text>{item.messageText}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
-          )}
-        />
+            </TouchableOpacity>
+            )}
+          />
+      </View> 
     </SafeAreaView>
   )
 }
@@ -76,6 +78,12 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 10,
     paddingLeft:10
+  },
+  messagesContainer: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   userCard: {
     width: '100%'

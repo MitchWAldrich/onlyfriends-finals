@@ -9,11 +9,11 @@ import AppStack from './src/navigation/AppStack';
 
 export default function App() {
 
-return (
-  <NavigationContainer>
-    <StateProvider>
-      <AppStack />
-    </StateProvider>
-  </NavigationContainer>
-);
+  return (
+    <NavigationContainer>
+      <StateProvider>
+        <AppStack/>
+      </StateProvider>
+    </NavigationContainer>
+  );
 }

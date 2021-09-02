@@ -42,12 +42,7 @@ const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
-         
-        <View style={styles.titleBar}>
-          <Ionicons name="ios-arrow-back" size={24} color="#52575D"></Ionicons>
-          <Ionicons name="reorder-three-sharp" size={24} color="#52575D"></Ionicons>
-        </View>
-
+        
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image 
@@ -63,10 +58,7 @@ const navigation = useNavigation();
         </View>
 
         <View style={{ alignSelf: "center" }}>
-        <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
-          <View style={styles.editButton}>
-            <Text style={styles.editButtonText}>EDIT PROFILE</Text>
-          </View>
+          <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
         </View>
         {/* if edit profile is not clicked yet, render information saved */}
         <View style={styles.textArea}>
