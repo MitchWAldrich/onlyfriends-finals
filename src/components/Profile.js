@@ -1,47 +1,59 @@
 import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight, TouchableOpacity, Button } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight, TouchableOpacity, Button, ActivityIndicator } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Chip } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-
-import { fullUserObject, userAge } from '../helpers/selectors.js';
+import { fullUserObject, userAge, getUserByEmail } from '../helpers/selectors.js';
 import { isVaccinated } from '../helpers/isVaccinated.js';
 import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
 import { StateContext } from '../../StateProvider.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { remove, getData } from '../helpers/persistLogin.js';
 
 const Profile = (props) => {
-  const { state, loading } = useContext(StateContext)
+  const { state, setState, loading, logout, email, setEmail, auth, setAuth } = useContext(StateContext)
 
-  // {'users': props.users, 'interests': props.interests}
+const navigation = useNavigation(); 
 
-  const detailedUsers = state.users.map( user => fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, user))  
-  console.log('detailedUsers', detailedUsers)
+  if (state.user) { 
 
-  const userInterests = detailedUsers[0].interests.map((interest, id) =>
-    <Chip
-      key={id}
-      title={interest}
-      type="outline"
-    />)
-
-  const navigation = useNavigation(); 
+  const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, state.user)
+  console.log('dUs', detailedUser)
   
+  const userInterests = detailedUser.interests.map((interest, id) =>
+  <Chip
+  key={id}
+  title={interest}
+  type="outline"
+  />)
+  
+  //Logout button function
+  const onSubmit = async () => {
+   
+    remove(state, setState, auth, setAuth);
+    
+  }
+  
+  useEffect(() => {
+    getData();
+  }, [])
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
-
+        
         <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image 
-              source={{uri: detailedUsers[0].photos[0]}} 
+              source={{uri: detailedUser.photos[0]}} 
               style={styles.image} 
             />
           </View>
           <View style={{ alignSelf: "center" }}>
-            <Text style={styles.profileDetails}>{detailedUsers[0].first_name}, {userAge(detailedUsers[0])}</Text>
-            <Text style={styles.starSign}>{detailedUsers[0].starsign} <MaterialCommunityIcons name={`zodiac-${detailedUsers[0].starsign.toLowerCase()}`} color="black" /></Text>
+          {/* <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text> */}
+          <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
+            <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
           </View>
         </View>
 
@@ -50,40 +62,40 @@ const Profile = (props) => {
         </View>
         {/* if edit profile is not clicked yet, render information saved */}
         <View style={styles.textArea}>
-          <Text>Gender: {detailedUsers[0].gender}</Text>
+          <Text>Gender: {detailedUser.gender}</Text>
         </View>
 
         <View style={styles.textArea}>
-          <Text>Location: {detailedUsers[0].address}</Text>
+          <Text>Location: {detailedUser.address}</Text>
         </View>
 
         <View style={styles.textArea}>
-          <Text>Vaccinated: {vaccinatedDisplay(detailedUsers[0])}</Text>
+          <Text>Vaccinated: {vaccinatedDisplay(detailedUser)}</Text>
         </View>
 
         <View style={styles.textArea}>
           <Text>Photos</Text>
           <View style={styles.aboutMePhotos}>
             <Image 
-              source={{uri: detailedUsers[0].photos[0]}} 
+              source={{uri: detailedUser.photos[0]}} 
               style={styles.image}
             />
           </View>
           <View style={styles.aboutMePhotos}>
             <Image 
-              source={{uri: detailedUsers[0].photos[1]}} 
+              source={{uri: detailedUser.photos[1]}} 
               style={styles.image}
             />
           </View>
           <View style={styles.aboutMePhotos}>
             <Image 
-              source={{uri: detailedUsers[0].photos[2]}} 
+              source={{uri: detailedUser.photos[2]}} 
               style={styles.image}
             />
           </View>
           <View style={styles.aboutMePhotos}>
             <Image 
-              source={{uri: detailedUsers[0].photos[3]}} 
+              source={{uri: detailedUser.photos[3]}} 
               style={styles.image}
             />
           </View>
@@ -91,24 +103,39 @@ const Profile = (props) => {
 
         <View style={styles.textArea}>
           <Text>About Me</Text>
-          <Text>{detailedUsers[0].about_me}</Text>
+          <Text>{detailedUser.about_me}</Text>
         </View>
 
         <View style={styles.textArea}>
           <Text>My Interests</Text>
           <View>{userInterests}</View>
         </View>
+        <View style={{ alignSelf: "center" }}>
+          <Button title="Logout" onPress={onSubmit} style={styles.editButton}/>
+        </View>
        </ScrollView>
     </SafeAreaView>
   );
-}
+  
+} else {
+ 
+    return (
+      <View >
+        <ActivityIndicator 
+          size="large"
+          loading={loading}
+        />
+      </View>
+)}
 
+
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
     width: '100%',
-    paddingTop: 20
+    paddingTop: 20  
   },
   scrollView: {
     marginHorizontal: 20,

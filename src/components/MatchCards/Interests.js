@@ -1,21 +1,29 @@
 import React from "react";
 import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
+import InterestTag from "./InterestTag";
 
 
-const Bio = (props) => {
-  const { next, back, detailedUser } = props;
+const Interests = (props) => {
+  const {next, back, detailedUser } = props;
+
+  const interests = ['reading', 'hiking', 'going out', 'eating out'];
+  
+
+  const parsedInterests = detailedUser.interests.map((interest) => {
+    return (<InterestTag interest={interest} key={interest}/>)
+  })
 
 
   return (
     
       <SafeAreaView style={styles.card}>
-        <ImageBackground source={{uri: detailedUser.photos[1]}} style={styles.image}>
+        <ImageBackground source={{uri: detailedUser.photos[2]}} style={styles.image}>
         <Button title="Next" onPress={next} style={styles.navigate}/>
           <Button title="Back" onPress={back} style={styles.navigate}/>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}</Text>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.text}>{detailedUser.about_me}</Text>            
+              <View>{parsedInterests}</View>
             </View>
           </View>
         </ImageBackground>
@@ -83,4 +91,4 @@ const styles = StyleSheet.create({
 
 
 
-export default Bio;
+export default Interests;

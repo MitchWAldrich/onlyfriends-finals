@@ -1,6 +1,9 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import axios from 'axios';
+import AuthProvider from './AuthProvider';
+import AsyncStorage from '@react-native-community/async-storage';
+
 
 export default function StateProvider(props) {
 
@@ -11,17 +14,13 @@ export default function StateProvider(props) {
     photos: {}
   })
   const [loading, setLoading] = useState(true);
-  const [ auth, setAuth ] = useState(false);
-  const [ email, setEmail ] = useState('')
 
   useEffect(() => {
     Promise.all([
       axios.get('http://localhost:8001/api/users'),
       axios.get('http://localhost:8001/api/interests'),
       axios.get('http://localhost:8001/api/photos'),
-      axios.get('http://localhost:8001/api/messages'),
-      axios.get('http://localhost:8001/api/potential-matches'),
-      axios.get('http://localhost:8001/api/matches')
+      axios.get('http://localhost:8001/api/messages')
     ])
       .then((all) => {
         const [users, interests, photos] = all;
@@ -44,17 +43,7 @@ export default function StateProvider(props) {
         </View>
   )}
 
-  const login = function(user) {
-    setState(prev => ({...prev, user}));
-    setAuth(true);
-  }
-
-  const logout = function(user) {
-    setState({...state, user: {}});
-    setAuth(false);
-  }
-
-  const providerData = {state, setState, loading, login, logout, auth, setAuth, email, setEmail};
+  const providerData = {state, loading};
 
   return (
     <StateContext.Provider value={providerData}>
