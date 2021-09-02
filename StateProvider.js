@@ -9,8 +9,9 @@ export default function StateProvider(props) {
     users: {},
     interests: {},
     photos: {},
+    potentialMatches: {},
+    matches: {},
     messages: {},
-    matches: {}
   })
   const [loading, setLoading] = useState(true);
   const [ auth, setAuth ] = useState(false);
@@ -21,14 +22,14 @@ export default function StateProvider(props) {
       axios.get('http://localhost:8001/api/users'),
       axios.get('http://localhost:8001/api/interests'),
       axios.get('http://localhost:8001/api/photos'),
-      axios.get('http://localhost:8001/api/messages'),
       axios.get('http://localhost:8001/api/potential-matches'),
-      axios.get('http://localhost:8001/api/matches')
+      axios.get('http://localhost:8001/api/matches'),
+      axios.get('http://localhost:8001/api/messages'),
     ])
       .then((all) => {
-        const [users, interests, photos] = all;
+        const [users, interests, photos, potentialMatches, matches, messages] = all;
 
-        setState(prev => ({ ...prev, users: users.data, interests: interests.data, photos: photos.data }))
+        setState(prev => ({ ...prev, users: users.data, interests: interests.data, photos: photos.data, messages: messages.data, matches: matches.data }))
         setLoading(false)
       })
       .catch(err => {
