@@ -4,6 +4,7 @@ import { StyleSheet, Button } from 'react-native';
 import { StateContext } from '../../../StateProvider';
 import { fullUserObject } from '../../helpers/selectors';
 import MatchButtons from '../MatchButtons';
+import useCardMode from '../../hooks/useCardMode';
 
 //All of the different modes
 import Name from './Name';
@@ -13,32 +14,14 @@ import Extras from './Extras';
 import Matched from './Matched';
 
 
-const Cards = function(props)  {
-  //Mode functionality and state
+const Cards = function()  {
+  const { mode, setMode, next, back } = useCardMode();
   //Card modes
   const NAME = 'NAME';
   const BIO = 'BIO';
   const INTERESTS = 'INTERESTS';
   const EXTRAS = 'EXTRAS';
   const MATCHED = 'MATCHED';
-
-  const [mode, setMode] = useState(NAME);
-  const [history, setHistory] = useState([NAME]);
-
-  const newHistory = [...history];
-  
-  const next = (newMode) => {
-    setHistory(() => [...newHistory, newMode]);
-    setMode(newMode);
-  }
-
-  const back = () => {
-    if (newHistory.length > 1) {
-      newHistory.pop();
-    }
-     setHistory(() => [...newHistory]);
-     setMode(newHistory[newHistory.length - 1]);
-  }
 
   //Card stack functionality and state
   const [index, setIndex] = useState(0);
