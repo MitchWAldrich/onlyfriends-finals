@@ -43,6 +43,6 @@ VALUES
 
 INSERT INTO messages (match_id, sender_id, receiver_id, message, sent_at)
 VALUES
-(1, 2, 1, 'I think my other friend and I are watching the Raps tonight. Want to come with us?', 1),
-(2, 3, 1, 'I might visit Toronto next week. We can go for a hike!', 2),
-(3, 4, 1, 'Let me know when you want to link up and take some pictures xx', 3);
+(1, 2, 1, 'I think my other friend and I are watching the Raps tonight. Want to come with us?', '2021-08-19 10:23:54'),
+(2, 3, 1, 'I might visit Toronto next week. We can go for a hike!', '2021-08-19 08:30:01'),
+(3, 4, 1, 'Let me know when you want to link up and take some pictures xx', '2021-08-22 23:23:54');

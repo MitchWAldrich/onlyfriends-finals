@@ -65,5 +65,5 @@ CREATE TABLE messages (
   sender_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   receiver_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   message VARCHAR(512),
-  sent_at SMALLINT
+  sent_at TIMESTAMP
 );
