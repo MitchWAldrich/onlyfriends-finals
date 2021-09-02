@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
-
+import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Pressable } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
 
 const Extras = (props) => {
   const { back, detailedUser, next } = props;
@@ -10,8 +10,14 @@ const Extras = (props) => {
       <SafeAreaView style={styles.card}>
         <ImageBackground source={{uri: detailedUser.photos[3]}} style={styles.image}>
           {/* don't forget to remove this */}
-        <Button title="Next" onPress={next} style={styles.navigate}/>
-        <Button title="Back" onPress={back} style={styles.navigate}/>
+          <View style={styles.navigateContainer}>
+          <Pressable onPress={back}>
+          <AntDesign name="arrowleft" size={20} color="#d6d6d6" />
+          </Pressable>
+          <Pressable onPress={next} >
+          <AntDesign name="arrowright" size={20} color="#d6d6d6" />
+          </Pressable>
+        </View>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}</Text>
             <View style={{flexDirection: 'column'}}>
@@ -43,6 +49,13 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
 
     elevation: 11,
+  },
+  navigateContainer: {
+    flexDirection: 'row',
+    height: '75%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    zIndex: 1,
   },
   image: {
     width: '100%',
