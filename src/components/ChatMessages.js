@@ -26,14 +26,21 @@ class ChatMessages extends React.Component {
       this.setState({ allChatMessages: [...this.state.allChatMessages, msg] });
     });
 
+    // add an axios get to get the messages within a chat (match) -- figure out how to implement with sockets because of the delay
+
     this.socket.connect()
   }
+
+  // Make more sockets: 1) whenever theres a new message in a match
 
   submitChatMessage() {
     console.log("submitChatMessage", this.socket.connected)
     this.socket.emit("chat message", this.state.chatMessage);
     this.setState({ chatMessage: "" });
+    // axios post whenever a chat message is submitted
+    
   }
+  // whenever there is a chat message event, we need to create a message
 
   render() {
     const allChatMessages = this.state.allChatMessages.map(chatMessage => (
