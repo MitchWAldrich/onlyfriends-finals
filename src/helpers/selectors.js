@@ -261,40 +261,22 @@ const state = {
   matches:
   [
     {
-    id: 1,
-    user1_id: 1,
-    user2_id: 2,
-    best_friend: false
+    "id": 1,
+    "user1_id": 1,
+    "user2_id": 2,
+    "best_friend": false
     },
     {
-    id: 2,
-    user1_id: 1,
-    user2_id: 3,
-    best_friend: false
+    "id": 2,
+    "user1_id": 1,
+    "user2_id": 3,
+    "best_friend": false
     },
     {
-    id: 3,
-    user1_id: 1,
-    user2_id: 4,
-    best_friend: false
-    },
-    {
-    id: 4,
-    user1_id: 1,
-    user2_id: 5,
-    best_friend: false
-    },
-    {
-    id: 5,
-    user1_id: 4,
-    user2_id: 5,
-    best_friend: true
-    },
-    {
-    id: 6,
-    user1_id: 2,
-    user2_id: 4,
-    best_friend: false
+    "id": 3,
+    "user1_id": 1,
+    "user2_id": 4,
+   "best_friend": false
     }
     ]
 }; 
@@ -308,28 +290,29 @@ const state = {
 //   'I think my other friend and I are watching the Raps tonight. Want to come with us?',
 // },
 function findMatchesByUser(state, user) {
-  
+  const userMatchIDs = [];
+  const matchedUsers = [];
+  for (const person of state.users) {
 
-}
-findMatchesByUser(state, state,)
-s
-function inboxObject(state, user) {
-//find all matches
-
-
-}
-
- function getphotosByUser(state, user) {
-  for (const user of state.users) {
-
-    for (const photo of state.photos) {
-
+    for (const match of state.matches) {
+      if (match.user1_id === user.id) {
+        userMatchIDs.push(match.user2_id)
+      }
+      if (match.user2_id === user.id) {
+        userMatchIDs.push(match.user1_id)
+      }
+    }
+    for (const id of userMatchIDs) {
+      if (id === user.id) {
+        matchedUsers.push(person)
+      }
     }
   }
+  return matchedUsers
 }
 
- function getUserByEmail(state, email) {
-      
+// function inboxObject(state, user) {}
+//find all matches
 
 export function matchUsers(state, user1, user2) {
 
@@ -373,16 +356,13 @@ export function matchUsers(state, user1, user2) {
   }
 }
 
-
-
-export function getUserByEmail(state, email) {
+ function getUserByEmail(state, email) {
   for (const user of state.users) {
     if (email === user.email) {
       return user
     }
   }
 }
-
 
 export function allUserInterests(state, user) {
 
@@ -472,7 +452,6 @@ export function findPhotosByUser(state, user) {
   }
   return photos
 }
-
 
 export function findZodiacSign(day, month) {
   const zodiacSign = "";
