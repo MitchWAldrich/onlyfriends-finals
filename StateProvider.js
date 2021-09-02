@@ -8,7 +8,8 @@ export default function StateProvider(props) {
     user: {},
     users: {},
     interests: {},
-    photos: {}
+    photos: {},
+    messages: {}
   })
   const [loading, setLoading] = useState(true);
   const [ auth, setAuth ] = useState(false);

@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet, FlatList, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native';
-
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, FlatList, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StateProvider } from '../../StateProvider.js' 
 import { useNavigation } from '@react-navigation/native';
-// console.log("INBOX", Inbox)
+
 
 const Inbox = [
   {
@@ -11,7 +11,7 @@ const Inbox = [
     userImg: require("../../public/images/user2.jpeg"),
     messageTime: '2 hours ago',
     messageText:
-      'I think my other friend and I are watching the Raps tonight. Want to come with us?',
+    'I think my other friend and I are watching the Raps tonight. Want to come with us?',
   },
   {
     id: '3',
@@ -19,7 +19,7 @@ const Inbox = [
     userImg: require("../../public/images/user3.jpeg"),
     messageTime: '1 hours ago',
     messageText:
-      'I might visit Toronto next week. We can go for a hike!',
+    'I might visit Toronto next week. We can go for a hike!',
   },
   {
     id: '4',
@@ -27,7 +27,7 @@ const Inbox = [
     userImg: require("../../public/images/user4.jpeg"),
     messageTime: '1 day ago',
     messageText:
-      'Let me know when you want to link up and take some pictures xx',
+    'Let me know when you want to link up and take some pictures xx',
   },
   {
     id: '5',
@@ -35,12 +35,18 @@ const Inbox = [
     userImg: require("../../public/images/user5.jpeg"),
     messageTime: '2 days ago',
     messageText:
-      'Just finished reading the book you told me about. My mind is blown.',
+    'Just finished reading the book you told me about. My mind is blown.',
   },
 ];
 
 const Messages = () => {
+
+  const { state } = useContext(StateContext);
+
+  const { users, photos, messages } = state; 
+  
   const navigation = useNavigation(); 
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.messagesContainer}>

@@ -194,72 +194,125 @@ const state = {
       "photo3_url": "https://i.imgur.com/oMTz2Ug.jpg",
       "photo4_url": "https://i.imgur.com/wvwQRr4.jpg"
       }
-      ],
-      potential_matches:
-      [
-        {
-        "id": 1,
-        "user1_id": 1,
-        "user2_id": 2,
-        "best_friend": false
-        },
-        {
-        "id": 2,
-        "user1_id": 1,
-        "user2_id": 3,
-        "best_friend": false
-        },
-        {
-        "id": 3,
-        "user1_id": 1,
-        "user2_id": 4,
-        "best_friend": false
-        },
-        {
-        "id": 4,
-        "user1_id": 1,
-        "user2_id": 5,
-        "best_friend": false
-        },
-        {
-        "id": 5,
-        "user1_id": 4,
-        "user2_id": 5,
-        "best_friend": true
-        },
-        {
-        "id": 6,
-        "user1_id": 2,
-        "user2_id": 4,
-        "best_friend": false
-        },
-        {
-        "id": 7,
-        "user1_id": 2,
-        "user2_id": 1,
-        "best_friend": true
-        },
-        {
-        "id": 8,
-        "user1_id": 3,
-        "user2_id": 1,
-        "best_friend": false
-        },
-        {
-        "id": 9,
-        "user1_id": 4,
-        "user2_id": 1,
-        "best_friend": true
-        },
-        {
-        "id": 10,
-        "user1_id": 5,
-        "user2_id": 4,
-        "best_friend": true
-        }
-      ]
+    ],
+  potential_matches:
+  [
+    {
+    "id": 1,
+    "user1_id": 1,
+    "user2_id": 2,
+    "best_friend": false
+    },
+    {
+    "id": 2,
+    "user1_id": 1,
+    "user2_id": 3,
+    "best_friend": false
+    },
+    {
+    "id": 3,
+    "user1_id": 1,
+    "user2_id": 4,
+    "best_friend": false
+    },
+    {
+    "id": 4,
+    "user1_id": 1,
+    "user2_id": 5,
+    "best_friend": false
+    },
+    {
+    "id": 5,
+    "user1_id": 4,
+    "user2_id": 5,
+    "best_friend": true
+    },
+    {
+    "id": 6,
+    "user1_id": 2,
+    "user2_id": 4,
+    "best_friend": false
+    },
+    {
+    "id": 7,
+    "user1_id": 2,
+    "user2_id": 1,
+    "best_friend": true
+    },
+    {
+    "id": 8,
+    "user1_id": 3,
+    "user2_id": 1,
+    "best_friend": false
+    },
+    {
+    "id": 9,
+    "user1_id": 4,
+    "user2_id": 1,
+    "best_friend": true
+    },
+    {
+    "id": 10,
+    "user1_id": 5,
+    "user2_id": 4,
+    "best_friend": true
+    }
+  ],
+  matches:
+  [
+    {
+    "id": 1,
+    "user1_id": 1,
+    "user2_id": 2,
+    "best_friend": false
+    },
+    {
+    "id": 2,
+    "user1_id": 1,
+    "user2_id": 3,
+    "best_friend": false
+    },
+    {
+    "id": 3,
+    "user1_id": 1,
+    "user2_id": 4,
+   "best_friend": false
+    }
+    ]
 }; 
 
+// {
+//   id: '2',
+//   userName: 'Yuti R',
+//   userImg: require("../../public/images/user2.jpeg"),
+//   messageTime: '2 hours ago',
+//   messageText:
+//   'I think my other friend and I are watching the Raps tonight. Want to come with us?',
+// },
+function findMatchesByUser(state, user) {
+  const userMatchIDs = [];
+  const matchedUsers = [];
+  for (const person of state.users) {
+
+    for (const match of state.matches) {
+      if (match.user1_id === user.id) {
+        userMatchIDs.push(match.user2_id)
+      }
+      if (match.user2_id === user.id) {
+        userMatchIDs.push(match.user1_id)
+      }
+    }
+    for (const id of userMatchIDs) {
+      if (id === user.id) {
+        matchedUsers.push(person)
+      }
+    }
+  }
+  return matchedUsers
+}
+
+// function inboxObject(state, user) {}
+//find all matches
 
 export function matchUsers(state, user1, user2) {
 
@@ -303,16 +356,13 @@ export function matchUsers(state, user1, user2) {
   }
 }
 
-
-
-export function getUserByEmail(state, email) {
+ function getUserByEmail(state, email) {
   for (const user of state.users) {
     if (email === user.email) {
       return user
     }
   }
 }
-
 
 export function allUserInterests(state, user) {
 
@@ -402,7 +452,6 @@ export function findPhotosByUser(state, user) {
   }
   return photos
 }
-
 
 export function findZodiacSign(day, month) {
   const zodiacSign = "";
