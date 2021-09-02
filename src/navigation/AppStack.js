@@ -148,7 +148,7 @@ const Stack = createStackNavigator();
       {auth ? (
         // Screens for logged in users
         <Stack.Group>
-          {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
+          <Stack.Screen name="MyTabs" component={MyTabs} />
         </Stack.Group>
       ) : (
         // Auth screens
@@ -156,7 +156,7 @@ const Stack = createStackNavigator();
           <Stack.Screen name="Login" component={Login}/>
         </Stack.Group>
       )}
-      <Stack.Screen name="MyTabs" component={MyTabs}/>
+      {/* <Stack.Screen name="MyTabs" component={MyTabs}/> */}
     </Stack.Navigator>   
   )
 }
