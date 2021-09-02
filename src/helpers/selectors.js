@@ -485,6 +485,43 @@ export function userAge(user) {
   return Math.abs(calculateAge.getUTCFullYear() - 1970);
 }
 
+<<<<<<< HEAD
+export function fullUserObject(state, newUser) {
+  const userObject = {
+    'id': newUser.id,
+    'first_name': newUser.first_name,
+    'last_name': newUser.last_name,
+    'date_of_birth': newUser.date_of_birth,
+    'about_me': newUser.about_me,
+    'address': newUser.address,
+    'gender': newUser.gender,
+    'age': userAge(newUser),
+    'starsign': newUser.starsign,
+    'vaccinated': newUser.vaccinated === true ? 'Yes' : 'No'
+  };
+    
+    for (let category of state.interests) {
+
+      if (category.user_id === newUser.id) {
+        const userInterests = allUserInterests(state, newUser);
+        userObject['interests'] = userInterests
+      }
+    }
+
+    for (let photo of state.photos) {
+      
+      if (photo.user_id === newUser.id) {
+        const userPhotos = [];
+        userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo3_url, photo.photo4_url);
+        userObject['photos'] = userPhotos;
+      }
+    }
+  
+  return userObject 
+}
+
+=======
+>>>>>>> master
 export function findUsersByInterest(state, interest) {
   const filteredUsers = []
   
