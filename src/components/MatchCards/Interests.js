@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
+import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Pressable } from "react-native";
 import InterestTag from "./InterestTag";
+import { AntDesign } from '@expo/vector-icons';
 
 
 const Interests = (props) => {
@@ -18,8 +19,14 @@ const Interests = (props) => {
     
       <SafeAreaView style={styles.card}>
         <ImageBackground source={{uri: detailedUser.photos[2]}} style={styles.image}>
-        <Button title="Next" onPress={next} style={styles.navigate}/>
-          <Button title="Back" onPress={back} style={styles.navigate}/>
+        <View style={styles.navigateContainer}>
+          <Pressable onPress={back}>
+          <AntDesign name="arrowleft" size={20} color="#d6d6d6" />
+          </Pressable>
+          <Pressable onPress={next} >
+          <AntDesign name="arrowright" size={20} color="#d6d6d6" />
+          </Pressable>
+        </View>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}</Text>
             <View style={{flexDirection: 'column'}}>
@@ -35,7 +42,7 @@ const Interests = (props) => {
 const styles = StyleSheet.create({
   
   card: {
-    width: '100%',
+    width: '90%',
     height: '85%',
     borderRadius: 10,
     backgroundColor: '#fefefe',
@@ -50,6 +57,13 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
 
     elevation: 11,
+  },
+  navigateContainer: {
+    flexDirection: 'row',
+    height: '40%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    zIndex: 1,
   },
   image: {
     width: '100%',

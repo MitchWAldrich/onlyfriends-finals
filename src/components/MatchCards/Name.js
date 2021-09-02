@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
-import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
-import { fullUserObject, userAge } from "../../helpers/selectors";
-import { StateContext } from "../../../StateProvider";
+import React from "react";
+import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Pressable } from "react-native";
+import { AntDesign } from '@expo/vector-icons';
 
 
 const Name = (props) => {
@@ -13,7 +12,11 @@ const Name = (props) => {
     
       <SafeAreaView style={styles.card}>
         <ImageBackground source={{uri: detailedUser.photos[0]}} style={styles.image}>
-          <Button title="Next" onPress={next} style={styles.navigate}/>
+          <View style={styles.navigateContainer}>
+          <Pressable onPress={next} >
+          <AntDesign name="arrowright" size={20} color="#d6d6d6" />
+          </Pressable>
+          </View>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}, {detailedUser.age}</Text>
             <View style={{flexDirection: 'column'}}>
@@ -46,9 +49,10 @@ const styles = StyleSheet.create({
 
     elevation: 11,
   },
-  navigate: {
-    alignItems: 'flex-end',
+  navigateContainer: {
+    height: '75%',
     justifyContent: 'center',
+    alignItems: 'flex-end',
   },
   image: {
     width: '100%',
