@@ -11,7 +11,8 @@ import Profile from '../../src/components/Profile'
 import ProfileEdit from '../../src/components/ProfileEdit';
 import Messages from '../../src/components/Messages.js';
 import ChatMessages from '../../src/components/ChatMessages.js';
-import Cards from '../../src/components/MatchCards/index.js';
+import SwipeCards from '../components/MatchCards/SwipeCards.js';
+import Cards from '../components/MatchCards/index.js';
 
 
 

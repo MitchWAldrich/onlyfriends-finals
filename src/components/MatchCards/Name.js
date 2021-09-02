@@ -1,22 +1,28 @@
-import React from "react";
-import { StyleSheet, View, Text, ImageBackground } from "react-native";
-
-
-import useApplicationData from "../../hooks/useApplicationData";
+import React, { useContext } from "react";
+import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "react-native";
+import { fullUserObject, userAge } from "../../helpers/selectors";
+import { StateContext } from "../../../StateProvider";
 
 
 const Name = (props) => {
+  const {next, detailedUser} = props;
 
+ console.log(detailedUser);
+  
   return (
     
-      <View style={styles.card}>
-        <ImageBackground source={require("../../../public/images/barbieProfile.jpeg")} style={styles.image}>
+      <SafeAreaView style={styles.card}>
+        <ImageBackground source={{uri: detailedUser.photos[0]}} style={styles.image}>
+          <Button title="Next" onPress={next} style={styles.navigate}/>
           <View style={styles.innerText}>
-            <Text style={styles.name}>Barbie</Text>
-            <Text style={styles.bio}>When I'm not shopping, I love helping others!</Text>
+            <Text style={styles.name}>{detailedUser.first_name}, {detailedUser.age}</Text>
+            <View style={{flexDirection: 'column'}}>
+              <Text style={styles.text}>{detailedUser.address} (4km away)</Text>
+              <Text style={styles.text}>{detailedUser.gender}</Text>
+            </View>
           </View>
         </ImageBackground>
-      </View>
+      </SafeAreaView>
     
   );
 };
@@ -24,11 +30,12 @@ const Name = (props) => {
 const styles = StyleSheet.create({
   
   card: {
-    width: '100%',
+    width: '90%',
     height: '85%',
     borderRadius: 10,
     backgroundColor: '#fefefe',
-
+    alignItems: 'center',
+    justifyContent: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -39,6 +46,10 @@ const styles = StyleSheet.create({
 
     elevation: 11,
   },
+  navigate: {
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+  },
   image: {
     width: '100%',
     height: '100%',
@@ -47,18 +58,33 @@ const styles = StyleSheet.create({
 
     justifyContent: 'flex-end',
   },
-  cardInner: {
-    padding: 10,
+  innerText: {
+    padding: 12,
   },
   name: {
     fontSize: 30,
-    color: 'teal',
+    color: 'white',
     fontWeight: 'bold',
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
+
   },
-  bio: {
+  text: {
     fontSize: 18,
     color: 'white',
     lineHeight: 25,
+    textShadowColor: '#525252',
+    textShadowOffset: {
+      width: 4,
+      height: 5,
+    },
+    textShadowOpacity: 0.36,
+    textShadowRadius: 6.68,
   },
 });
 
