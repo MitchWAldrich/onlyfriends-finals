@@ -19,7 +19,9 @@ export default function StateProvider(props) {
       axios.get('http://localhost:8001/api/users'),
       axios.get('http://localhost:8001/api/interests'),
       axios.get('http://localhost:8001/api/photos'),
-      axios.get('http://localhost:8001/api/messages')
+      axios.get('http://localhost:8001/api/messages'),
+      axios.get('http://localhost:8001/api/potential-matches'),
+      axios.get('http://localhost:8001/api/matches')
     ])
       .then((all) => {
         const [users, interests, photos] = all;
