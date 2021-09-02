@@ -68,7 +68,7 @@ const Cards = function()  {
       {mode === INTERESTS && <Interests next={() => next(EXTRAS)} back={() => back()} detailedUser={displayedUser}/>}
       {mode === EXTRAS && <Extras back={() => back()} detailedUser={displayedUser} next={() => next(MATCHED)} />}
       {mode === MATCHED && <Matched home={() => goHome()} detailedUser={displayedUser} user={fullUser}/>}
-      <MatchButtons newUser={() => incrementUser(index)}/>
+      <MatchButtons newUser={() => incrementUser(index)} user={user} detailedUser={displayedUser} />
     </SafeAreaView>
   )
 };
