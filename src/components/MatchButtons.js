@@ -1,12 +1,18 @@
 import React from "react";
 import { View, StyleSheet, Pressable } from "react-native";
+import potentialMatches from "../hooks/potentialMatches";
 
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
 
 const MatchButtons = (props) => {
-  const { newUser } = props;
+  const { newUser, user, detailedUser } = props;
+
+  const like = () => {
+    potentialMatches(user.id, detailedUser.id);
+    newUser();
+  }
 
   return (
     <View style={styles.buttonContainer}>
@@ -19,7 +25,7 @@ const MatchButtons = (props) => {
       <FontAwesome name="star" size={24} color="#3AB4CC" />  
       </Pressable>
 
-      <Pressable style={styles.button} onPress={newUser}>
+      <Pressable style={styles.button} onPress={() => like()}>
       <FontAwesome name="heart" size={24} color="#4FCC94" />  
       </Pressable>
     

@@ -3,7 +3,6 @@ import axios from 'axios';
 import { StyleSheet, View, Text, ImageBackground, Image, ActivityIndicator } from "react-native";
 import { useState, useEffect } from 'react';
 import ForYouList from './ForYouList';
-import useApplicationData from '../hooks/useApplicationData.js';
 import findUsersByInterest from '../helpers/selectors.js';
 
 
