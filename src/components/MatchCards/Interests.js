@@ -35,7 +35,7 @@ const Interests = (props) => {
 const styles = StyleSheet.create({
   
   card: {
-    width: '100%',
+    width: '90%',
     height: '85%',
     borderRadius: 10,
     backgroundColor: '#fefefe',

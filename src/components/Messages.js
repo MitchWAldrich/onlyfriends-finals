@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { StateProvider } from '../../StateProvider.js' 
+import { StateContext } from '../../StateProvider.js' 
 import { useNavigation } from '@react-navigation/native';
 
 

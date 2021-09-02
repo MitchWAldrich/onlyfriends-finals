@@ -3,12 +3,14 @@ import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Button } from "r
 
 
 const Extras = (props) => {
-  const { back, detailedUser } = props;
+  const { back, detailedUser, next } = props;
 
   return (
     
       <SafeAreaView style={styles.card}>
         <ImageBackground source={{uri: detailedUser.photos[3]}} style={styles.image}>
+          {/* don't forget to remove this */}
+        <Button title="Next" onPress={next} style={styles.navigate}/>
         <Button title="Back" onPress={back} style={styles.navigate}/>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}</Text>
@@ -26,7 +28,7 @@ const Extras = (props) => {
 const styles = StyleSheet.create({
   
   card: {
-    width: '100%',
+    width: '90%',
     height: '85%',
     borderRadius: 10,
     backgroundColor: '#fefefe',
