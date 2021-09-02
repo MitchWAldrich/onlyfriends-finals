@@ -194,6 +194,108 @@ const state = {
       "photo3_url": "https://i.imgur.com/oMTz2Ug.jpg",
       "photo4_url": "https://i.imgur.com/wvwQRr4.jpg"
       }
+    ],
+  potential_matches:
+  [
+    {
+    "id": 1,
+    "user1_id": 1,
+    "user2_id": 2,
+    "best_friend": false
+    },
+    {
+    "id": 2,
+    "user1_id": 1,
+    "user2_id": 3,
+    "best_friend": false
+    },
+    {
+    "id": 3,
+    "user1_id": 1,
+    "user2_id": 4,
+    "best_friend": false
+    },
+    {
+    "id": 4,
+    "user1_id": 1,
+    "user2_id": 5,
+    "best_friend": false
+    },
+    {
+    "id": 5,
+    "user1_id": 4,
+    "user2_id": 5,
+    "best_friend": true
+    },
+    {
+    "id": 6,
+    "user1_id": 2,
+    "user2_id": 4,
+    "best_friend": false
+    },
+    {
+    "id": 7,
+    "user1_id": 2,
+    "user2_id": 1,
+    "best_friend": true
+    },
+    {
+    "id": 8,
+    "user1_id": 3,
+    "user2_id": 1,
+    "best_friend": false
+    },
+    {
+    "id": 9,
+    "user1_id": 4,
+    "user2_id": 1,
+    "best_friend": true
+    },
+    {
+    "id": 10,
+    "user1_id": 5,
+    "user2_id": 4,
+    "best_friend": true
+    }
+  ],
+  matches:
+  [
+    {
+    id: 1,
+    user1_id: 1,
+    user2_id: 2,
+    best_friend: false
+    },
+    {
+    id: 2,
+    user1_id: 1,
+    user2_id: 3,
+    best_friend: false
+    },
+    {
+    id: 3,
+    user1_id: 1,
+    user2_id: 4,
+    best_friend: false
+    },
+    {
+    id: 4,
+    user1_id: 1,
+    user2_id: 5,
+    best_friend: false
+    },
+    {
+    id: 5,
+    user1_id: 4,
+    user2_id: 5,
+    best_friend: true
+    },
+    {
+    id: 6,
+    user1_id: 2,
+    user2_id: 4,
+    best_friend: false
+    }
     ]
 }; 
 
@@ -206,10 +308,11 @@ const state = {
 //   'I think my other friend and I are watching the Raps tonight. Want to come with us?',
 // },
 function findMatchesByUser(state, user) {
+  
 
 }
 findMatchesByUser(state, state,)
-
+s
 function inboxObject(state, user) {
 //find all matches
 
@@ -226,6 +329,53 @@ function inboxObject(state, user) {
 }
 
  function getUserByEmail(state, email) {
+      
+
+export function matchUsers(state, user1, user2) {
+
+  // filter through potential_matches for user1_id
+    //Object.entries
+  
+  // filter through newArray for user2_id
+
+  //if exists = match
+
+  const user1Matches = [];
+
+  for (const potentialMatch of state.potential_matches) {
+    if (potentialMatch.user1_id === user1.id) {
+      user1Matches.push(potentialMatch)
+    }
+  }
+
+  const user2Matches = [];
+  for (const potentialMatch of state.potential_matches) {
+    if (potentialMatch.user1_id === user2.id) {
+      user2Matches.push(potentialMatch)
+    }
+  }
+
+  const match = [];
+  for (const match1 of user1Matches) {
+    
+    for (const match2 of user2Matches) {
+      if (match1.user1_id === match2.user2_id && match2.user1_id === match1.user2_id) {
+        match.push(match1, match2)
+      }
+    }
+  }
+  
+  if (match.length === 0) {
+    return null;
+  } else {
+
+  return match
+  }
+}
+
+
+
+export function getUserByEmail(state, email) {
   for (const user of state.users) {
     if (email === user.email) {
       return user
@@ -233,11 +383,12 @@ function inboxObject(state, user) {
   }
 }
 
- function allUserInterests(state, user) {
+
+export function allUserInterests(state, user) {
 
   for (const category of state.interests) {
 
-    if (category.user_id === user.id) {
+    if (category.user1_id === user.id) {
       const interestsArray = Object.entries((category));
 
       const trueInterests = interestsArray.filter(([key, value]) => value === true)
@@ -249,14 +400,14 @@ function inboxObject(state, user) {
   }
 }
 
- function userAge(user) {
+export function userAge(user) {
   const ageDifferenceMs = Date.now() - Date.parse(user.date_of_birth)
   const calculateAge = new Date(ageDifferenceMs);
 
   return Math.abs(calculateAge.getUTCFullYear() - 1970);
 }
 
- function fullUserObject(state, newUser) {
+export function fullUserObject(state, newUser) {
   const userObject = {
     'id': newUser.id,
     'first_name': newUser.first_name,
@@ -290,7 +441,7 @@ function inboxObject(state, user) {
   return userObject 
 }
 
- function findUsersByInterest(state, interest) {
+export function findUsersByInterest(state, interest) {
   const filteredUsers = []
   
   for (let user of state.users) {
@@ -306,7 +457,7 @@ function inboxObject(state, user) {
   return filteredUsers;
 }
 
- function findPhotosByUser(state, user) {
+export function findPhotosByUser(state, user) {
   const photos = []
 
   for (let obj of state.users) {
@@ -323,7 +474,7 @@ function inboxObject(state, user) {
 }
 
 
- function findZodiacSign(day, month) {
+export function findZodiacSign(day, month) {
   const zodiacSign = "";
        
     // checks month and date within the

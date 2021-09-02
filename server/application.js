@@ -14,6 +14,7 @@ const users = require("./routes/users");
 const photos = require("./routes/photos");
 const interests = require("./routes/interests");
 const matches = require("./routes/matches");
+const potentialMatches = require("./routes/potential_matches");
 const messages = require("./routes/messages");
 
 function read(file) {
@@ -43,6 +44,7 @@ module.exports = function application(
   app.use("/api", photos(db));
   app.use("/api", interests(db));
   app.use("/api", matches(db));
+  app.use("/api", potentialMatches(db));
   app.use("/api", messages(db));
 
 
