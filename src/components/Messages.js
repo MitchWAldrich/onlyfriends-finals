@@ -1,64 +1,31 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native';
-import { StateContext } from '../../StateProvider.js' 
+import { StateContext } from '../../StateProvider.js';
 import { useNavigation } from '@react-navigation/native';
+import { inboxObjects } from '../../src/helpers/selectors.js';
 
-
-const Inbox = [
-  {
-    id: '2',
-    userName: 'Yuti R',
-    userImg: require("../../public/images/user2.jpeg"),
-    messageTime: '2 hours ago',
-    messageText:
-    'I think my other friend and I are watching the Raps tonight. Want to come with us?',
-  },
-  {
-    id: '3',
-    userName: 'Eva B',
-    userImg: require("../../public/images/user3.jpeg"),
-    messageTime: '1 hours ago',
-    messageText:
-    'I might visit Toronto next week. We can go for a hike!',
-  },
-  {
-    id: '4',
-    userName: 'Adrian W',
-    userImg: require("../../public/images/user4.jpeg"),
-    messageTime: '1 day ago',
-    messageText:
-    'Let me know when you want to link up and take some pictures xx',
-  },
-  {
-    id: '5',
-    userName: 'Alexa J',
-    userImg: require("../../public/images/user5.jpeg"),
-    messageTime: '2 days ago',
-    messageText:
-    'Just finished reading the book you told me about. My mind is blown.',
-  },
-];
 
 const Messages = () => {
-
+  
+  const navigation = useNavigation();
+  
   const { state } = useContext(StateContext);
+  const { user } = state;
+  console.log('state', state)
+  const inbox = inboxObjects(state, user);
 
-  const { users, photos, messages } = state; 
-  
-  const navigation = useNavigation(); 
-  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.messagesContainer}>
-        <FlatList 
-          data={Inbox}
+        <FlatList
+          data={inbox}
           keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <TouchableOpacity onPress={() => navigation.navigate('Chat', {userName: item.userName})}>
-              <View styles={styles.userCard}> 
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => navigation.navigate('Chat', { userName: item.userName })}>
+              <View styles={styles.userCard}>
                 <View styles={styles.userInfoCard}>
                   <View styles={styles.userImgWrapper}>
-                    <Image source={item.userImg} style={styles.userAvatar}/>
+                    <Image source={item.userImg} style={styles.userAvatar} />
                   </View>
                   <View styles={styles.textSection}>
                     <View styles={styles.userInfoText}>
@@ -70,9 +37,9 @@ const Messages = () => {
                 </View>
               </View>
             </TouchableOpacity>
-            )}
-          />
-      </View> 
+          )}
+        />
+      </View>
     </SafeAreaView>
   )
 }
@@ -83,7 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     width: '100%',
     paddingTop: 10,
-    paddingLeft:10
+    paddingLeft: 10
   },
   messagesContainer: {
     flex: 1,
@@ -100,7 +67,7 @@ const styles = StyleSheet.create({
   },
   userImgWrapper: {
     paddingTop: 15,
-    paddingBottom:15
+    paddingBottom: 15
   },
   userAvatar: {
     width: 50,
