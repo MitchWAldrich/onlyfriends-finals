@@ -11,7 +11,7 @@ const Messages = () => {
   
   const { state } = useContext(StateContext);
   const { user } = state;
-  console.log('state', state)
+  // console.log('state', state)
   const inbox = inboxObjects(state, user);
 
   return (
@@ -39,6 +39,7 @@ const Messages = () => {
             </TouchableOpacity>
           )}
         />
+
       </View>
     </SafeAreaView>
   )
