@@ -1,12 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 import LoginForm from '../../src/components/LoginForm';
 
 
 export default function Login() {
-  
+  const navigation = useNavigation(); 
+
   return (
     
       <View style={styles.container}>
@@ -16,7 +19,7 @@ export default function Login() {
           Not a friend yet? 
           <Button 
           title="Sign up"
-          onPress={() => Alert.alert('Reroute to sign up')} />
+          onPress={() => navigation.navigate('Signup')} />
         </Text>
       </View>
     

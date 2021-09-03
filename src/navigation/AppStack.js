@@ -13,6 +13,7 @@ import Messages from '../../src/components/Messages.js';
 import ChatMessages from '../../src/components/ChatMessages.js';
 import SwipeCards from '../components/MatchCards/SwipeCards.js';
 import Cards from '../components/MatchCards/index.js';
+import SignUp from './Signup';
 
 
 
@@ -155,6 +156,7 @@ const Stack = createStackNavigator();
         // Auth screens
         <Stack.Group screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Signup" component={SignUp}/>
         </Stack.Group>
       )}
       {/* <Stack.Screen name="MyTabs" component={MyTabs}/> */}
