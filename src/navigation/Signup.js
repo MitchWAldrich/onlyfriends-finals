@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { SafeAreaView, View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -8,7 +8,6 @@ export default function SignUp() {
   const [state, setState] = useState({
     first_name: '',
     last_name: '',
-    date_of_birth: '',
     email: '',
     password: ''
   })
