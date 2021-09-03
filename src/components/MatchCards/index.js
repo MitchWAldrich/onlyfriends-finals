@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Button } from 'react-native';
 import { StateContext } from '../../../StateProvider';
-import { fullUserObject } from '../../helpers/selectors';
+import { fullUserObject, matchedIds, unmatchedUsers } from '../../helpers/selectors';
 import MatchButtons from '../MatchButtons';
 import useCardMode from '../../hooks/useCardMode';
 import potentialMatches from '../../hooks/potentialMatches';
@@ -32,11 +32,13 @@ const Cards = function()  {
   const users = state.users;
   const user = state.user;
 
+  const unwantedUserIds = matchedIds(state, user);
+  
+  //everyone who is not already matched or the logged in user
+  const filteredUsers = unmatchedUsers(unwantedUserIds, users);
+  
   //full object for logged in user
   const fullUser = fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, user);
-  
-  //everyone who is not the logged in user
-  const filteredUsers = users.filter(person => person.id !== user.id);
   
   //users with interests and photos
   const detailedUsers = filteredUsers.map(person => fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, person))

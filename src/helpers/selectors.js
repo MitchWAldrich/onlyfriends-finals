@@ -570,3 +570,36 @@ export function findZodiacSign(day, month) {
            
     return zodiacSign;
 }
+
+export function matchedIds(state, user) {
+  const userMatches = [];
+  const matchedUserIds = [];
+
+  for (const match of state.matches) {
+    if (match.user1_id === user.id || match.user2_id === user.id) {
+      userMatches.push(match)
+    }
+  }
+  console.log(userMatches)
+  for (const userMatch of userMatches) {
+    if (!matchedUserIds.includes(userMatch.user1_id)) {
+      matchedUserIds.push(userMatch.user1_id);
+    }
+    if (!matchedUserIds.includes(userMatch.user2_id)) {
+      matchedUserIds.push(userMatch.user2_id);
+    }
+  };
+
+  return matchedUserIds;
+}
+
+export function unmatchedUsers(unwantedIds, users) {
+  const wantedUsers = [];
+
+  for (const user of users) {
+    if (!unwantedIds.includes(user.id)) {
+      wantedUsers.push(user)
+    }
+  }
+  return wantedUsers;
+}
