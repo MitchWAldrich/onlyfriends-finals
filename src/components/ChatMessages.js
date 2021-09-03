@@ -1,119 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { TextInput, StyleSheet, Text, View, Button } from 'react-native';
+import { StateContext } from '../../StateProvider.js';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { fullConversation } from '../../src/helpers/selectors.js';
 import io from "socket.io-client";
-import axios from "axios";
 
-const ChatMessages = () => {
-  const [message, setMessage] = useState('');
-  //Initally all messages with same match ID
-  const [allMessages, setAllMessages] = useState([]);
 
-  const socket = io("http://127.0.0.1:3000");
+const ChatMessages = (props) => {
+  const { state, sendMessage, socket } = useContext(StateContext);
+  const { user, users } = state;
+  const [messages, setMessages] = useState([]);
+  const { id } = props
+  // console.log('STATE: ', state)
+  const otherUser = users.find(user => user.id === id);
 
-  io.on("connection", (socket) => {
-    console.log("User connected!");
+  const conversation = fullConversation(state, user, otherUser);
 
-    // When the logged in user opens their chat with a user
-    socket.on("join", () => {
+  console.log('CONVERSATION: ', conversation);
 
-    })
+  const onSend = (msg) => {
+    console.log("PROPS ID:", id)
+    console.log("msgONE:", msg)
 
-    socket.on("connect_error", (error) => {
-      console.log("Error:", error)
-    })
-  
-    socket.on("submitMessage", (msg) => {
-      //match_id aka chatroom_id
-      //logged_in user aka sender_id
-      // io.to(--put chat id here?).emit("message", { user: receiver_id, text: message});
-    })
-    
-    // appendMessage(msg)
+    const finalMessage = {...msg[0], receiverID: id, matchID: conversation[0].id}
+    console.log("finalMessage: ", finalMessage)
+    console.log("MATCHID: ", conversation[0].id)
+    sendMessage(finalMessage)
+  };
 
-    // When logged in user exits the chat with a user
-    socket.on("disconnect", () => {
-    })
-  })
+  useEffect(() => {
+      socket.on("SEND_MESSAGE", msg => {
+        console.log("Message received!")
+        console.log("msgGRAB:", msg)
+        setMessages(prev => ([...prev, msg]))
+      })
+      
+      return () => {
+        socket.off("SEND_MESSAGE")
+      }
+  }, [])
+
+  const renderBubble = (props) => {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          left: {
+            backgroundColor: '#d3d3d3',
+          },
+        }}
+      />
+    )
+  }
   
   return (
     <View style={styles.container}>
-      <Text>Test</Text>
+      {/* <View>{messageHistory}</View> */}
+      <GiftedChat
+        messages={messages}
+        onSend={onSend}
+        user={{_id: user.id, name: user.first_name}}
+        renderBubble={renderBubble}
+      />
     </View>
   );
 }
-
-// class ChatMessages extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       chatMessage: "",
-//       allChatMessages: []
-//     };
-//   }
-
-//   componentDidMount() {
-//     console.log("Component mounted.")
-//     this.socket = io("http://127.0.0.1:3000", {transports: ['websocket']});
-//     // 127.0.0.1 -- Change it to your own IP address, can be found through ifconfig for MacOS, ipconfig for Windows
-
-//     this.socket.on("connect_error", (error) => {
-//       console.log("Error:", error)
-//     })
-
-//     this.socket.on("chat message", msg => {
-//       // console.log("MSG:", msg)
-//       this.setState({ allChatMessages: [...this.state.allChatMessages, msg] });
-//     });
-
-//     this.socket.connect()
-//   }
-
-//   submitChatMessage() {
-//     console.log("submitChatMessage", this.socket.connected)
-//     this.socket.emit("chat message", this.state.chatMessage);
-//     this.setState({ chatMessage: "" });
-    
-//     // let messageObj = { matchID, senderID, receiverID, message, sentAt };
-//     let messageObj = { matchID: 1, senderID: 1, receiverID: 2, message: "hi hello", sentAt: "2021-08-19T14:23:54.000Z" };
-
-//       axios.post('http://localhost:8001/api/messages', messageObj).then(response => {
-//         this.setState({ allChatMessages: [...this.state.allChatMessages, messageObj] })
-//       })
-//       .catch((err) => {
-//         console.log("Error on axios post: ", err)
-//       })
-//     }
-//   }
-
-//   render() {
-//     const allChatMessages = this.state.allChatMessages.map(chatMessage => (
-//       <Text key={chatMessage}>{chatMessage}</Text>
-//     ));
-   
-//     return (
-//       <View style={styles.container}>
-//         <View style={styles.chatBubble}>
-//           <View style={styles.chatText}>{allChatMessages}</View>
-//         </View>
-//         <View style={styles.messageContainer}>
-//           <TextInput
-//             style={styles.textArea}
-//             autoCorrect={true}
-//             placeholder="Say Something..."
-//             value={this.state.chatMessage}
-//             onSubmitEditing={() => this.submitChatMessage()}
-//             onChangeText={chatMessage => {
-//               this.setState({ chatMessage });
-//             }}
-//           />
-//           <Button title="send" onPress={()=>{
-//             this.submitChatMessage('Button',"button");
-//           }}/>
-//         </View>
-//       </View>
-//     );
-//   }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -145,4 +96,4 @@ const styles = StyleSheet.create({
   }
 });
 
-// export default ChatMessages;
+export default ChatMessages;

@@ -5,22 +5,35 @@ const io = require("socket.io")(server);
 const PORT = 3000;
 const router = require("./router");
 const users = {};
+const axios = require('axios');
 
 io.on("connection", socket => {
   console.log("A user has connected to the server!");
-  // broadcast if user is online!
+
   // socket.on("user joined", name => {
   //   users[socket.id] = name // socket.id could be match_id
   //   socket.broadcast.emit("user connected", name)
   // })
-  socket.on("chat message", msg => {
-    console.log(msg);
-    io.emit("chat message", msg);
+
+  //ChatMessages
+  socket.on("SEND_MESSAGE", msg => {
+    console.log("SEND_MESSAGE", msg);
+
+    io.emit("SEND_MESSAGE", msg);
+
+    axios.post('http://localhost:8001/api/messages', msg)
+    .then(response => {
+      setMessages({ messages: [state.messages, msg] })
+    })
+    .catch((err) => {
+      console.log("Error on axios post: ", err)
+    })
   });
 
-  socket.on("disconnect", () => {
-    // socket.broadcast.emit("user")
+  socket.on("initial", msg => {
+    console.log("INIT:", msg);
   })
+
 });
 
 app.use(router);

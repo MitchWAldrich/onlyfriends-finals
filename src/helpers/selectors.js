@@ -505,7 +505,8 @@ export function inboxObjects(state, user) {
       'userName': `${match.first_name} ${match.last_name.charAt(0)}`,
       'userImg': match.photos[0],
       'messageTime': allConversationMessages[allConversationMessages.length - 1].sent_at,
-      'messageText': allConversationMessages[allConversationMessages.length - 1].message
+      'messageText': allConversationMessages[allConversationMessages.length - 1].message,
+      'matchID': matchID
     }
 
     inboxObject.push(conversation)

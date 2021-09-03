@@ -13,6 +13,7 @@ const Messages = () => {
   const { user } = state;
   // console.log('state', state)
   const inbox = inboxObjects(state, user);
+  console.log("INBOX:", inbox)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -21,7 +22,7 @@ const Messages = () => {
           data={inbox}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('Chat', { userName: item.userName })}>
+            <TouchableOpacity onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
               <View styles={styles.userCard}>
                 <View styles={styles.userInfoCard}>
                   <View styles={styles.userImgWrapper}>
