@@ -6,8 +6,6 @@ import { GiftedChat } from 'react-native-gifted-chat';
 const ChatMessagesPartTwo = () => {
   const [messages, setMessages] = useState([]);
 
-  const { state } = useContext(StateContext);
-  const { user } = state;
   // console.log('state', state)
 
   useEffect(() => {
