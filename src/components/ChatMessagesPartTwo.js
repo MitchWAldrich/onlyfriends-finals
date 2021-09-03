@@ -3,8 +3,12 @@ import { render } from 'react-dom';
 import { View, ScrollView, Text, Button, StyleSheet } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 
-const ChatMessages = () => {
+const ChatMessagesPartTwo = () => {
   const [messages, setMessages] = useState([]);
+
+  const { state } = useContext(StateContext);
+  const { user } = state;
+  // console.log('state', state)
 
   useEffect(() => {
     setMessages([
@@ -16,18 +20,8 @@ const ChatMessages = () => {
           _id: 1,
           name: 'React Native',
           avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-      {
-        _id: 1,
-        text: 'Hello Kleir',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
+        }
+      }
     ])
   }, [])
 
@@ -47,4 +41,4 @@ const ChatMessages = () => {
   )
 };
 
-export default ChatMessages;
+export default ChatMessagesPartTwo;

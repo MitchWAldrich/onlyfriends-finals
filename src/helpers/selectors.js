@@ -1,5 +1,3 @@
-import { vaccinatedDisplay } from "./vaccinatedDisplay";
-
 const state = {
   users: [
   {
@@ -293,73 +291,120 @@ const state = {
     },
     {
     "id": 2,
-    "match_id": 2,
-    "sender_id": 3,
+    "match_id": 1,
+    "sender_id": 2,
     "receiver_id": 1,
     "message": "I might visit Toronto next week. We can go for a hike!",
     "sent_at": "2021-08-19T12:30:01.000Z"
   },
   {
     "id": 3,
-    "match_id": 3,
-    "sender_id": 4,
-    "receiver_id": 1,
+    "match_id": 1,
+    "sender_id": 1,
+    "receiver_id": 2,
     "message": "Let me know when you want to link up and take some pictures xx",
     "sent_at": "2021-08-23T03:23:54.000Z"
   }
 ]
 }; 
 
+
 export function allUserInterests(state, user) {
-
+  
  for (const category of state.interests) {
-
+   
    if (category.user_id === user.id) {
      const interestsArray = Object.entries((category));
-
+     
      const trueInterests = interestsArray.filter(([key, value]) => value === true)
 
      const filteredInterests = trueInterests.map( arr => arr[0])
-
+     
      return filteredInterests
    }
- }
+  }
 }
 
 export function fullUserObject(state, newUser) {
- const userObject = {
-   'id': newUser.id,
-   'first_name': newUser.first_name,
-   'last_name': newUser.last_name,
-   'date_of_birth': newUser.date_of_birth,
-   'about_me': newUser.about_me,
-   'address': newUser.address,
-   'gender': newUser.gender,
-   'age': userAge(newUser),
-   'starsign': newUser.starsign,
-   'vaccinated': newUser.vaccinated
- };
-   
-   for (let category of state.interests) {
-
-     if (category.user_id === newUser.id) {
-       const userInterests = allUserInterests(state, newUser);
-       userObject['interests'] = userInterests
-     }
-   }
-
-   for (let photo of state.photos) {
-     
-     if (photo.user_id === newUser.id) {
-       const userPhotos = [];
-       userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo3_url, photo.photo4_url);
-       userObject['photos'] = userPhotos;
-     }
-   }
-
- 
- return userObject 
+  const userObject = {
+    'id': newUser.id,
+    'first_name': newUser.first_name,
+    'last_name': newUser.last_name,
+    'date_of_birth': newUser.date_of_birth,
+    'about_me': newUser.about_me,
+    'address': newUser.address,
+    'gender': newUser.gender,
+    'age': userAge(newUser),
+    'starsign': newUser.starsign,
+    'vaccinated': newUser.vaccinated
+  };
+  
+  for (let category of state.interests) {
+    
+    if (category.user_id === newUser.id) {
+      const userInterests = allUserInterests(state, newUser);
+      userObject['interests'] = userInterests
+    }
+  }
+  
+  for (let photo of state.photos) {
+    
+    if (photo.user_id === newUser.id) {
+      const userPhotos = [];
+      userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo3_url, photo.photo4_url);
+      userObject['photos'] = userPhotos;
+    }
+  }
+  
+  
+  return userObject 
 }
+
+export function fullConversation(state, signedInUser, otherUser) {
+  
+  let matchID;
+  
+  for (const conversationID of state.matches) {
+    if ((conversationID.user1_id === signedInUser.id && conversationID.user2_id === otherUser.id) || (conversationID.user1_id === otherUser.id && conversationID.user2_id === signedInUser.id)) {
+      matchID = conversationID.id;
+    }
+  }
+  
+  const allMessagesForMatch = [];
+  for (const message of state.messages) {
+    if (message.match_id === matchID) {
+      allMessagesForMatch.push(message)
+    }
+  }
+  
+  const allConversationMessages = allMessagesForMatch.map( message => {
+    const receiverObject = state.users.find(user => user.id === message.receiver_id)
+    const fullReceiverObject = fullUserObject(state, receiverObject);
+    
+    return {
+      id: message.match_id,
+      message: message.message,
+      sent_at: message.sent_at,
+      user: {
+        id: message.receiver_id,
+        photo: fullReceiverObject.photos[0]
+      }
+    }
+  })
+  console.log('allConversationMessages', allConversationMessages)
+  return allConversationMessages
+}
+// fullConversation(state, state.users[0], state.users[1])
+
+// {
+//   _id: 2, == match_id
+//   text: 'Hello developer',== message
+//   createdAt: new Date(),==sent_at
+//   user: { 
+//     _id: 1, ==receiver_id
+//     avatar: 'https://placeimg.com/140/140/any', photo pic
+//   },
+// },
 
 export function findMatchesByUser(state, user) {
   const userMatchIDs = [];

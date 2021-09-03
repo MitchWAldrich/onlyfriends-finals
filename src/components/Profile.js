@@ -1,8 +1,8 @@
 import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, TextInput, CheckBox, TouchableHighlight, TouchableOpacity, Button, ActivityIndicator } from "react-native";
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Chip } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
 import { fullUserObject, userAge, getUserByEmail } from '../helpers/selectors.js';
