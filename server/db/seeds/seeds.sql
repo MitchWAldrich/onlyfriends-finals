@@ -1,10 +1,10 @@
 INSERT INTO users (first_name, last_name, email, password, date_of_birth, address, gender, about_me, starsign, vaccinated)
 VALUES 
-('Jordan', 'Peterson', 'jpete@email.com', 'password', '1992-02-15', 'Toronto', 'Non-Binary', 'I love going out and making new friends!', 'Aquarius', true),
-('Yuti', 'Reswick', 'itsyuti@email.com', 'password', '1990-05-09', 'Brampton', 'Male', 'I live for the Raptors. Hit me up if you wanna shoot some hoops', 'Taurus', true),
-('Eva', 'Bell', 'evab@email.com', 'password', '1998-10-23', 'Vancouver', 'Female', 'I love to hike and go on adventures!', 'Scorpio', true),
-('Adrian', 'Williams', 'awills@email.com', 'password', '1994-03-19', 'Toronto', 'Male', 'Photography is my passion. Always down for a collab', 'Pisces', false),
-('Alexa', 'Jones', 'alexajones@email.com', 'password', '1986-09-12', 'Scarborough', 'Undisclosed', 'Always looking for book recommendations! Let me know what you are reading', 'Virgo', true);
+('Jordan', 'Peterson', 'jpete@email.com', 'password', '1992-02-15', 'Toronto', 'Non-Binary', 'I love going out and making new friends!', 'Aquarius', 'Yes'),
+('Yuti', 'Reswick', 'itsyuti@email.com', 'password', '1990-05-09', 'Brampton', 'Male', 'I live for the Raptors. Hit me up if you wanna shoot some hoops', 'Taurus', 'Yes'),
+('Eva', 'Bell', 'evab@email.com', 'password', '1998-10-23', 'Vancouver', 'Female', 'I love to hike and go on adventures!', 'Scorpio', 'Yes'),
+('Adrian', 'Williams', 'awills@email.com', 'password', '1994-03-19', 'Toronto', 'Male', 'Photography is my passion. Always down for a collab', 'Pisces', 'No'),
+('Alexa', 'Jones', 'alexajones@email.com', 'password', '1986-09-12', 'Scarborough', 'Undisclosed', 'Always looking for book recommendations! Let me know what you are reading', 'Virgo', 'Yes');
 
 INSERT INTO photos (user_id, photo1_url, photo2_url, photo3_url, photo4_url)
 VALUES 

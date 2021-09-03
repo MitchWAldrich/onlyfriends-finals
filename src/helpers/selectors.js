@@ -1,3 +1,5 @@
+import { vaccinatedDisplay } from "./vaccinatedDisplay";
+
 const state = {
   users: [
   {
@@ -335,7 +337,7 @@ export function fullUserObject(state, newUser) {
    'gender': newUser.gender,
    'age': userAge(newUser),
    'starsign': newUser.starsign,
-   'vaccinated': newUser.vaccinated === true ? 'Yes' : 'No'
+   'vaccinated': newUser.vaccinated
  };
    
    for (let category of state.interests) {
@@ -354,6 +356,7 @@ export function fullUserObject(state, newUser) {
        userObject['photos'] = userPhotos;
      }
    }
+
  
  return userObject 
 }
@@ -392,37 +395,33 @@ export function findMatchesByUser(state, user) {
 
 export function matchedUsers(state, user1, user2) {
   
-  // filter through potential_matches for user1_id
-  //Object.entries
-  
-  // filter through newArray for user2_id
-  
-  //if exists = match
-  
   const user1Matches = [];
   
   for (const potentialMatch of state.potential_matches) {
-    if (potentialMatch.user1_id === user1.id) {
-      user1Matches.push(potentialMatch)
+    if (potentialMatch.user1_id === user1.id && potentialMatch.user2_id === user2.id) {
+      return potentialMatch
     }
-  }
+
+  //     user1Matches.push(potentialMatch)
+  //   }
+  // }
   
-  const user2Matches = [];
-  for (const potentialMatch of state.potential_matches) {
-    if (potentialMatch.user1_id === user2.id) {
-      user2Matches.push(potentialMatch)
-    }
-  }
+  // const user2Matches = [];
+  // for (const potentialMatch of state.potential_matches) {
+  //   if (potentialMatch.user1_id === user2.id) {
+  //     user2Matches.push(potentialMatch)
+  //   }
+  // }
   
-  const match = [];
-  for (const match1 of user1Matches) {
+  // const match = [];
+  // for (const match1 of user1Matches) {
     
-    for (const match2 of user2Matches) {
-      if (match1.user1_id === match2.user2_id && match2.user1_id === match1.user2_id) {
-        match.push(match1, match2)
-      }
-    }
-  }
+  //   for (const match2 of user2Matches) {
+  //     if (match1.user1_id === match2.user2_id && match2.user1_id === match1.user2_id) {
+  //       match.push(match1, match2)
+  //     }
+  //   }
+  // }
   
   if (match.length === 0) {
     return null;
@@ -430,7 +429,7 @@ export function matchedUsers(state, user1, user2) {
     
     return match
   }
-}
+}}
 
 
 export function inboxObjects(state, user) {
@@ -439,12 +438,13 @@ export function inboxObjects(state, user) {
   const userMatches = findMatchesByUser(state, user);
 
   const allConversationMessages = [];
+  console.log("UserMatches: ", userMatches);
 
   let matchID;
   for (const match of userMatches) {
 
     for (const conversationID of state.matches) {
-      if (conversationID.user1_id === user.id && conversationID.user2_id === match.id) {
+      if ((conversationID.user1_id === user.id && conversationID.user2_id === match.id) || (conversationID.user1_id === match.id && conversationID.user2_id === user.id)) {
         matchID = conversationID.id;
       }
     }
@@ -515,6 +515,7 @@ export function findPhotosByUser(state, user) {
   }
   return photos
 }
+
 
 export function findZodiacSign(day, month) {
   const zodiacSign = "";

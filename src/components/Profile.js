@@ -70,7 +70,7 @@ const navigation = useNavigation();
         </View>
 
         <View style={styles.textArea}>
-          <Text>Vaccinated: {vaccinatedDisplay(detailedUser)}</Text>
+          <Text>Vaccinated: {detailedUser.vaccinated}</Text>
         </View>
 
         <View style={styles.textArea}>
