@@ -3,19 +3,15 @@ import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Pressable } from
 import { AntDesign } from '@expo/vector-icons';
 
 const Extras = (props) => {
-  const { back, detailedUser, next } = props;
+  const { back, detailedUser } = props;
 
   return (
     
       <SafeAreaView style={styles.card}>
         <ImageBackground source={{uri: detailedUser.photos[3]}} style={styles.image}>
-          {/* don't forget to remove this */}
           <View style={styles.navigateContainer}>
           <Pressable onPress={back}>
           <AntDesign name="arrowleft" size={20} color="#d6d6d6" />
-          </Pressable>
-          <Pressable onPress={next} >
-          <AntDesign name="arrowright" size={20} color="#d6d6d6" />
           </Pressable>
         </View>
           <View style={styles.innerText}>

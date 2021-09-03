@@ -5,6 +5,8 @@ import { StateContext } from '../../../StateProvider';
 import { fullUserObject } from '../../helpers/selectors';
 import MatchButtons from '../MatchButtons';
 import useCardMode from '../../hooks/useCardMode';
+import potentialMatches from '../../hooks/potentialMatches';
+import { matchedUsers } from '../../hooks/matchedUsers';
 
 //All of the different modes
 import Name from './Name';
@@ -32,10 +34,9 @@ const Cards = function()  {
 
   //full object for logged in user
   const fullUser = fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, user);
-  console.log('logged in user', fullUser)
+  
   //everyone who is not the logged in user
   const filteredUsers = users.filter(person => person.id !== user.id);
-  console.log('fUs', filteredUsers)
   
   //users with interests and photos
   const detailedUsers = filteredUsers.map(person => fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, person))
@@ -60,15 +61,30 @@ const Cards = function()  {
     next(NAME)
     return
   }
+  console.log('potential_matches', state.potentialMatches)
+  
+  const like = () => {
+    const match = state.potentialMatches.find(obj => obj.user1_id === displayedUser.id && obj.user2_id === user.id)
+
+    if (match) {
+      matchedUsers(state, user, displayedUser) 
+      setMode(MATCHED)
+      return
+    } else {
+      potentialMatches(user.id, displayedUser.id); 
+      incrementUser(index);
+      return
+    }
+  }
   
   return (
     <SafeAreaView style={styles.container}>
       {mode === NAME && <Name next={() => next(BIO)} detailedUser={displayedUser} /> }
       {mode === BIO && <Bio next={() => next(INTERESTS)} back={() => back(NAME)} detailedUser={displayedUser}/>}
       {mode === INTERESTS && <Interests next={() => next(EXTRAS)} back={() => back()} detailedUser={displayedUser}/>}
-      {mode === EXTRAS && <Extras back={() => back()} detailedUser={displayedUser} next={() => next(MATCHED)} />}
+      {mode === EXTRAS && <Extras back={() => back()} detailedUser={displayedUser} />}
       {mode === MATCHED && <Matched home={() => goHome()} detailedUser={displayedUser} user={fullUser}/>}
-      <MatchButtons newUser={() => incrementUser(index)} user={user} detailedUser={displayedUser} />
+      <MatchButtons like={() => like()} user={user} detailedUser={displayedUser} newUser={() => incrementUser(index)}/>
     </SafeAreaView>
   )
 };

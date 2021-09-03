@@ -393,44 +393,6 @@ export function findMatchesByUser(state, user) {
 
 // find all matches
 
-export function matchedUsers(state, user1, user2) {
-  
-  const user1Matches = [];
-  
-  for (const potentialMatch of state.potential_matches) {
-    if (potentialMatch.user1_id === user1.id && potentialMatch.user2_id === user2.id) {
-      return potentialMatch
-    }
-
-  //     user1Matches.push(potentialMatch)
-  //   }
-  // }
-  
-  // const user2Matches = [];
-  // for (const potentialMatch of state.potential_matches) {
-  //   if (potentialMatch.user1_id === user2.id) {
-  //     user2Matches.push(potentialMatch)
-  //   }
-  // }
-  
-  // const match = [];
-  // for (const match1 of user1Matches) {
-    
-  //   for (const match2 of user2Matches) {
-  //     if (match1.user1_id === match2.user2_id && match2.user1_id === match1.user2_id) {
-  //       match.push(match1, match2)
-  //     }
-  //   }
-  // }
-  
-  if (match.length === 0) {
-    return null;
-  } else {
-    
-    return match
-  }
-}}
-
 
 export function inboxObjects(state, user) {
   const inboxObject = [];
