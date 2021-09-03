@@ -29,11 +29,7 @@ VALUES
 (1, 4, false),
 (1, 5, false),
 (4, 5, true),
-(2, 4, false),
-(2, 1, true),
-(3, 1, false),
-(4, 1, true),
-(5, 4, true);
+(2, 4, false);
 
 INSERT INTO matches (user1_id, user2_id, best_friend)
 VALUES 
