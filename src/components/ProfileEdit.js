@@ -1,25 +1,232 @@
-import React from "react";
+import React, { useState, Component, useEffect, useContext  } from "react";
 
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Button } from "react-native";
+import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, CheckBox  } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Chip, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, TextField } from '@material-ui/core'
 import { useNavigation } from '@react-navigation/native';
+import { allUserInterests, fullUserObject, userAge } from '../helpers/selectors.js';
+import { StateContext } from '../../StateProvider.js';
+import { remove, getData } from '../helpers/persistLogin.js';
+
+import axios from 'axios';
 
 const ProfileEdit = (props) => {
-  const navigation = useNavigation();
+  const { state, setState, loading} = useContext(StateContext);
+
+  const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, state.user)
+  console.log('dUs', detailedUser)
+  const gender = detailedUser.gender;
+
+  const userInterests = state.interests.find(obj => obj.user_id === state.user.id);
+  console.log("USER INTERESTS:", userInterests);
+  
+  const [value, onChangeValue] = useState({
+    gender: gender,
+    address: detailedUser.address,
+    vaccinated: detailedUser.vaccinated,
+    about_me: detailedUser.about_me,
+  });
+
+  const handleGender = (event) => {
+    onChangeValue({...state, gender: event.target.value})
+  }
+
+  const [interests, setInterests] = useState({
+    reading: userInterests.reading,
+    tv_movies: userInterests.tv_movies,
+    fitness: userInterests.fitness,
+    hiking: userInterests.hiking,
+    arts_culture: userInterests.arts_culture,
+    music: userInterests.music,
+    gaming: userInterests.gaming,
+    travel: userInterests.travel,
+    studying: userInterests.studying,
+    sports: userInterests.sports,
+    eating_out: userInterests.eating_out,
+    going_out: userInterests.going_out
+  });
+
+  // const [interests, setInterests] = useState([
+  //   {key: 0, label:'Reading'},
+  //   {key: 1, label:'TV and Movies'},
+  //   {key: 2, label:'Fitness'},
+  //   {key: 3, label:'Hiking'},
+  //   {key: 4, label:'Arts and Culture'},
+  //   {key: 5, label:'Music'},
+  //   {key: 6, label:'Gaming'},
+  //   {key: 7, label:'Travel'},
+  //   {key: 8, label:'Studying & Co-working'},
+  //   {key: 9, label:'Sports'},
+  //   {key: 10, label:'Eating Out'},
+  //   {key: 11, label:'Going Out'}
+  // ]);
+
+  // const handleClick = (interestToClick) => {
+  //   setInterests(interests => interests.filter(interest => interest.key === interestToClick))
+  // };
+
+  const [photos, setPhotos] = useState({
+    photo1: detailedUser.photos[0],
+    photo2: detailedUser.photos[1],
+    photo3: detailedUser.photos[2],
+    photo4: detailedUser.photos[3]
+  });
+
+  const navigation = useNavigation(); 
+
+  if (state.user) { 
+
+    // const allInterests = state.interests.map((data) => {
+    //   <Chip
+    //     key={data.key}
+    //     label={data.label}
+    //     onClick={handleClick(data)}
+    //     clickable={true}
+    //     color="primary"
+    //   />
+    // })     
+    
+    // const userInterests = detailedUser.interests.map((interest, id) =>
+    //   <Chip
+    //     key={id}
+    //     label={interest}
+    //     clickable
+    //     color="primary"
+    //     onClick={() => console.log('I BEEN PRESSED!')}
+    //   />)
+
+    useEffect(() => {
+      getData();
+    }, [])
 
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
-       <View style={styles.buttonSaveCancel}>
-          <View style={{ alignSelf: "center" }}>
-            <Button title="Save" onPress={() => navigation.navigate('Profile')} style={styles.editButton}/>
+
+      {/* DETAILS UNDER THIS SECTION CANNOT BE EDITED */}
+        <View style={{ alignSelf: "center", marginTop: 10 }}>
+          <View style={styles.profileImage}>
+            <Image 
+              source={{uri: detailedUser.photos[0]}} 
+              style={styles.image} 
+            />
           </View>
           <View style={{ alignSelf: "center" }}>
-            <Button title="Cancel" onPress={() => navigation.navigate('Profile')} style={styles.editButton}/>
+          {/* <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text> */}
+          <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
+            <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
           </View>
         </View>
+
+    
+        <View style={styles.buttonSaveCancel}>
+            <View style={{marginRight:5}}>
+              <Button title="Save" onPress={() => navigation.navigate('Profile')} style={styles.editButton}/>
+            </View>
+            <View style={{marginLeft:5}}>
+              <Button title="Cancel" onPress={() => navigation.navigate('Profile')} style={styles.editButton}/>
+            </View>
+        </View>
+
+
+      {/* THIS IS WHERE THE EDITABLE TEXT INPUT BEGINS */}
+          <View style={styles.textArea}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Gender</FormLabel>
+                <RadioGroup 
+                  aria-label="gender" 
+                  name="gender1" 
+                  value={value} 
+                  onClick={() => console.log('I BEEN PRESSED!')} 
+                >
+                  <FormControlLabel value="female" control={<Radio />} label="Female" />
+                  <FormControlLabel value="male" control={<Radio />} label="Male" />
+                  <FormControlLabel value="non-binary" control={<Radio />} label="Non-Binary" />
+                  <FormControlLabel value="undisclosed" control={<Radio />} label="Undisclosed" />
+                </RadioGroup>
+              </FormControl>
+          </View>
+
+          <View style={styles.textArea}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Location</FormLabel>
+                <TextField id="standard-basic" value={state.address} />
+              </FormControl>
+          </View>
+
+          <View style={styles.textArea}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Vaccinated</FormLabel>
+                <RadioGroup 
+                  aria-label="vaccinated" 
+                  name="vaccinated1" 
+                  value={value} 
+                  onClick={() => console.log('I BEEN PRESSED!')} 
+                >
+                  <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+                  <FormControlLabel value="no" control={<Radio />} label="No" />
+                </RadioGroup>
+              </FormControl>
+          </View>
+
+          <View style={styles.textArea}>
+            <FormLabel component="legend">Edit Photos</FormLabel>
+          </View>
+
+          <View style={styles.textArea}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">About Me</FormLabel>
+                <TextField
+                  id="outlined-multiline-flexible"
+                  multiline
+                  maxRows={8}
+                  value={state.about_me}
+                  onClick={() => console.log('I BEEN PRESSED!')}
+                />
+            </FormControl>
+          </View>
+
+          <View style={styles.textArea}>
+            <FormControl component="fieldset">
+                <FormLabel component="legend">My Interests</FormLabel>
+                  <RadioGroup 
+                    aria-label="my-interests" 
+                    name="my-interests1" 
+                    value={value} 
+                    onClick={() => console.log('I BEEN PRESSED!')} 
+                  >
+                    <FormControlLabel value="reading" control={<Radio />} label="Reading" />
+                    <FormControlLabel value="tv-movies" control={<Radio />} label="TV and Movies" />
+                    <FormControlLabel value="fitness" control={<Radio />} label="Fitness" />
+                    <FormControlLabel value="hiking" control={<Radio />} label="Hiking" />
+                    <FormControlLabel value="arts-culture" control={<Radio />} label="Arts and Culture" />
+                    <FormControlLabel value="music" control={<Radio />} label="Music" />
+                    <FormControlLabel value="gaming" control={<Radio />} label="Gaming" />
+                    <FormControlLabel value="travel" control={<Radio />} label="Travel" />
+                    <FormControlLabel value="studying-coworking" control={<Radio />} label="Studying and Coworking" />
+                    <FormControlLabel value="sports" control={<Radio />} label="Sports" />
+                    <FormControlLabel value="eating-out" control={<Radio />} label="Eating Out" />
+                    <FormControlLabel value="going-out" control={<Radio />} label="Going Out" />
+                  </RadioGroup>
+              </FormControl>
+            <Text></Text>
+            {/* <View>{allUserInterests}</View> */}
+            
+          </View>
        </ScrollView>
     </SafeAreaView>
   );
+  
+  } else {
+    return (
+      <View >
+        <ActivityIndicator 
+          size="large"
+          loading={loading}
+        />
+      </View>
+    )
+  }
 }
 
 const styles = StyleSheet.create({
@@ -62,30 +269,11 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 15
   },  
-  editButtonText: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#FFFFFF'
-  },
-  editButton: { 
-    alignSelf: "center",
-    marginTop: 10,
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: '#0087FF',
-    borderRadius: 25,
-    width: 'auto'
-  },
-  editButtonText: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: '#FFFFFF'
-  },
   textArea: {
     marginLeft: 40,
+    marginRight: 40,
     marginTop: 20,
+    flexWrap: 'wrap'
   },
   checkboxContainer: {
     flexDirection: "row",
@@ -97,7 +285,8 @@ const styles = StyleSheet.create({
   },
   buttonSaveCancel: {
     flexDirection: "row",
-    alignSelf: "center"
+    alignSelf: "center",
+    marginTop: 10,
   },
   aboutMePhotos: {
     width: 125,

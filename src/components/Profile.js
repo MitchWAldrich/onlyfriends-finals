@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Chip } from 'react-native-elements';
+import { Chip } from '@material-ui/core'
 import { useNavigation } from '@react-navigation/native';
 import { fullUserObject, userAge, getUserByEmail } from '../helpers/selectors.js';
 import { isVaccinated } from '../helpers/isVaccinated.js';
@@ -15,7 +15,7 @@ import { remove, getData } from '../helpers/persistLogin.js';
 const Profile = (props) => {
   const { state, setState, loading, logout, email, setEmail, auth, setAuth } = useContext(StateContext)
 
-const navigation = useNavigation(); 
+  const navigation = useNavigation(); 
 
   if (state.user) { 
 
@@ -23,11 +23,11 @@ const navigation = useNavigation();
   console.log('dUs', detailedUser)
   
   const userInterests = detailedUser.interests.map((interest, id) =>
-  <Chip
-  key={id}
-  title={interest}
-  type="outline"
-  />)
+    <Chip
+      key={id}
+      label={interest}
+      color="primary"
+    />)
   
   //Logout button function
   const onSubmit = async () => {
@@ -57,7 +57,7 @@ const navigation = useNavigation();
           </View>
         </View>
 
-        <View style={{ alignSelf: "center" }}>
+        <View style={{ alignSelf: "center", marginTop: 10}}>
           <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
         </View>
         {/* if edit profile is not clicked yet, render information saved */}
@@ -144,10 +144,6 @@ const styles = StyleSheet.create({
     fontFamily: "HelveticaNeue",
     color: "#52575D"
   },
-  editButton: {
-    paddingTop: 20,
-    paddingBottom: 20
-  },
   image: {
     flex: 1,
     height: undefined,
@@ -193,7 +189,9 @@ const styles = StyleSheet.create({
   },
   textArea: {
     marginLeft: 40,
+    marginRight: 40,
     marginTop: 20,
+    flexWrap: 'wrap'
   },
   checkboxContainer: {
     flexDirection: "row",
