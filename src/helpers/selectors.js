@@ -642,7 +642,7 @@ export function matchedIds(state, user) {
       userMatches.push(match)
     }
   }
-  console.log(userMatches)
+  
   for (const userMatch of userMatches) {
     if (!matchedUserIds.includes(userMatch.user1_id)) {
       matchedUserIds.push(userMatch.user1_id);

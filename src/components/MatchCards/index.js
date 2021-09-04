@@ -47,7 +47,6 @@ const Cards = function()  {
   
   //current user being displayed in card stack
   let currentUser = detailedUsers[index];
-  // console.log('detailedUsers', detailedUsers)
   
   let displayedUser = fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, currentUser)
   
@@ -66,11 +65,12 @@ const Cards = function()  {
     next(NAME)
     return
   }
-  console.log('potential_matches', state.potentialMatches)
+  
+  
+  const match = state.potentialMatches.find(obj => obj.user1_id === displayedUser.id && obj.user2_id === user.id)
   
   const like = () => {
-    const match = state.potentialMatches.find(obj => obj.user1_id === displayedUser.id && obj.user2_id === user.id)
-
+    
     if (match) {
       matchedUsers(user, displayedUser, false) 
       setMode(MATCHED)
@@ -83,8 +83,7 @@ const Cards = function()  {
   }
 
   const superLike = () => {
-    const match = state.potentialMatches.find(obj => obj.user1_id === displayedUser.id && obj.user2_id === user.id)
-
+    
     if (match && match.best_friend === true) {
       matchedUsers(user, displayedUser, true) 
       setMode(SUPERMATCHED)
