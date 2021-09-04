@@ -635,7 +635,7 @@ export function findZodiacSign(day, month) {
 
 export function matchedIds(state, user) {
   const userMatches = [];
-  const matchedUserIds = [];
+  const matchedUserIds = [user.id];
 
   for (const match of state.matches) {
     if (match.user1_id === user.id || match.user2_id === user.id) {
