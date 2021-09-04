@@ -1,5 +1,3 @@
-import { vaccinatedDisplay } from "./vaccinatedDisplay";
-
 const state = {
   users: [
   {
@@ -309,6 +307,28 @@ const state = {
   }
 ]
 }; 
+export function getUserById(state, id) {
+  for (const user of state.users) {
+    if (user.id === id) {
+      return user
+    }
+  }
+}
+
+export function shuffle(array) {
+  var currentIndex = array.length,  randomIndex;
+
+  while (currentIndex != 0) {
+
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
 
 export function allUserInterests(state, user) {
 
@@ -391,9 +411,6 @@ export function findMatchesByUser(state, user) {
   return matchedFullUsers
 }
 
-// find all matches
-
-
 export function inboxObjects(state, user) {
   const inboxObject = [];
   
@@ -447,17 +464,14 @@ export function userAge(user) {
   return Math.abs(calculateAge.getUTCFullYear() - 1970);
 }
 
-export function findUsersByInterest(state, interest) {
+ export function findUsersByInterest(fullUsers, interest) {
   const filteredUsers = []
   
-  for (let user of state.users) {
-
-    for (let category of state.interests) {
-
-      if (category.user_id === user.id && category[interest]) {
-         filteredUsers.push(user)
+  for (const user of fullUsers) {
+    for (const category of user.interests)
+      if (category === interest) {         
+        filteredUsers.push(user)
       }
-    }
   }
   return filteredUsers;
 }
