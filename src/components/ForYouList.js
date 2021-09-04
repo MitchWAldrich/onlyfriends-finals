@@ -1,18 +1,10 @@
-import React, { useContext } from "react";
-import { StyleSheet, View, Text, ImageBackground, PushNotificationIOS } from "react-native";
+import React from "react";
+import { StyleSheet, View, Text, PushNotificationIOS } from "react-native";
 import ForYouListItem from './ForYouListItem';
-import { fullUserObject, findUsersByInterest } from '../helpers/selectors.js';
-import { StateContext } from '../../StateProvider.js';
 
-const ForYouList = () => {
+const ForYouList = (props) => {
 
-  const { state, loading } = useContext(StateContext)
-
-  const filteredUsers = findUsersByInterest({'users': state.users, 'interests': state.interests}, 'reading')
-
-  const detailedFilteredUsers = filteredUsers.map( user => fullUserObject({'photos': state.photos, 'users': state.users, 'interests': state.interests}, user))
-
-  const parsedDFUs = detailedFilteredUsers.map( user => 
+  const parsedDFUs = props.detailedFilteredUsers.map( user => 
     <ForYouListItem
       key={user.id}
       photo={user.photos[0]}
@@ -23,9 +15,9 @@ const ForYouList = () => {
     )
    
   return (
-    <View style={styles.buttons}>
-      <Text>Future friends who like Books</Text>
-      {parsedDFUs}
+    <View style={styles.list}>
+      <Text>Future friends who like <Text style={styles.category}>{props.category}</Text></Text>
+      <View style={styles.listitems}>{parsedDFUs}</View>
     </View>
   );
 };
@@ -56,6 +48,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: "flex-end",
     margin: -20
+  },
+  list: {
+    flexDirection: 'column',
+    padding: 10
+  },
+  listitems: {
+    flexDirection: 'row',
+    flexWrap: 'wrap'
+  },
+  category: {
+    fontWeight: 'bold'
   }
 });
 
