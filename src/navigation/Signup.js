@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { SafeAreaView, Text, TextInput, Button, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import DatePicker from '@dietime/react-native-date-picker';
 
 
 export default function SignUp() {
@@ -8,6 +9,7 @@ export default function SignUp() {
   const [state, setState] = useState({
     first_name: '',
     last_name: '',
+    date_of_birth: '',
     email: '',
     password: ''
   })
@@ -27,6 +29,12 @@ export default function SignUp() {
           placeholder="Last Name"
           value={state.last_name}
           onChangeText={lastName => setState({...state, last_name: lastName})} />
+        <Text> Date of birth: </Text>
+        <DatePicker
+          value={state.date_of_birth}
+          onChange={(value) => setState({...state, date_of_birth: value})}
+          format="dd-mm-yyyy"
+        />
         <TextInput
           placeholder="Email"
           value={state.email}
