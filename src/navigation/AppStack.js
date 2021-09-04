@@ -4,7 +4,7 @@ import { StateContext } from '../../StateProvider';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import Login from '../../Login';
+import Login from './Login';
 
 import ForYouPage from '../../src/components/ForYouPage';
 import Profile from '../../src/components/Profile'
@@ -14,6 +14,7 @@ import ChatMessages from '../../src/components/ChatMessages.js';
 // import ChatMessagesPartTwo from '../../src/components/ChatMessagesPartTwo.js';
 import SwipeCards from '../components/MatchCards/SwipeCards.js';
 import Cards from '../components/MatchCards/index.js';
+import SignUp from './Signup';
 
 
 
@@ -157,6 +158,7 @@ const Stack = createStackNavigator();
         // Auth screens
         <Stack.Group screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Signup" component={SignUp}/>
         </Stack.Group>
       )}
       {/* <Stack.Screen name="MyTabs" component={MyTabs}/> */}
