@@ -11,6 +11,7 @@ import Profile from '../../src/components/Profile'
 import ProfileEdit from '../../src/components/ProfileEdit';
 import Messages from '../../src/components/Messages.js';
 import ChatMessages from '../../src/components/ChatMessages.js';
+// import ChatMessagesPartTwo from '../../src/components/ChatMessagesPartTwo.js';
 import SwipeCards from '../components/MatchCards/SwipeCards.js';
 import Cards from '../components/MatchCards/index.js';
 import SignUp from './Signup';
@@ -52,10 +53,11 @@ export default function AppStack() {
     );
   }
 
-  function ChatScreen() {
+  function ChatScreen(id) {
     return (
       <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ChatMessages/>
+        <ChatMessages id = {id}/>
+        {/* <ChatMessagesPartTwo/> */}
       </SafeAreaView>
     );
   }
@@ -76,7 +78,7 @@ const Stack = createStackNavigator();
       <Stack.Screen name="Messages" component={MessagesScreen}/>
       <Stack.Screen
         name="Chat"
-        component={ChatScreen}
+        component={({route}) => ChatScreen(route.params.id)}
         options={({route}) => ({
           title: route.params.userName,
           headerBackTitleVisible: false

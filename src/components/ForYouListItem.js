@@ -1,15 +1,21 @@
 import React from "react";
-import { StyleSheet, View, Text, ImageBackground, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, View, Text, Image, Pressable } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
-const ForYouListItem = (props) => {  
- 
+const ForYouListItem = (props, {navigation}) => {  
+
+  navigation = useNavigation(); 
+
   return (
-    <View style={styles.buttons}>
-      <Image
+    <View style={styles.item}>
+      <Pressable onPress={() => navigation.navigate('Main', { key: props.key })}>
+        <Image
         source={{uri: props.photo}}
-        style={{width: 100, height: 100}}
-      />
-      <Text>{props.name}, {props.age}, {props.gender}</Text>
+        style={{width: 100, height: 100, borderRadius: 25}}
+        />
+      </Pressable>
+      <Text>{props.name}, {props.age}</Text>
+      <Text>{props.gender}</Text>
     </View>
   );
 };
@@ -40,9 +46,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     justifyContent: "flex-end",
     margin: -20
+  },
+  item: {
+    padding: 5
   }
 });
-
-
 
 export default ForYouListItem;

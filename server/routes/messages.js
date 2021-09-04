@@ -12,12 +12,13 @@ module.exports = db => {
 
   router.post("/messages", (request, response) => {
     console.log("REQBODY", request.body)
-    const { matchID, senderID, receiverID, message, sentAt } = request.body;
+    const { _id, name } = request.body.user
+    const { matchID, receiverID, text, createdAt } = request.body;
     
     db.query(`
       INSERT INTO messages (match_id, sender_id, receiver_id, message, sent_at) 
       VALUES ($1, $2, $3, $4, $5);
-    `, [matchID, senderID, receiverID, message, sentAt])
+    `, [matchID, _id, receiverID, text, createdAt])
     .then((results) =>{
       response.status(200)
     })

@@ -1,97 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { TextInput, StyleSheet, Text, View, Button } from 'react-native';
+import { StateContext } from '../../StateProvider.js';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
+import { fullConversation } from '../../src/helpers/selectors.js';
 import io from "socket.io-client";
-import axios from "axios";
-
-class ChatMessages extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chatMessage: "",
-      allChatMessages: []
-    };
-  }
-
-  componentDidMount() {
-    console.log("Component mounted.")
-    this.socket = io("http://127.0.0.1:3000", {transports: ['websocket']});
-    // 127.0.0.1 -- Change it to your own IP address, can be found through ifconfig for MacOS, ipconfig for Windows
-
-    this.socket.on("connect_error", (error) => {
-      console.log("Error:", error)
-    })
-
-    this.socket.on("chat message", msg => {
-      // console.log("MSG:", msg)
-      this.setState({ allChatMessages: [...this.state.allChatMessages, msg] });
-    });
-
-    // add an axios get to get the messages within a chat (match) -- figure out how to implement with sockets because of the delay
-
-    this.socket.connect()
-  }
-
-  
 
 
+const ChatMessages = (props) => {
+  const { state, sendMessage, socket } = useContext(StateContext);
+  const { user, users } = state;
+  const [messages, setMessages] = useState([]);
+  const { id } = props
+  // console.log('STATE: ', state)
+  const otherUser = users.find(user => user.id === id);
 
-  submitChatMessage() {
-    console.log("submitChatMessage", this.socket.connected)
-    this.socket.emit("chat message", this.state.chatMessage);
-    this.setState({ chatMessage: "" });
-    
-    let messageObj = { matchID, senderID, receiverID, message, sentAt };
-    // let messageObj = { matchID: 1, senderID: 1, receiverID: 2, message: "hi hello", sentAt: "2021-08-19T14:23:54.000Z" };
+  const conversation = fullConversation(state, user, otherUser);
 
-    // {
-    //   _id: 2,
-    //   text: 'Hello developer',
-    //   createdAt: new Date(),
-    //   user: {
-    //     _id: 1,
-    //     name: 'React Native',
-    //     avatar: 'https://placeimg.com/140/140/any',
-    //   },
-    // },
+  console.log('CONVERSATION: ', conversation);
 
+  const onSend = (msg) => {
+    console.log("PROPS ID:", id)
+    console.log("msgONE:", msg)
 
-    axios.post('http://localhost:8001/api/messages', messageObj).then(response => {
-      this.setState({ allChatMessages: [...this.state.allChatMessages, messageObj] })
-    })
-    .catch((err) => {
-      console.log("Error on axios post: ", err)
-    })
-  }
+    const finalMessage = {...msg[0], receiverID: id, matchID: conversation[0].id}
+    console.log("finalMessage: ", finalMessage)
+    console.log("MATCHID: ", conversation[0].id)
+    sendMessage(finalMessage)
+  };
 
-  render() {
-    const allChatMessages = this.state.allChatMessages.map(chatMessage => (
-      <Text key={chatMessage}>{chatMessage}</Text>
-    ));
+  useEffect(() => {
+      socket.on("SEND_MESSAGE", msg => {
+        console.log("Message received!")
+        console.log("msgGRAB:", msg)
+        setMessages(prev => ([...prev, msg]))
+      })
+      
+      return () => {
+        socket.off("SEND_MESSAGE")
+      }
+  }, [])
 
+  const renderBubble = (props) => {
     return (
-      <View style={styles.container}>
-        <View style={styles.chatBubble}>
-          <View style={styles.chatText}>{allChatMessages}</View>
-        </View>
-        <View style={styles.messageContainer}>
-          <TextInput
-            style={styles.textArea}
-            autoCorrect={true}
-            placeholder="Say Something..."
-            value={this.state.chatMessage}
-            onSubmitEditing={() => this.submitChatMessage()}
-            onChangeText={chatMessage => {
-              this.setState({ chatMessage });
-            }}
-          />
-          <Button title="send" onPress={()=>{
-            this.submitChatMessage('Button',"button");
-          }}/>
-        </View>
-      </View>
-    );
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          left: {
+            backgroundColor: '#d3d3d3',
+          },
+        }}
+      />
+    )
   }
-};
+  
+  return (
+    <View style={styles.container}>
+      {/* <View>{messageHistory}</View> */}
+      <GiftedChat
+        messages={messages}
+        onSend={onSend}
+        user={{_id: user.id, name: user.first_name}}
+        renderBubble={renderBubble}
+      />
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
