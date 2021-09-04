@@ -1,53 +1,73 @@
-import React from "react";
-import axios from 'axios';
-import { StyleSheet, View, Text, ImageBackground, Image, ActivityIndicator } from "react-native";
-import { useState, useEffect } from 'react';
+import React, { useContext } from "react";
+import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
 import ForYouList from './ForYouList';
-import findUsersByInterest from '../helpers/selectors.js';
+import { findUsersByInterest, fullUserObject, allUserInterests, shuffle, matchedIds, unmatchedUsers } from '../helpers/selectors.js';
+import { StateContext } from "../../StateProvider";
 
+const ForYouPage = () => {
+  
+  const { state } = useContext(StateContext)
+  const { user } = state;
 
-const ForYouPage = (props) => {
+  const signedInInterests = allUserInterests(state, user)
+
+  const shuffledInterests = shuffle(signedInInterests)
+  
+  const categorizedInterests = shuffledInterests.map( interest => {
+    
+    const unwantedUserIds = matchedIds(state, user);
+    
+    const filteredUsers = unmatchedUsers(unwantedUserIds, state.users);
+    
+    const filteredWithoutSignedInUsers = filteredUsers.filter( person => person.id !== user.id )
+    
+    const detailedFilteredUsers = filteredWithoutSignedInUsers.map( user => fullUserObject({'photos': state.photos, 'users': state.users, 'interests': state.interests}, user));
+
+    const categorizedUsers = findUsersByInterest(detailedFilteredUsers, interest);
+
+    return { interest, categorizedUsers } 
+  })
+
+  const allCategorizedInterests = categorizedInterests.map( (category, index) => {
+    if (category.categorizedUsers.length !== 0)
+      return <ForYouList
+               key={index}
+               category={category.interest}
+               detailedFilteredUsers={category.categorizedUsers}
+             />
+    })
 
   return (
-    <View>
-      <ForYouList
-        photos={props.photos}
-        users={props.users}
-        interests={props.interests}
-      />
-    </View>
+    <SafeAreaView style={styles.contentContainer}>
+      <ScrollView>
+          <View style={styles.lists}>
+            <Text style={styles.title}>We think you'll love getting to know...</Text>
+            {allCategorizedInterests}
+          </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%'
   },
-  header: {
-    height: 100,
-    backgroundColor: 'teal'
-  },
-  footer: {
-    height: 100,
-    backgroundColor: 'teal'
-  },
-  buttons: {
-    height: 75,
+  lists: {
     flex: 1,
-    justifyContent: "flex-end",
+    padding: '10, 10, 10, 20',
+    justifyContent: 'flex-start'
   },
-  text: {
-    height: 75,
-    fontSize: 35,
-    fontWeight: 'bold',
-    justifyContent: "flex-end",
-    margin: -20
+  title: {
+    textAlign: 'center',
+    paddingTop: 20,
+    paddingBottom: 10,
+    fontSize: 24
   }
 });
-
-
 
 export default ForYouPage;
