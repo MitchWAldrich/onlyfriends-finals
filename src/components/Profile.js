@@ -2,8 +2,8 @@ import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator } from "react-native";
+import { Chip, FormLabel } from '@material-ui/core'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Chip } from '@material-ui/core'
 import { useNavigation } from '@react-navigation/native';
 import { fullUserObject, userAge, getUserByEmail } from '../helpers/selectors.js';
 import { isVaccinated } from '../helpers/isVaccinated.js';
@@ -74,6 +74,7 @@ const Profile = (props) => {
         </View>
 
         <View style={styles.textArea}>
+
           <Text>Photos</Text>
           <View style={styles.aboutMePhotos}>
             <Image 
