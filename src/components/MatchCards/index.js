@@ -1,8 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, Button } from 'react-native';
 import { StateContext } from '../../../StateProvider';
-import { fullUserObject, matchedIds, unmatchedUsers } from '../../helpers/selectors';
+import { fullUserObject, matchedIds, unmatchedUsers, shuffle } from '../../helpers/selectors';
 import MatchButtons from '../MatchButtons';
 import useCardMode from '../../hooks/useCardMode';
 import potentialMatches from '../../hooks/potentialMatches';
@@ -31,9 +31,21 @@ const Cards = function()  {
   const [index, setIndex] = useState(0);
 
   const { state } = useContext(StateContext);
-  const users = state.users;
   const user = state.user;
+  
+  const shuffleUsers = (usersArray) => {
+    let shuffledUsers = usersArray;
 
+    if (mode === NAME) {
+      return shuffle(usersArray)
+    }
+    return shuffledUsers;
+  }
+
+  const users = shuffleUsers(state.users)
+  
+  console.log('users: ', users)
+  
   const unwantedUserIds = matchedIds(state, user);
   
   //everyone who is not already matched or the logged in user
