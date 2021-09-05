@@ -101,7 +101,7 @@ const Stack = createStackNavigator();
 
  const MyTabs = ({navigation}) => {
     return (
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Navigator screenOptions={{ headerShown: true }}>
         <Tab.Screen 
           name="Profile" // THIS IS WHAT SHOWS UP ON TOP, we need the onlyFriends logo to replace this
           component={ProfileStack}
@@ -127,6 +127,7 @@ const Stack = createStackNavigator();
           component={MessageStack}
           options={{
             tabBarLabel: 'Messages',
+            headerShown: false,
             tabBarIcon: ({ color, size }) => (
               <AntDesign name="message1" color={color} size={size} />
             ),
