@@ -10,7 +10,7 @@ const ForYouListItem = (props, {navigation}) => {
 
   navigation = useNavigation();  
 
-  const onPress = async () => {
+  const onPress = () => {
        
     setState(({...state, suggestedUser: props.user }))
     return
