@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 const Matched = (props) => {
-  const { home, detailedUser, user, matchID } = props;
+  const { home, detailedUser, user } = props;
 
   const navigation = useNavigation();
 
