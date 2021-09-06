@@ -38,18 +38,20 @@ export const getData = async (state, user, setState, auth, setAuth) => {
   }
 }
 
-export const remove = async (state, setState, auth, setAuth) => {
+export const remove = async (state, auth, setAuth) => {
   try {
 
     await AsyncStorage.removeItem('MyUser')
+    await AsyncStorage.removeItem('MyAuth');
+
     
   } catch (err) {
     
     alert(err)
   } finally {
 
-    setState({...state, user: null});
-    setAuth(false);
+    // setState({...state, user: null});
+    // setAuth(false);
 
   }
 }
