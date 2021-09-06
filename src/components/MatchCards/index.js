@@ -146,9 +146,6 @@ const Cards = function()  {
 
 
 
-  useEffect(() => {
-    getData();
-  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
