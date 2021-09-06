@@ -114,7 +114,7 @@ const Cards = function()  {
       matchedUsers(user, displayedUser, false) 
       setMode(MATCHED)
       console.log('STATE MATCHES: ', state.matches)
-      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]
+      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}])
       return
     } else {
       potentialMatches(user.id, displayedUser.id, false); 
