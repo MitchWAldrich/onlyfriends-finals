@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 
-export function matchedUsers(state, user1, user2) {
+export function matchedUsers(user1, user2, bestFriend) {
       
       return axios.post('http://localhost:8001/api/matches', {
         user1_id: user1.id,
         user2_id: user2.id,
-        best_friend: false
+        best_friend: bestFriend
       })
         .then(() => {
           console.log('I hope you match!')

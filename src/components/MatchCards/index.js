@@ -20,6 +20,7 @@ import Bio from './Bio';
 import Interests from './Interests';
 import Extras from './Extras';
 import Matched from './Matched';
+import SuperMatched from './SuperMatched';
 
 
 const Cards = function()  {
@@ -31,7 +32,8 @@ const Cards = function()  {
   const INTERESTS = 'INTERESTS';
   const EXTRAS = 'EXTRAS';
   const MATCHED = 'MATCHED';
-  
+  const SUPERMATCHED = 'SUPERMATCHED';
+
   //Card stack functionality and state
   const [index, setIndex] = useState(0);
 
@@ -49,9 +51,9 @@ const Cards = function()  {
   
   //users with interests and photos
   const detailedUsers = filteredUsers.map(person => fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, person))
+  
   //current user being displayed in card stack
   let currentUser = detailedUsers[index];
-  // console.log('detailedUsers', detailedUsers)
   
   let displayedUser = fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, currentUser)
 
@@ -80,21 +82,39 @@ const Cards = function()  {
     next(NAME)
     return
   }
-  console.log('potential_matches', state.potentialMatches)
+  
+  
+  const match = state.potentialMatches.find(obj => obj.user1_id === displayedUser.id && obj.user2_id === user.id)
   
   const like = () => {
-    const match = state.potentialMatches.find(obj => obj.user1_id === displayedUser.id && obj.user2_id === user.id)
-
+    
     if (match) {
       removeSuggested();
       state.suggestedUser = null;
-      matchedUsers(state, user, displayedUser) 
+      matchedUsers(user, displayedUser, false) 
       setMode(MATCHED)
       return
     } else {
       removeSuggested();
       state.suggestedUser = null;
-      potentialMatches(user.id, displayedUser.id); 
+      potentialMatches(user.id, displayedUser.id, false); 
+      incrementUser(index);
+      return
+    }
+  }
+
+  const superLike = () => {
+    
+    if (match && match.best_friend === true) {
+      matchedUsers(user, displayedUser, true) 
+      setMode(SUPERMATCHED)
+      return
+    } else if (match && match.best_friend === false) {
+      matchedUsers(user, displayedUser, true) 
+      setMode(MATCHED)
+      return
+    } else {
+      potentialMatches(user.id, displayedUser.id, true); 
       incrementUser(index);
       return
     }
@@ -111,7 +131,13 @@ const Cards = function()  {
       {mode === INTERESTS && <Interests next={() => next(EXTRAS)} back={() => back()} detailedUser={displayedUser}/>}
       {mode === EXTRAS && <Extras back={() => back()} detailedUser={displayedUser} />}
       {mode === MATCHED && <Matched home={() => goHome()} detailedUser={displayedUser} user={fullUser}/>}
-      <MatchButtons like={() => like()} user={user} detailedUser={displayedUser} newUser={() => incrementUser(index)}/>
+      {mode === SUPERMATCHED && <SuperMatched home={() => goHome()} detailedUser={displayedUser} user={fullUser}/>}
+      <MatchButtons 
+        like={() => like()} 
+        superLike={() => superLike()} 
+        user={user} 
+        detailedUser={displayedUser} 
+        newUser={() => incrementUser(index)} />
     </SafeAreaView>
   )
 

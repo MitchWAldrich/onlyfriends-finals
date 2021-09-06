@@ -7,14 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 
 
 const MatchButtons = (props) => {
-  const { like, user, detailedUser, newUser } = props;
-
-  // const like = () => {
-  //   potentialMatches(user.id, detailedUser.id);
-  //   //call matched? function with conditional to render matched mode or skip to new user
-
-  //   newUser();
-  // }
+  const { like, superLike, newUser } = props;
 
   return (
     <View style={styles.buttonContainer}>
@@ -23,7 +16,7 @@ const MatchButtons = (props) => {
       <Entypo name="cross" size={30} color="#F76C6B" />  
       </Pressable>
 
-      <Pressable style={styles.button} onPress={newUser}>
+      <Pressable style={styles.button} onPress={superLike}>
       <FontAwesome name="star" size={24} color="#3AB4CC" />  
       </Pressable>
 

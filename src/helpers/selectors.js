@@ -402,18 +402,23 @@ export function fullConversation(state, signedInUser, otherUser) {
   const allConversationMessages = allMessagesForMatch.map( message => {
     const receiverObject = state.users.find(user => user.id === message.receiver_id)
     const fullReceiverObject = fullUserObject(state, receiverObject);
+    const sender = state.users.find(user => user.id === message.sender_id);
+    const fullSenderObject = fullUserObject(state, sender);
     
+
+
     return {
-      id: message.match_id,
-      message: message.message,
-      sent_at: message.sent_at,
+      _id: message.match_id,
+      text: message.message,
+      createdAt: message.sent_at,
       user: {
-        id: message.receiver_id,
-        photo: fullReceiverObject.photos[0]
+        _id: message.sender_id,
+        name: sender.first_name,
+        avatar: fullSenderObject.photos[0]
       }
     }
   })
-  console.log('allConversationMessages', allConversationMessages)
+  // console.log('allConversationMessages', allConversationMessages)
   return allConversationMessages
 }
 // fullConversation(state, state.users[0], state.users[1])
@@ -467,6 +472,7 @@ export function inboxObjects(state, user) {
   console.log("UserMatches: ", userMatches);
 
   let matchID;
+  // this is the user id of your matched friend
   for (const match of userMatches) {
 
     for (const conversationID of state.matches) {
@@ -480,7 +486,7 @@ export function inboxObjects(state, user) {
         allConversationMessages.push(message);
       }
     }
-    console.log('convoMessages', allConversationMessages)
+    // console.log('convoMessages', allConversationMessages)
     const conversation = {
       'id': match.id,
       'userName': `${match.first_name} ${match.last_name.charAt(0)}`,
@@ -635,14 +641,14 @@ export function findZodiacSign(day, month) {
 
 export function matchedIds(state, user) {
   const userMatches = [];
-  const matchedUserIds = [];
+  const matchedUserIds = [user.id];
 
   for (const match of state.matches) {
     if (match.user1_id === user.id || match.user2_id === user.id) {
       userMatches.push(match)
     }
   }
-  console.log(userMatches)
+  
   for (const userMatch of userMatches) {
     if (!matchedUserIds.includes(userMatch.user1_id)) {
       matchedUserIds.push(userMatch.user1_id);

@@ -18,7 +18,7 @@ export default function StateProvider(props) {
   const [ auth, setAuth ] = useState(false);
   const [ email, setEmail ] = useState('');
   const [socket, setSocket] = useState(undefined);
-  const [messages, setMessages] =useState([]);
+  // const [messages, setMessages] =useState([]);
 
   useEffect(() => {
 
