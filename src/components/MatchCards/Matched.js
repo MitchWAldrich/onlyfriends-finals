@@ -22,8 +22,7 @@ const Matched = (props) => {
           style={styles.photo} 
         />
       </View>
-      <Button title="Send a Message" 
-      onPress={() => navigation.navigate('Chat', {userName: `${detailedUser.first_name} ${detailedUser.last_name.charAt(0)}`, id: detailedUser.id, matchID: matchID})} />
+      <Button title="Send a Message" onPress={() => navigation.navigate('Messages')} />
       <Button title="Find More Friends" onPress={home} />
     </SafeAreaView>
   )

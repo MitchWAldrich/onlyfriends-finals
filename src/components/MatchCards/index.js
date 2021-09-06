@@ -153,8 +153,6 @@ const Cards = function()  {
     }
   }
 
-  const matchID = getMatchIdByUserIds(matches, user, displayedUser);
-  console.log('MATCHES: ', matches)
 
   useEffect(() => {
     getData();
@@ -166,7 +164,7 @@ const Cards = function()  {
       {mode === BIO && <Bio next={() => next(INTERESTS)} back={() => back(NAME)} detailedUser={displayedUser}/>}
       {mode === INTERESTS && <Interests next={() => next(EXTRAS)} back={() => back()} detailedUser={displayedUser}/>}
       {mode === EXTRAS && <Extras back={() => back()} detailedUser={displayedUser} />}
-      {mode === MATCHED && <Matched home={() => goHome()} detailedUser={displayedUser} user={fullUser} matchID={matchID} />}
+      {mode === MATCHED && <Matched home={() => goHome()} detailedUser={displayedUser} user={fullUser} />}
       {mode === SUPERMATCHED && <SuperMatched home={() => goHome()} detailedUser={displayedUser} user={fullUser}/>}
       <MatchButtons 
         like={() => like()} 
