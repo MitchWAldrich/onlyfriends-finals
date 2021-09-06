@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import { suggestedUser, getData } from "../helpers/persistsSuggestedUser";
+import { StateContext } from "../../StateProvider";
+
 
 const ForYouListItem = (props, {navigation}) => {  
+  const { state, setState } = useContext(StateContext)
 
-  navigation = useNavigation(); 
+  navigation = useNavigation();  
+
+  const onPress = async () => {
+    suggestedUser(props.user)
+    getData(state, setState)
+    // console.log('parasedUser1', parsedUser)
+    return
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
 
   return (
     <View style={styles.item}>
-      <Pressable onPress={() => navigation.navigate('Main', { key: props.key })}>
+      <Pressable onPress={() => {
+        onPress()
+        navigation.navigate('Main')
+      }
+      }>
         <Image
         source={{uri: props.photo}}
         style={{width: 100, height: 100, borderRadius: 25}}
