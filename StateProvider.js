@@ -12,13 +12,13 @@ export default function StateProvider(props) {
     photos: {},
     potentialMatches: {},
     matches: {},
-    messages: [],
+    messages: []
   })
   const [loading, setLoading] = useState(true);
   const [ auth, setAuth ] = useState(false);
   const [ email, setEmail ] = useState('');
   const [socket, setSocket] = useState(undefined);
-  const [messages, setMessages] =useState([]);
+  // const [messages, setMessages] =useState([]);
 
   useEffect(() => {
 
@@ -34,7 +34,7 @@ export default function StateProvider(props) {
       .then((all) => {
         const [users, interests, photos, potentialMatches, matches, messages] = all;
 
-        setState(prev => ({ ...prev, users: users.data, interests: interests.data, photos: photos.data, messages: messages.data, potentialMatches: potentialMatches.data, matches: matches.data }))
+        setState(prev => ({ ...prev, users: users.data, interests: interests.data, photos: photos.data, messages: messages.data, potentialMatches: potentialMatches.data, matches: matches.data}))
         setLoading(false)
 
       })

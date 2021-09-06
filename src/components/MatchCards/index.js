@@ -1,12 +1,18 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, setState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Button } from 'react-native';
+import { StyleSheet, View, ActivityIndicator, Button } from 'react-native';
 import { StateContext } from '../../../StateProvider';
 import { fullUserObject, matchedIds, unmatchedUsers, shuffle } from '../../helpers/selectors';
 import MatchButtons from '../MatchButtons';
 import useCardMode from '../../hooks/useCardMode';
 import potentialMatches from '../../hooks/potentialMatches';
 import { matchedUsers } from '../../hooks/matchedUsers';
+import { removeSuggested } from '../../helpers/persistsSuggestedUser';
+import { suggestedUser, getData } from "../../helpers/persistsSuggestedUser";
+
+
+
+
 
 //All of the different modes
 import Name from './Name';
@@ -18,6 +24,7 @@ import SuperMatched from './SuperMatched';
 
 
 const Cards = function()  {
+
   const { mode, setMode, next, back } = useCardMode();
   //Card modes
   const NAME = 'NAME';
@@ -47,7 +54,7 @@ const Cards = function()  {
   console.log('users: ', users)
   
   const unwantedUserIds = matchedIds(state, user);
-  
+ 
   //everyone who is not already matched or the logged in user
   const filteredUsers = unmatchedUsers(unwantedUserIds, users);
   
@@ -61,18 +68,28 @@ const Cards = function()  {
   let currentUser = detailedUsers[index];
   
   let displayedUser = fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, currentUser)
+
+  if (state.hasOwnProperty('suggestedUser') && state.suggestedUser) {
+    displayedUser = fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, state.suggestedUser)
+  }
   
   //function to step through each user in card stack
   const incrementUser = (index) => {
     if (index === detailedUsers.length - 1) {
+      removeSuggested();
+      state.suggestedUser = null;
       setMode(NAME)
       return setIndex(0)
     }
+    removeSuggested();
+    state.suggestedUser = null;
     setMode(NAME)
     return setIndex(index += 1)
   }
 
   const goHome = () => {
+    removeSuggested();
+    state.suggestedUser = null;
     incrementUser(index)
     next(NAME)
     return
@@ -84,10 +101,14 @@ const Cards = function()  {
   const like = () => {
     
     if (match) {
+      removeSuggested();
+      state.suggestedUser = null;
       matchedUsers(user, displayedUser, false) 
       setMode(MATCHED)
       return
     } else {
+      removeSuggested();
+      state.suggestedUser = null;
       potentialMatches(user.id, displayedUser.id, false); 
       incrementUser(index);
       return
@@ -110,6 +131,10 @@ const Cards = function()  {
       return
     }
   }
+
+  useEffect(() => {
+    getData();
+  }, [])
   
   return (
     <SafeAreaView style={styles.container}>
@@ -127,6 +152,7 @@ const Cards = function()  {
         newUser={() => incrementUser(index)} />
     </SafeAreaView>
   )
+
 };
 
 const styles = StyleSheet.create({

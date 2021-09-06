@@ -1,12 +1,13 @@
 import React, { useState, Component, useEffect, useContext  } from "react";
 
-import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, CheckBox  } from "react-native";
+import { StyleSheet, Text, TextInput, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, Platform  } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Chip, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, TextField } from '@material-ui/core'
+import { Chip, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, TextField, Checkbox } from '@material-ui/core';
 import { useNavigation } from '@react-navigation/native';
 import { allUserInterests, fullUserObject, userAge } from '../helpers/selectors.js';
 import { StateContext } from '../../StateProvider.js';
 import { remove, getData } from '../helpers/persistLogin.js';
+import * as ImagePicker from 'expo-image-picker';
 
 import axios from 'axios';
 
@@ -15,20 +16,71 @@ const ProfileEdit = (props) => {
 
   const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, state.user)
   console.log('dUs', detailedUser)
-  const gender = detailedUser.gender;
 
   const userInterests = state.interests.find(obj => obj.user_id === state.user.id);
   console.log("USER INTERESTS:", userInterests);
   
   const [value, onChangeValue] = useState({
-    gender: gender,
+    gender: detailedUser.gender,
+  });
+  
+  console.log("GENDER VALUE: ",value.gender);
+  
+  const handleGender = (event) => {
+    onChangeValue({...state, gender: event.target.value})
+  }
+
+  const [location, setLocation] = useState({
     address: detailedUser.address,
+  });
+
+  const handleLocation = (event) => {
+    setLocation({...state, address: event.target.value})
+  };
+  
+  const [vaxxed, setVaxxed] = useState({
     vaccinated: detailedUser.vaccinated,
+  });
+  console.log("VAX VALUE: ",vaxxed.vaccinated);
+
+  const handleVaccinated = (event) => {
+    setVaxxed({...state, vaccinated: event.target.value})
+  }
+
+  const [image, setImage] = useState([null]);
+
+  useEffect(() => {
+    (async () => {
+      if (Platform.OS !== 'web') {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          alert('Sorry, we need camera roll permissions to make this work!');
+        }
+      }
+    })();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
+  };
+
+  const [aboutMe, setAboutMe] = useState({
     about_me: detailedUser.about_me,
   });
 
-  const handleGender = (event) => {
-    onChangeValue({...state, gender: event.target.value})
+  const handleAboutMe = (event) => {
+    setAboutMe({...state, about_me: event.target.value})
   }
 
   const [interests, setInterests] = useState({
@@ -45,55 +97,14 @@ const ProfileEdit = (props) => {
     eating_out: userInterests.eating_out,
     going_out: userInterests.going_out
   });
-
-  // const [interests, setInterests] = useState([
-  //   {key: 0, label:'Reading'},
-  //   {key: 1, label:'TV and Movies'},
-  //   {key: 2, label:'Fitness'},
-  //   {key: 3, label:'Hiking'},
-  //   {key: 4, label:'Arts and Culture'},
-  //   {key: 5, label:'Music'},
-  //   {key: 6, label:'Gaming'},
-  //   {key: 7, label:'Travel'},
-  //   {key: 8, label:'Studying & Co-working'},
-  //   {key: 9, label:'Sports'},
-  //   {key: 10, label:'Eating Out'},
-  //   {key: 11, label:'Going Out'}
-  // ]);
-
-  // const handleClick = (interestToClick) => {
-  //   setInterests(interests => interests.filter(interest => interest.key === interestToClick))
-  // };
-
-  const [photos, setPhotos] = useState({
-    photo1: detailedUser.photos[0],
-    photo2: detailedUser.photos[1],
-    photo3: detailedUser.photos[2],
-    photo4: detailedUser.photos[3]
-  });
+  
+  const handleInterests = (event) => {
+    setInterests({...state, interests: event.target.value})
+  }
 
   const navigation = useNavigation(); 
 
   if (state.user) { 
-
-    // const allInterests = state.interests.map((data) => {
-    //   <Chip
-    //     key={data.key}
-    //     label={data.label}
-    //     onClick={handleClick(data)}
-    //     clickable={true}
-    //     color="primary"
-    //   />
-    // })     
-    
-    // const userInterests = detailedUser.interests.map((interest, id) =>
-    //   <Chip
-    //     key={id}
-    //     label={interest}
-    //     clickable
-    //     color="primary"
-    //     onClick={() => console.log('I BEEN PRESSED!')}
-    //   />)
 
     useEffect(() => {
       getData();
@@ -136,13 +147,13 @@ const ProfileEdit = (props) => {
                 <RadioGroup 
                   aria-label="gender" 
                   name="gender1" 
-                  value={value} 
-                  onClick={() => console.log('I BEEN PRESSED!')} 
+                  value={value.gender}
+                  onChange={handleGender} 
                 >
-                  <FormControlLabel value="female" control={<Radio />} label="Female" />
-                  <FormControlLabel value="male" control={<Radio />} label="Male" />
-                  <FormControlLabel value="non-binary" control={<Radio />} label="Non-Binary" />
-                  <FormControlLabel value="undisclosed" control={<Radio />} label="Undisclosed" />
+                  <FormControlLabel value="Female" control={<Radio />} label="Female" />
+                  <FormControlLabel value="Male" control={<Radio />} label="Male" />
+                  <FormControlLabel value="Non-Binary" control={<Radio />} label="Non-Binary" />
+                  <FormControlLabel value="Undisclosed" control={<Radio />} label="Undisclosed" />
                 </RadioGroup>
               </FormControl>
           </View>
@@ -150,7 +161,12 @@ const ProfileEdit = (props) => {
           <View style={styles.textArea}>
             <FormControl component="fieldset">
               <FormLabel component="legend">Location</FormLabel>
-                <TextField id="standard-basic" value={state.address} />
+                <TextField 
+                  id="standard-basic" 
+                  value={location.address}
+                  placeholder={location.address} 
+                  onChange={handleLocation}
+                />
               </FormControl>
           </View>
 
@@ -160,17 +176,21 @@ const ProfileEdit = (props) => {
                 <RadioGroup 
                   aria-label="vaccinated" 
                   name="vaccinated1" 
-                  value={value} 
-                  onClick={() => console.log('I BEEN PRESSED!')} 
+                  value={vaxxed.vaccinated}
+                  onChange={handleVaccinated} 
                 >
-                  <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                  <FormControlLabel value="no" control={<Radio />} label="No" />
+                  <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+                  <FormControlLabel value="No" control={<Radio />} label="No" />
                 </RadioGroup>
               </FormControl>
           </View>
 
           <View style={styles.textArea}>
             <FormLabel component="legend">Edit Photos</FormLabel>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <Button title="Upload Photo" onPress={pickImage} />
+              {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+            </View>
           </View>
 
           <View style={styles.textArea}>
@@ -180,8 +200,9 @@ const ProfileEdit = (props) => {
                   id="outlined-multiline-flexible"
                   multiline
                   maxRows={8}
-                  value={state.about_me}
-                  onClick={() => console.log('I BEEN PRESSED!')}
+                  value={aboutMe.about_me}
+                  placeholder={aboutMe.about_me}
+                  onChange={handleAboutMe} 
                 />
             </FormControl>
           </View>
@@ -189,29 +210,19 @@ const ProfileEdit = (props) => {
           <View style={styles.textArea}>
             <FormControl component="fieldset">
                 <FormLabel component="legend">My Interests</FormLabel>
-                  <RadioGroup 
-                    aria-label="my-interests" 
-                    name="my-interests1" 
-                    value={value} 
-                    onClick={() => console.log('I BEEN PRESSED!')} 
-                  >
-                    <FormControlLabel value="reading" control={<Radio />} label="Reading" />
-                    <FormControlLabel value="tv-movies" control={<Radio />} label="TV and Movies" />
-                    <FormControlLabel value="fitness" control={<Radio />} label="Fitness" />
-                    <FormControlLabel value="hiking" control={<Radio />} label="Hiking" />
-                    <FormControlLabel value="arts-culture" control={<Radio />} label="Arts and Culture" />
-                    <FormControlLabel value="music" control={<Radio />} label="Music" />
-                    <FormControlLabel value="gaming" control={<Radio />} label="Gaming" />
-                    <FormControlLabel value="travel" control={<Radio />} label="Travel" />
-                    <FormControlLabel value="studying-coworking" control={<Radio />} label="Studying and Coworking" />
-                    <FormControlLabel value="sports" control={<Radio />} label="Sports" />
-                    <FormControlLabel value="eating-out" control={<Radio />} label="Eating Out" />
-                    <FormControlLabel value="going-out" control={<Radio />} label="Going Out" />
-                  </RadioGroup>
+                    <FormControlLabel value="reading" control={<Checkbox checked={interests.reading} onChange={event => setInterests({...interests, reading: event.target.value})} name="reading" />} label="Reading" />
+                    <FormControlLabel value="tv-movies" control={<Checkbox checked={interests.tv_movies} onChange={event => setInterests({...interests, tv_movies: event.target.value}) } name="tv-movies" />} label="TV and Movies" />
+                    <FormControlLabel value="fitness" control={<Checkbox checked={interests.fitness} onChange={event => setInterests({...interests, fitness: event.target.value}) } name="fitness" />} label="Fitness" />
+                    <FormControlLabel value="hiking" control={<Checkbox checked={interests.hiking} onChange={event => setInterests({...interests, hiking: event.target.value}) } name="hiking" />} label="Hiking" />
+                    <FormControlLabel value="arts-culture" control={<Checkbox checked={interests.arts_culture} onChange={event => setInterests({...interests, arts_culture: event.target.value}) } name="arts-culture" />} label="Arts and Culture" />
+                    <FormControlLabel value="music" control={<Checkbox checked={interests.music} onChange={event => setInterests({...interests, music: event.target.value}) } name="music" />} label="Music" />
+                    <FormControlLabel value="gaming" control={<Checkbox checked={interests.gaming} onChange={event => setInterests({...interests, gaming: event.target.value}) } name="gaming" />} label="Gaming" />
+                    <FormControlLabel value="travel" control={<Checkbox checked={interests.travel} onChange={event => setInterests({...interests, travel: event.target.value}) } name="travel" />} label="Travel" />
+                    <FormControlLabel value="studying-coworking" control={<Checkbox checked={interests.studying} onChange={event => setInterests({...interests, studying: event.target.value}) } name="studying" />} label="Studying and Coworking" />
+                    <FormControlLabel value="sports" control={<Checkbox checked={interests.sports} onChange={event => setInterests({...interests, sports: event.target.value}) } name="sports" />} label="Sports" />
+                    <FormControlLabel value="eating-out" control={<Checkbox checked={interests.eating_out} onChange={event => setInterests({...interests, eating_out: event.target.value}) } name="eating-out" />} label="Eating Out" />
+                    <FormControlLabel value="going-out" control={<Checkbox checked={interests.going_out} onChange={event => setInterests({...interests, going_out: event.target.value}) } name="going-out" />} label="Going Out" />
               </FormControl>
-            <Text></Text>
-            {/* <View>{allUserInterests}</View> */}
-            
           </View>
        </ScrollView>
     </SafeAreaView>
