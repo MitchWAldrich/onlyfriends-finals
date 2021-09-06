@@ -2,37 +2,62 @@ import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { TextInput, StyleSheet, Text, View, Button } from 'react-native';
 import { StateContext } from '../../StateProvider.js';
 import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-import { fullConversation } from '../../src/helpers/selectors.js';
+import { TypingAnimation } from 'react-native-typing-animation';
+import { fullConversation, fullUserObject } from '../../src/helpers/selectors.js';
 import io from "socket.io-client";
 
 
 const ChatMessages = (props) => {
   const { state, sendMessage, socket } = useContext(StateContext);
   const { user, users } = state;
-  const [messages, setMessages] = useState([]);
   const { id } = props
-  // console.log('STATE: ', state)
   const otherUser = users.find(user => user.id === id);
+  const conversation = fullConversation(state, user, otherUser).reverse();
+  const [messages, setMessages] = useState([...conversation]);
+  const fullSignedInUser = fullUserObject(state, user);
 
-  const conversation = fullConversation(state, user, otherUser);
-
-  console.log('CONVERSATION: ', conversation);
+  console.log("CONVO: ", conversation)
+  // useEffect(() => {
+  //   setMessages([
+  //     {
+  //       _id: conversation.id,
+  //       text: conversation.message,
+  //       createdAt: new Date(),
+  //       user: {
+  //         _id: user.id, 
+  //         name: user.first_name,
+  //         avatar: fullSignedInUser.photos[0],
+  //       },
+  //     },
+  //   ])
+  // }, []);
+  
+  // const appendOnSend = useCallback((msg = []) => {
+    
+  //   const finalMessage = {...msg[0], receiverID: id, matchID: conversation[0].id}
+  //   sendMessage(finalMessage)
+    
+  //   socket.on("SEND_MESSAGE", msg => {
+  //     console.log("Message received!")
+  //     setMessages((prev) => GiftedChat.append({...prev, msg}))
+  //   })
+    
+  //   return () => {
+  //     socket.off("SEND_MESSAGE")
+  //   }
+  // }, []);
 
   const onSend = (msg) => {
-    console.log("PROPS ID:", id)
-    console.log("msgONE:", msg)
-
-    const finalMessage = {...msg[0], receiverID: id, matchID: conversation[0].id}
-    console.log("finalMessage: ", finalMessage)
-    console.log("MATCHID: ", conversation[0].id)
+    const finalMessage = {...msg[0], receiverID: otherUser.id, matchID: conversation[0]._id}
+    console.log("FINAL MESSAGE: ", finalMessage)
     sendMessage(finalMessage)
   };
-
+  
   useEffect(() => {
-      socket.on("SEND_MESSAGE", msg => {
+        socket.on("SEND_MESSAGE", msg => {
+        // console.log("msgGRAB:", msg)
         console.log("Message received!")
-        console.log("msgGRAB:", msg)
-        setMessages(prev => ([...prev, msg]))
+        setMessages(prev => ([msg, ...prev]))
       })
       
       return () => {
@@ -40,27 +65,19 @@ const ChatMessages = (props) => {
       }
   }, [])
 
-  const renderBubble = (props) => {
-    return (
-      <Bubble
-        {...props}
-        wrapperStyle={{
-          left: {
-            backgroundColor: '#d3d3d3',
-          },
-        }}
-      />
-    )
-  }
-  
   return (
     <View style={styles.container}>
-      {/* <View>{messageHistory}</View> */}
       <GiftedChat
         messages={messages}
         onSend={onSend}
-        user={{_id: user.id, name: user.first_name}}
-        renderBubble={renderBubble}
+        // onSend={messages => appendOnSend(messages)}
+        user={{
+          _id: user.id, 
+          name: user.first_name,
+          avatar: fullSignedInUser.photos[0],
+        }}
+        showUserAvatar={true}
+        // renderLoadEarlier={conversation}
       />
     </View>
   );
