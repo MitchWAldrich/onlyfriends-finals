@@ -2,7 +2,7 @@ import React, { useState, useContext, setState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StyleSheet, View, ActivityIndicator, Button } from 'react-native';
 import { StateContext } from '../../../StateProvider';
-import { fullUserObject, matchedIds, unmatchedUsers, shuffle } from '../../helpers/selectors';
+import { fullUserObject, matchedIds, unmatchedUsers, shuffle, getMatchIdByUserIds } from '../../helpers/selectors';
 import MatchButtons from '../MatchButtons';
 import useCardMode from '../../hooks/useCardMode';
 import potentialMatches from '../../hooks/potentialMatches';
@@ -39,6 +39,8 @@ const Cards = function()  {
 
   const { state } = useContext(StateContext);
   const user = state.user;
+
+  const [matches, setMatches] = useState(state.matches);
   
   const shuffleUsers = (usersArray) => {
     let shuffledUsers = usersArray;
@@ -105,10 +107,14 @@ const Cards = function()  {
     next(NAME)
     return
   }
+
+  
   
   
   const match = state.potentialMatches.find(obj => obj.user1_id === displayedUser.id && obj.user2_id === user.id)
-  
+  // const matchID = getMatchIdByUserIds(state, user, displayedUser);
+
+
   const like = () => {
     
     if (match) {
@@ -116,6 +122,8 @@ const Cards = function()  {
       state.suggestedUser = null;
       matchedUsers(user, displayedUser, false) 
       setMode(MATCHED)
+      console.log('STATE MATCHES: ', state.matches)
+      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}])
       return
     } else {
       removeSuggested();
@@ -131,10 +139,12 @@ const Cards = function()  {
     if (match && match.best_friend === true) {
       matchedUsers(user, displayedUser, true) 
       setMode(SUPERMATCHED)
+      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: true}])
       return
     } else if (match && match.best_friend === false) {
       matchedUsers(user, displayedUser, true) 
       setMode(MATCHED)
+      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}])
       return
     } else {
       potentialMatches(user.id, displayedUser.id, true); 
@@ -142,6 +152,9 @@ const Cards = function()  {
       return
     }
   }
+
+  const matchID = getMatchIdByUserIds(matches, user, displayedUser);
+  console.log('MATCHES: ', matches)
 
   useEffect(() => {
     getData();
@@ -153,7 +166,7 @@ const Cards = function()  {
       {mode === BIO && <Bio next={() => next(INTERESTS)} back={() => back(NAME)} detailedUser={displayedUser}/>}
       {mode === INTERESTS && <Interests next={() => next(EXTRAS)} back={() => back()} detailedUser={displayedUser}/>}
       {mode === EXTRAS && <Extras back={() => back()} detailedUser={displayedUser} />}
-      {mode === MATCHED && <Matched home={() => goHome()} detailedUser={displayedUser} user={fullUser}/>}
+      {mode === MATCHED && <Matched home={() => goHome()} detailedUser={displayedUser} user={fullUser} matchID={matchID} />}
       {mode === SUPERMATCHED && <SuperMatched home={() => goHome()} detailedUser={displayedUser} user={fullUser}/>}
       <MatchButtons 
         like={() => like()} 

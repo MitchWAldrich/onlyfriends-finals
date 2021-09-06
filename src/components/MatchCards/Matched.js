@@ -1,10 +1,12 @@
 import React from 'react';
 import { SafeAreaView, Text, View, Button, StyleSheet, Image, Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Matched = (props) => {
-  const { home, detailedUser, user } = props;
-  
+  const { home, detailedUser, user, matchID } = props;
 
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,7 +22,8 @@ const Matched = (props) => {
           style={styles.photo} 
         />
       </View>
-      <Button title="Send a Message" onPress={Alert.alert('go to messages')} />
+      <Button title="Send a Message" 
+      onPress={() => navigation.navigate('Chat', {userName: `${detailedUser.first_name} ${detailedUser.last_name.charAt(0)}`, id: detailedUser.id, matchID: matchID})} />
       <Button title="Find More Friends" onPress={home} />
     </SafeAreaView>
   )

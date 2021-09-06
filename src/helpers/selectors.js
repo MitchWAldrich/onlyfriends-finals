@@ -382,6 +382,17 @@ export function fullUserObject(state, newUser) {
   return userObject 
 }
 
+export function getMatchIdByUserIds(matches, signedInUser, otherUser) {
+  let matchID;
+  
+  for (const conversationID of matches) {
+    if ((conversationID.user1_id === signedInUser.id && conversationID.user2_id === otherUser.id) || (conversationID.user1_id === otherUser.id && conversationID.user2_id === signedInUser.id)) {
+      matchID = conversationID.id;
+    }
+  }
+  return matchID;
+}
+
 export function fullConversation(state, signedInUser, otherUser) {
   
   let matchID;
