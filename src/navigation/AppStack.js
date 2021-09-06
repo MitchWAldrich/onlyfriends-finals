@@ -97,7 +97,7 @@ const Stack = createStackNavigator();
     </Stack.Navigator>
   );
 
-  const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
  const MyTabs = ({navigation}) => {
     return (
