@@ -5,11 +5,13 @@ VALUES
 ('Eva', 'Bell', 'evab@email.com', 'password', '1998-10-23', 'Vancouver', 'Female', 'I love to hike and go on adventures!', 'Scorpio', 'Yes'),
 ('Adrian', 'Williams', 'awills@email.com', 'password', '1994-03-19', 'Toronto', 'Male', 'Photography is my passion. Always down for a collab', 'Pisces', 'No'),
 ('Alexa', 'Jones', 'alexajones@email.com', 'password', '1986-09-12', 'Scarborough', 'Undisclosed', 'Always looking for book recommendations! Let me know what you are reading', 'Virgo', 'Yes'),
-('Kim', 'Chu', 'kimmy@email.com', 'password', '1998-09-01', 'Toronto', 'Female', 'I only love three things: My dog, the beach, and making friends!', 'Virgo', 'Yes'),
+('Kelly', 'Chu', 'kelly@email.com', 'password', '1998-09-11', 'Toronto', 'Female', 'I only love three things: My dog, the beach, and making friends!', 'Virgo', 'Yes'),
 ('Natasha', 'McMillan', 'natty@email.com', 'password', '1994-10-07', 'Vancouver', 'Female', 'Florist and aspiring author. Looking for a friend to share ideas with!', 'Libra', 'Yes'),
 ('Matt', 'Powell', 'mattpow@email.com', 'password', '1993-12-27', 'Oakville', 'Male', 'Overall an easy going guy. Also a geek for Marvel and everything comics related.', 'Capricorn', 'Yes'),
 ('Trish', 'Sawyer', 'trish@email.com', 'password', '1994-02-11', 'Toronto', 'Female', 'Happiness never goes out of style!', 'Aquarius', 'Yes'),
-('Sean', 'Porter', 'seanp@email.com', 'password', '1990-06-14', 'Toronto', 'Male', 'I’m awesome (don’t worry I think you are too).', 'Gemini', 'Yes');
+('Sean', 'Porter', 'seanp@email.com', 'password', '1990-06-14', 'Toronto', 'Male', 'I’m awesome (don’t worry I think you are too).', 'Gemini', 'Yes'),
+('Kim', 'Sanchez', 'kimmy@email.com', 'password', '1998-09-01', 'Toronto', 'Female', 'Either reading or travelling.', 'Virgo', 'Yes'),
+('Kate', 'Sanchez', 'kate@email.com', 'password', '1999-10-07', 'Mississauga', 'Female', 'Lover of the outdoors, art, and travel.', 'Libra', 'Yes');
 
 INSERT INTO photos (user_id, photo1_url, photo2_url, photo3_url, photo4_url)
 VALUES 
@@ -22,7 +24,9 @@ VALUES
 (7, 'https://images.pexels.com/photos/8532778/pexels-photo-8532778.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/8532756/pexels-photo-8532756.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/8532623/pexels-photo-8532623.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/8532767/pexels-photo-8532767.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
 (8, 'https://images.pexels.com/photos/4114828/pexels-photo-4114828.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/4114741/pexels-photo-4114741.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/4115001/pexels-photo-4115001.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/4113955/pexels-photo-4113955.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
 (9, 'https://images.pexels.com/photos/4045541/pexels-photo-4045541.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/4046158/pexels-photo-4046158.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/4056529/pexels-photo-4056529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/4046314/pexels-photo-4046314.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
-(10, 'https://images.pexels.com/photos/5749820/pexels-photo-5749820.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749770/pexels-photo-5749770.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749790/pexels-photo-5749790.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749089/pexels-photo-5749089.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+(10, 'https://images.pexels.com/photos/5749820/pexels-photo-5749820.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749770/pexels-photo-5749770.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749790/pexels-photo-5749790.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749089/pexels-photo-5749089.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
+(11, 'https://i.imgur.com/1R5U27H.jpg', 'https://i.imgur.com/K9P3ZwP.jpg', 'https://i.imgur.com/8qG1Fin.png', 'https://i.imgur.com/sWBQR41.jpg'),
+(12, 'https://i.imgur.com/lfnqruz.jpg', 'https://i.imgur.com/XY8Rdez.jpg', 'https://i.imgur.com/Ck3Vea6.jpg', 'https://i.imgur.com/dCLzsXR.jpg');
 
 INSERT INTO interests (user_id, reading, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out)
 VALUES 
@@ -35,7 +39,9 @@ VALUES
 (7, true, true, false, false, true, false, false, false, true, false, false, false),
 (8, true, true, false, false, false, true, true, false, false, true, false, false),
 (9, false, false, true, true, true, false, false, true, false, false, true, true),
-(10, true, false, true, true, true, false, false, true, true, true, true, false);
+(10, true, false, true, true, true, false, false, true, true, true, true, false),
+(11, true, false, false, true, true, true, true, true, true, false, true, false),
+(12, false, false, false, true, true, false, false, true, false, false, false, true);
 
 INSERT INTO potential_matches (user1_id, user2_id, best_friend)
 VALUES 
