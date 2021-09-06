@@ -16,7 +16,26 @@ const Messages = () => {
   console.log("INBOX:", inbox)
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
+      <View style={styles.container}>
+
+      <FlatList
+          contentContainerStyle={styles.newMatchContainer}
+          data={inbox}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
+                <View styles={styles.userInfoCard}>
+                  <View styles={styles.userImgWrapper}>
+                    <Image source={item.userImg} style={styles.userAvatar} />
+                  </View>
+                </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+
+      <View style={styles.container}>
         <FlatList
           contentContainerStyle={styles.messagesContainer}
           data={inbox}
@@ -38,6 +57,7 @@ const Messages = () => {
             </TouchableOpacity>
           )}
         />
+      </View>
     </SafeAreaView>
   )
 }
@@ -51,12 +71,20 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     alignItems:'center',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   item: {
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
+  },
+  newMatchContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 10
   },
   messagesContainer: {
     width: '100%',

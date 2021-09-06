@@ -78,6 +78,7 @@ const ChatMessages = (props) => {
         }}
         showUserAvatar={true}
         alwaysShowSend={true}
+
         // renderLoadEarlier={conversation}
       />
     </View>
