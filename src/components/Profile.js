@@ -32,7 +32,7 @@ const navigation = useNavigation();
   //Logout button function
   const onSubmit = async () => {
    
-    remove(state, setState, auth, setAuth);
+    removeSuggested(state, setState, auth, setAuth);
     
   }
   
