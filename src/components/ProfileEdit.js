@@ -38,7 +38,7 @@ const ProfileEdit = (props) => {
   console.log("VAX VALUE: ",vaxxed.vaccinated);
 
   const handleVaccinated = (event) => {
-    setVaxxed({...state, vaccinated: event.target.vaxxed})
+    setVaxxed({...state, vaccinated: event.target.value})
   }
 
   const [interests, setInterests] = useState({
