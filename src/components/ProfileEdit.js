@@ -2,7 +2,7 @@ import React, { useState, Component, useEffect, useContext  } from "react";
 
 import { StyleSheet, Text,TextInput, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, CheckBox  } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Chip, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, TextField } from '@material-ui/core'
+import { Chip, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, TextField, Checkbox } from '@material-ui/core';
 import { useNavigation } from '@react-navigation/native';
 import { allUserInterests, fullUserObject, userAge } from '../helpers/selectors.js';
 import { StateContext } from '../../StateProvider.js';
@@ -15,20 +15,30 @@ const ProfileEdit = (props) => {
 
   const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, state.user)
   console.log('dUs', detailedUser)
-  const gender = detailedUser.gender;
 
   const userInterests = state.interests.find(obj => obj.user_id === state.user.id);
   console.log("USER INTERESTS:", userInterests);
   
   const [value, onChangeValue] = useState({
-    gender: gender,
+    gender: detailedUser.gender,
     address: detailedUser.address,
-    vaccinated: detailedUser.vaccinated,
+    // vaccinated: detailedUser.vaccinated,
     about_me: detailedUser.about_me,
   });
-
+  
+  console.log("GENDER VALUE: ",value.gender);
+  
   const handleGender = (event) => {
     onChangeValue({...state, gender: event.target.value})
+  }
+  
+  const [vaxxed, setVaxxed] = useState({
+    vaccinated: detailedUser.vaccinated,
+  });
+  console.log("VAX VALUE: ",vaxxed.vaccinated);
+
+  const handleVaccinated = (event) => {
+    setVaxxed({...state, vaccinated: event.target.value})
   }
 
   const [interests, setInterests] = useState({
@@ -45,6 +55,10 @@ const ProfileEdit = (props) => {
     eating_out: userInterests.eating_out,
     going_out: userInterests.going_out
   });
+  
+  const handleInterests = (event) => {
+    setInterests({...state, interests: event.target.value})
+  }
 
   // const [interests, setInterests] = useState([
   //   {key: 0, label:'Reading'},
@@ -136,8 +150,8 @@ const ProfileEdit = (props) => {
                 <RadioGroup 
                   aria-label="gender" 
                   name="gender1" 
-                  value={value} 
-                  onClick={() => console.log('I BEEN PRESSED!')} 
+                  value={value.gender}
+                  onChange={handleGender} 
                 >
                   <FormControlLabel value="female" control={<Radio />} label="Female" />
                   <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -160,8 +174,8 @@ const ProfileEdit = (props) => {
                 <RadioGroup 
                   aria-label="vaccinated" 
                   name="vaccinated1" 
-                  value={value} 
-                  onClick={() => console.log('I BEEN PRESSED!')} 
+                  value={vaxxed.vaccinated}
+                  onChange={handleVaccinated} 
                 >
                   <FormControlLabel value="yes" control={<Radio />} label="Yes" />
                   <FormControlLabel value="no" control={<Radio />} label="No" />
@@ -189,25 +203,25 @@ const ProfileEdit = (props) => {
           <View style={styles.textArea}>
             <FormControl component="fieldset">
                 <FormLabel component="legend">My Interests</FormLabel>
-                  <RadioGroup 
+                  {/* <RadioGroup 
                     aria-label="my-interests" 
                     name="my-interests1" 
                     value={value} 
                     onClick={() => console.log('I BEEN PRESSED!')} 
-                  >
-                    <FormControlLabel value="reading" control={<Radio />} label="Reading" />
-                    <FormControlLabel value="tv-movies" control={<Radio />} label="TV and Movies" />
-                    <FormControlLabel value="fitness" control={<Radio />} label="Fitness" />
-                    <FormControlLabel value="hiking" control={<Radio />} label="Hiking" />
-                    <FormControlLabel value="arts-culture" control={<Radio />} label="Arts and Culture" />
-                    <FormControlLabel value="music" control={<Radio />} label="Music" />
-                    <FormControlLabel value="gaming" control={<Radio />} label="Gaming" />
-                    <FormControlLabel value="travel" control={<Radio />} label="Travel" />
-                    <FormControlLabel value="studying-coworking" control={<Radio />} label="Studying and Coworking" />
-                    <FormControlLabel value="sports" control={<Radio />} label="Sports" />
-                    <FormControlLabel value="eating-out" control={<Radio />} label="Eating Out" />
-                    <FormControlLabel value="going-out" control={<Radio />} label="Going Out" />
-                  </RadioGroup>
+                  > */}
+                    {/* checked={value inside is the value we want} */}
+                    <FormControlLabel value="reading" control={<Checkbox checked={interests.reading} onChange={handleInterests} name="reading" />} label="Reading" />
+                    <FormControlLabel value="tv-movies" control={<Checkbox checked={interests.tv_movies} onChange={handleInterests} name="tv-movies" />} label="TV and Movies" />
+                    <FormControlLabel value="fitness" control={<Checkbox checked={interests.fitness} onChange={handleInterests} name="fitness" />} label="Fitness" />
+                    <FormControlLabel value="hiking" control={<Checkbox checked={interests.hikinh} onChange={handleInterests} name="hiking" />} label="Hiking" />
+                    <FormControlLabel value="arts-culture" control={<Checkbox checked={interests.arts_culture} onChange={handleInterests} name="arts-culture" />} label="Arts and Culture" />
+                    <FormControlLabel value="music" control={<Checkbox checked={interests.music} onChange={handleInterests} name="music" />} label="Music" />
+                    <FormControlLabel value="gaming" control={<Checkbox checked={interests.gaming} onChange={handleInterests} name="gaming" />} label="Gaming" />
+                    <FormControlLabel value="travel" control={<Checkbox checked={interests.travel} onChange={handleInterests} name="travel" />} label="Travel" />
+                    <FormControlLabel value="studying-coworking" control={<Checkbox checked={interests.studying} onChange={handleInterests} name="studying" />} label="Studying and Coworking" />
+                    <FormControlLabel value="sports" control={<Checkbox checked={interests.sports} onChange={handleInterests} name="sports" />} label="Sports" />
+                    <FormControlLabel value="eating-out" control={<Checkbox checked={interests.eating_out} onChange={handleInterests} name="eating-out" />} label="Eating Out" />
+                    <FormControlLabel value="going-out" control={<Checkbox checked={interests.going_out} onChange={handleInterests} name="going-out" />} label="Going Out" />
               </FormControl>
             <Text></Text>
             {/* <View>{allUserInterests}</View> */}
