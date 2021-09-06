@@ -6,30 +6,32 @@ export const InboxContainer = styled.SafeAreaView`
   padding-right: 20px;
   align-items: center;
   background-color: #FFFFFF;
-`;
-
-export const NewMatchContainer = styled.View`
-  padding-left: 15px;
-  padding-right: 20px;
-  flex-direction: row;
-  align-items: flex-start;
-  background-color: #FFFFFF;
+  width:100%;
 `;
 
 export const NewMatches = styled.TouchableOpacity`
   width: 90%;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-left: 25px;
+  margin-right: 25px;
 `;
 
-export const MessageCard = styled.TouchableOpacity`
-  width: 90%;
-  margin-left: 30px;
-  margin-right: 30px;
-`;
 export const NewUserInfoCard = styled.View`
   flex-direction: row;
   justify-content: flex-start;
+  border-bottom-width: 1px;
+  border-bottom-color: #cccccc;
+`;
+
+export const NewUserImgGroup = styled.View`
+padding-top: 15px;
+padding-bottom: 15px;
+`;
+
+
+export const MessageCard = styled.TouchableOpacity`
+  width: 90%;
+  margin-left: 25px;
+  margin-right: 25px;
 `;
 
 export const UserInfoCard = styled.View`
