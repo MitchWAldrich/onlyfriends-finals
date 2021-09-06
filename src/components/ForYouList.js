@@ -1,10 +1,14 @@
 import React from "react";
 import { StyleSheet, View, Text, PushNotificationIOS, ScrollView } from "react-native";
 import ForYouListItem from './ForYouListItem';
+import { shuffle } from "../helpers/selectors";
 
 const ForYouList = (props) => {
 
-  const parsedDFUs = props.detailedFilteredUsers.map( (user, index) => 
+  const shuffledUsers = shuffle(props.detailedFilteredUsers)
+
+
+  const parsedDFUs = shuffledUsers.map( (user, index) => 
     <ForYouListItem
       key={index}
       id={user.id}

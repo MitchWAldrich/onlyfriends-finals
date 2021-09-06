@@ -11,15 +11,10 @@ const ForYouListItem = (props, {navigation}) => {
   navigation = useNavigation();  
 
   const onPress = async () => {
-    suggestedUser(props.user)
-    getData(state, setState)
-    // console.log('parasedUser1', parsedUser)
+       
+    setState(({...state, suggestedUser: props.user }))
     return
   }
-
-  useEffect(() => {
-    getData();
-  }, [])
 
   return (
     <View style={styles.item}>
