@@ -306,7 +306,9 @@ const state = {
     "sent_at": "2021-08-23T03:23:54.000Z"
   }
 ]
-}; 
+};
+
+
 export function getUserById(state, id) {
   for (const user of state.users) {
     if (user.id === id) {
