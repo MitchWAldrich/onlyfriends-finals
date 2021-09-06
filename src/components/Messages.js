@@ -17,13 +17,12 @@ const Messages = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.messagesContainer}>
         <FlatList
+          contentContainerStyle={styles.messagesContainer}
           data={inbox}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
-              <View styles={styles.userCard}>
                 <View styles={styles.userInfoCard}>
                   <View styles={styles.userImgWrapper}>
                     <Image source={item.userImg} style={styles.userAvatar} />
@@ -36,12 +35,9 @@ const Messages = () => {
                     <Text>{item.messageText}</Text>
                   </View>
                 </View>
-              </View>
             </TouchableOpacity>
           )}
         />
-
-      </View>
     </SafeAreaView>
   )
 }
@@ -51,25 +47,34 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFF",
     width: '100%',
-    paddingTop: 10,
-    paddingLeft: 10
+    paddingTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    alignItems:'center',
+    backgroundColor: '#FFFFFF'
+  },
+  item: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
   },
   messagesContainer: {
-    flex: 1,
     width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'center',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    paddingHorizontal: 10
   },
   userCard: {
     width: '100%'
   },
   userInfoCard: {
-    flexDirection: 'column',
-    justifyContent: 'space-between'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    
   },
   userImgWrapper: {
-    paddingTop: 15,
-    paddingBottom: 15
+    marginVertical: 15
   },
   userAvatar: {
     width: 50,

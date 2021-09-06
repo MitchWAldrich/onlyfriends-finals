@@ -74,14 +74,15 @@ export default function AppStack() {
 const Stack = createStackNavigator();
 
   const MessageStack = ({navigation}) => (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center'}}>
       <Stack.Screen name="Messages" component={MessagesScreen}/>
       <Stack.Screen
         name="Chat"
         component={({route}) => ChatScreen(route.params.id)}
         options={({route}) => ({
           title: route.params.userName,
-          headerBackTitleVisible: false
+          headerBackTitleVisible: false,
+          headerTitleAlign: 'center'
         })}
       />
     </Stack.Navigator>
@@ -101,7 +102,7 @@ const Stack = createStackNavigator();
 
  const MyTabs = ({navigation}) => {
     return (
-      <Tab.Navigator screenOptions={{ headerShown: true }}>
+      <Tab.Navigator screenOptions={{ headerShown: true, headerTitleAlign: 'center' }}>
         <Tab.Screen 
           name="Profile" // THIS IS WHAT SHOWS UP ON TOP, we need the onlyFriends logo to replace this
           component={ProfileStack}

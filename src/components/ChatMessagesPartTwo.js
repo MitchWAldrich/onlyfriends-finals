@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
   textArea: { 
     height: 40,
     width:'85%', 
-    orderWidth: 1,
     borderRadius:5,
     borderColor: '#808080'
   }
