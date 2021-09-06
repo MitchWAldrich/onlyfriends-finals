@@ -1,24 +1,28 @@
 import React from "react";
-import { StyleSheet, View, Text, PushNotificationIOS } from "react-native";
+import { StyleSheet, View, Text, PushNotificationIOS, ScrollView } from "react-native";
 import ForYouListItem from './ForYouListItem';
 
 const ForYouList = (props) => {
 
-  const parsedDFUs = props.detailedFilteredUsers.map( user => 
+  const parsedDFUs = props.detailedFilteredUsers.map( (user, index) => 
     <ForYouListItem
-      key={user.id}
+      key={index}
+      id={user.id}
       photo={user.photos[0]}
       name={user.first_name}
       age={user.age}
       gender={user.gender}
+      user={user}
     />
     )
    
   return (
+    <ScrollView horizontal>
     <View style={styles.list}>
       <Text>Future friends who like <Text style={styles.category}>{props.category}</Text></Text>
       <View style={styles.listitems}>{parsedDFUs}</View>
     </View>
+    </ScrollView>
   );
 };
 
