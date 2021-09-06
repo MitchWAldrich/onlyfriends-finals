@@ -11,7 +11,7 @@ export const InboxContainer = styled.SafeAreaView`
 export const NewMatchContainer = styled.View`
   padding-left: 15px;
   padding-right: 20px;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   background-color: #FFFFFF;
 `;
