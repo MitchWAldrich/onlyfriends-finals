@@ -1,6 +1,5 @@
 import React from "react";
 import { View, StyleSheet, Pressable } from "react-native";
-import potentialMatches from "../hooks/potentialMatches";
 
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';

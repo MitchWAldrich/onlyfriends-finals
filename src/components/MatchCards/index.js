@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StyleSheet, Button } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StateContext } from '../../../StateProvider';
 import { fullUserObject, matchedIds, unmatchedUsers, shuffle } from '../../helpers/selectors';
 import MatchButtons from '../MatchButtons';
@@ -37,14 +37,25 @@ const Cards = function()  {
     let shuffledUsers = usersArray;
 
     if (mode === NAME) {
-      return shuffle(usersArray)
+      shuffledUsers = shuffle(usersArray)
     }
     return shuffledUsers;
   }
 
+  const besties = () => {
+    const potentialBesties = [];
+    for (const potentialMatch of state.potentialMatches) {
+      if (potentialMatch.best_friend === true) {
+        potentialBesties.push(potentialMatch.user2_id)
+      }
+    }
+    return potentialBesties;
+  }
+
+  const potentialBestieIds = besties();
+  console.log(potentialBestieIds)
+
   const users = shuffleUsers(state.users)
-  
-  console.log('users: ', users)
   
   const unwantedUserIds = matchedIds(state, user);
   
@@ -56,7 +67,7 @@ const Cards = function()  {
   
   //users with interests and photos
   const detailedUsers = filteredUsers.map(person => fullUserObject({users: state.users, interests: state.interests, photos: state.photos}, person))
-  
+  console.log('Detailed Users', detailedUsers)
   //current user being displayed in card stack
   let currentUser = detailedUsers[index];
   
@@ -110,7 +121,7 @@ const Cards = function()  {
       return
     }
   }
-  
+
   return (
     <SafeAreaView style={styles.container}>
       {mode === NAME && <Name next={() => next(BIO)} detailedUser={displayedUser} /> }
