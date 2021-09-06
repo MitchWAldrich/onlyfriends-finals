@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { remove, getData } from '../helpers/persistLogin.js';
 
 const Profile = (props) => {
-  const { state, setState, loading, logout, email, setEmail, auth, setAuth } = useContext(StateContext)
+  const { state, setState, loading, logout, email, setEmail, setAuth } = useContext(StateContext)
 
   const navigation = useNavigation(); 
 
@@ -31,9 +31,9 @@ const Profile = (props) => {
   
   //Logout button function
   const onSubmit = async () => {
-   
-    removeSuggested(state, setState, auth, setAuth);
     
+    remove();
+    setAuth(false);
   }
   
   useEffect(() => {
