@@ -10,7 +10,7 @@ export default function LoginForm() {
   // const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   
-  const { state, setState, auth, setAuth, email, setEmail } = useContext(StateContext)
+  const { state, setState, setAuth, email, setEmail } = useContext(StateContext)
 
   const navigation = useNavigation();
 
@@ -20,7 +20,7 @@ export default function LoginForm() {
     for (const user of users) {
         if (email === user.email) {
             if (password === user.password) {
-
+              const auth = true;
               save(user, auth);
               getData(state, user, setState, auth, setAuth);
           
