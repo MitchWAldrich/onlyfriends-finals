@@ -8,10 +8,6 @@ import useCardMode from '../../hooks/useCardMode';
 import potentialMatches from '../../hooks/potentialMatches';
 import { matchedUsers } from '../../hooks/matchedUsers';
 import { removeSuggested } from '../../helpers/persistsSuggestedUser';
-import { suggestedUser, getData } from "../../helpers/persistsSuggestedUser";
-
-
-
 
 
 //All of the different modes
@@ -89,19 +85,16 @@ const Cards = function()  {
   //function to step through each user in card stack
   const incrementUser = (index) => {
     if (index === detailedUsers.length - 1) {
-      removeSuggested();
       state.suggestedUser = null;
       setMode(NAME)
       return setIndex(0)
     }
-    removeSuggested();
     state.suggestedUser = null;
     setMode(NAME)
     return setIndex(index += 1)
   }
 
   const goHome = () => {
-    removeSuggested();
     state.suggestedUser = null;
     incrementUser(index)
     next(NAME)
@@ -118,17 +111,14 @@ const Cards = function()  {
   const like = () => {
     
     if (match) {
-      removeSuggested();
-      state.suggestedUser = null;
       matchedUsers(user, displayedUser, false) 
       setMode(MATCHED)
       console.log('STATE MATCHES: ', state.matches)
-      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}])
+      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]
       return
     } else {
-      removeSuggested();
-      state.suggestedUser = null;
       potentialMatches(user.id, displayedUser.id, false); 
+      state.suggestedUser = null;
       incrementUser(index);
       return
     }
@@ -147,6 +137,7 @@ const Cards = function()  {
       setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}])
       return
     } else {
+      state.suggestedUser = null;
       potentialMatches(user.id, displayedUser.id, true); 
       incrementUser(index);
       return
@@ -154,10 +145,11 @@ const Cards = function()  {
   }
 
 
+
   useEffect(() => {
     getData();
   }, [])
-  
+
   return (
     <SafeAreaView style={styles.container}>
       {mode === NAME && <Name next={() => next(BIO)} detailedUser={displayedUser} /> }
