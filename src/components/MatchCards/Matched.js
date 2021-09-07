@@ -1,19 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { SafeAreaView, Text, View, Button, StyleSheet, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StateContext } from '../../../StateProvider';
 
 const Matched = (props) => {
   const { home, detailedUser, user } = props;
+  const { state, setState } = useContext(StateContext)
 
   const navigation = useNavigation();
-
-  const { state, matches, setMatches } = useContext(StateContext);
-
+  const [refreshPage, setRefreshPage] = useState('')
+  
   const onPress = () => {
-    setMatches(matches)
+    setState({...state, matches: [...state.matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
     return 
   };
+  
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,8 +31,9 @@ const Matched = (props) => {
         />
       </View>
       <Button title="Send a Message" onPress={() => {
-        onPress()
-        navigation.navigate('Messages')}}/>
+        onPress
+        navigation.navigate('Messages')
+      }}/>
       <Button title="Find More Friends" onPress={home} />
     </SafeAreaView>
   )

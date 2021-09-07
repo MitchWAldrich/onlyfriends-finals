@@ -1,24 +1,67 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { View, StyleSheet, FlatList, Text, ActivityIndicator } from 'react-native';
 import { StateContext } from '../../StateProvider.js';
 import { useNavigation } from '@react-navigation/native';
 import { inboxObjects, findMatchesByUser } from '../../src/helpers/selectors.js';
 import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard } from '../styles/MessagesStyles.js';
+// import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
 
+import axios from 'axios';
 
 const Messages = () => {
-  
+  const [newState, setNewState] = useState({
+    user: {},
+    users: null,
+    interests: {},
+    photos: {},
+    potentialMatches: {},
+    matches: {},
+    messages: []
+  })
+      
+  useEffect(() => {
+
+
+    Promise.all([
+      axios.get('http://localhost:8001/api/users'),
+      axios.get('http://localhost:8001/api/interests'),
+      axios.get('http://localhost:8001/api/photos'),
+      axios.get('http://localhost:8001/api/potential-matches'),
+      axios.get('http://localhost:8001/api/matches'),
+      axios.get('http://localhost:8001/api/messages'),
+    ])
+      .then((all) => {
+        const [users, interests, photos, potentialMatches, matches, messages] = all;
+
+        setNewState(prev => ({ ...prev, users: users.data, interests: interests.data, photos: photos.data, messages: messages.data, potentialMatches: potentialMatches.data, matches: matches.data}))
+        
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+  }, []);
+
+  if (newState.users === null) {
+      return (
+        <View >
+          <ActivityIndicator 
+            size="large"
+            loading={loading}
+            />
+        </View>
+      )
+  }
+
   const navigation = useNavigation();
-  
-  const { state } = useContext(StateContext);
+  // const { newState, setNewState } = showMatchedUsers();
+  const { state, loading } = useContext(StateContext);
   const { user } = state;
-  const inbox = inboxObjects(state, user);
-  const newMatches = findMatchesByUser(state, user);
 
-  console.log("NEW MATCHES: ", newMatches);
-
-  console.log("STATE: ", state)
+  console.log("STATE: ", newState)
   
+  const inbox = inboxObjects(newState, user);
+  const newMatches = findMatchesByUser(newState, user);
+
   return (
     <InboxContainer>
       {/* <NewMatchContainer>
