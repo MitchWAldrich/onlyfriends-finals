@@ -131,12 +131,12 @@ const Cards = function()  {
     if (match && match.best_friend === true) {
       matchedUsers(user, displayedUser, true) 
       setMode(SUPERMATCHED)
-      setState({...state, matches: [...state,matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
+      // setState({...state, matches: [...state,matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
       return
     } else if (match && match.best_friend === false) {
       matchedUsers(user, displayedUser, true) 
       setMode(MATCHED)
-      setState({...state, matches: [...state,matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
+      // setState({...state, matches: [...state,matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
       return
     } else {
       state.suggestedUser = null;
