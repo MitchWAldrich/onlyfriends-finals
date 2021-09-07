@@ -488,12 +488,12 @@ export function inboxObjects(state, user) {
   
   const userMatches = findMatchesByUser(state, user);
 
-  const allConversationMessages = [];
   console.log("UserMatches: ", userMatches);
-
+  
   let matchID;
   // this is the user id of your matched friend
   for (const match of userMatches) {
+    const allConversationMessages = [];
 
     for (const conversationID of state.matches) {
       if ((conversationID.user1_id === user.id && conversationID.user2_id === match.id) || (conversationID.user1_id === match.id && conversationID.user2_id === user.id)) {
@@ -503,10 +503,11 @@ export function inboxObjects(state, user) {
 
     for (const message of state.messages) {
       if (message.match_id === matchID) {
+        console.log('pushAllCon', allConversationMessages)
         allConversationMessages.push(message);
       }
     }
-    // console.log('convoMessages', allConversationMessages)
+    console.log('convoMessages', allConversationMessages)
     const conversation = {
       'id': match.id,
       'userName': `${match.first_name} ${match.last_name.charAt(0)}`,
@@ -516,6 +517,7 @@ export function inboxObjects(state, user) {
       'matchID': matchID
     }
 
+    console.log('beforePush', inboxObject)
     inboxObject.push(conversation)
     
   }
