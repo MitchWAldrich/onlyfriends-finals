@@ -11,7 +11,15 @@ VALUES
 ('Trish', 'Sawyer', 'trish@email.com', 'password', '1994-02-11', 'Toronto', 'Female', 'Happiness never goes out of style!', 'Aquarius', 'Yes'),
 ('Sean', 'Porter', 'seanp@email.com', 'password', '1990-06-14', 'Toronto', 'Male', 'I’m awesome (don’t worry I think you are too).', 'Gemini', 'Yes'),
 ('Kim', 'Sanchez', 'kimmy@email.com', 'password', '1998-09-01', 'Toronto', 'Female', 'Either reading or travelling.', 'Virgo', 'Yes'),
-('Kate', 'Sanchez', 'kate@email.com', 'password', '1999-10-07', 'Mississauga', 'Female', 'Lover of the outdoors, art, and travel.', 'Libra', 'Yes');
+('Kate', 'Sanchez', 'kate@email.com', 'password', '1999-10-07', 'Mississauga', 'Female', 'Lover of the outdoors, art, and travel.', 'Libra', 'Yes'),
+('Mohamed', 'Ali', 'mo@email.com', 'password', '1999-04-19', 'Mississauga', 'Male', 'Always down to make new friends.', 'Aries', 'Yes'),
+('TJ', 'Jung', 'tj@email.com', 'password', '1995-02-16', 'Toronto', 'Male', 'Just a guy who loves to code', 'Aquarius', 'Yes'),
+('Mona','Waseem', 'mona@email.com', 'password', '1988-07-01', 'Toronto', 'Female', 'An animal activist and an in the works developer!', 'Cancer', 'Yes'),
+('Beatrice', 'Kwan', 'beakwan@email.com', 'password', '1994-10-31', 'Toronto', 'Female', 'Looking for friends to go dancing with!', 'Scorpio', 'Yes'),
+('Phil', 'Maye', 'phil@email.com', 'password', '1990-05-09', 'Toronto', 'Male', 'I do not want any friends', 'Taurus', 'Yes');
+
+
+
 
 INSERT INTO photos (user_id, photo1_url, photo2_url, photo3_url, photo4_url)
 VALUES 
@@ -26,7 +34,12 @@ VALUES
 (9, 'https://images.pexels.com/photos/4045541/pexels-photo-4045541.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/4046158/pexels-photo-4046158.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/4056529/pexels-photo-4056529.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/4046314/pexels-photo-4046314.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
 (10, 'https://images.pexels.com/photos/5749820/pexels-photo-5749820.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749770/pexels-photo-5749770.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749790/pexels-photo-5749790.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/5749089/pexels-photo-5749089.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
 (11, 'https://i.imgur.com/1R5U27H.jpg', 'https://i.imgur.com/K9P3ZwP.jpg', 'https://i.imgur.com/8qG1Fin.png', 'https://i.imgur.com/sWBQR41.jpg'),
-(12, 'https://i.imgur.com/lfnqruz.jpg', 'https://i.imgur.com/XY8Rdez.jpg', 'https://i.imgur.com/Ck3Vea6.jpg', 'https://i.imgur.com/dCLzsXR.jpg');
+(12, 'https://i.imgur.com/lfnqruz.jpg', 'https://i.imgur.com/XY8Rdez.jpg', 'https://i.imgur.com/Ck3Vea6.jpg', 'https://i.imgur.com/dCLzsXR.jpg'),
+(13, 'https://i.imgur.com/KAh196M.jpg', 'https://i.imgur.com/KAh196M.jpg', 'https://i.imgur.com/KAh196M.jpg', 'https://i.imgur.com/KAh196M.jpg'),
+(14, 'https://i.imgur.com/vRHygPK.jpg?1', 'https://i.imgur.com/vRHygPK.jpg?1', 'https://i.imgur.com/vRHygPK.jpg?1', 'https://i.imgur.com/vRHygPK.jpg?1'),
+(15, 'https://i.imgur.com/dZoIHZ2.jpg', 'https://i.imgur.com/cgKTkjf.jpg', 'https://i.imgur.com/DPsxtQC.jpg', 'https://i.imgur.com/l69ux1y.png'),
+(16, 'https://i.imgur.com/UEs6lC7.jpg?1', 'https://i.imgur.com/45Obbw6.jpg', 'https://i.imgur.com/TYrS0ap.jpg', 'https://i.imgur.com/dhhYSTw.jpg'), 
+(17, 'https://i.imgur.com/XzwdBsh.jpg', 'https://i.imgur.com/45Obbw6.jpg', 'https://i.imgur.com/3OpA5QS.jpg', 'https://i.imgur.com/0YFD3OB.jpg');
 
 INSERT INTO interests (user_id, reading, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out)
 VALUES 
@@ -41,7 +54,14 @@ VALUES
 (9, false, false, true, true, true, false, false, true, false, false, true, true),
 (10, true, false, true, true, true, false, false, true, true, true, true, false),
 (11, true, false, false, true, true, true, true, true, true, false, true, false),
-(12, false, false, false, true, true, false, false, true, false, false, false, true);
+(12, false, false, false, true, true, false, false, true, false, false, false, true),
+(13, true, false, true, true, false, true, false, true, false, true, false, true),
+(14, true, true, false, false, false, false, true, false, true, false, false, false),
+(15, false, true, false, true, true, true, false, false, false, false, true, true),
+(16, true, true, true, true, true, false, false, true, false, false, true, true),
+(17, false, true, true, false, true, true, true, false, false, true, false, true);
+
+
 
 INSERT INTO potential_matches (user1_id, user2_id, best_friend)
 VALUES 
