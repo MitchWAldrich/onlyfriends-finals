@@ -6,7 +6,6 @@ import { AntDesign } from '@expo/vector-icons';
 const Name = (props) => {
   const {next, detailedUser} = props;
 
- console.log(detailedUser);
   
   return (
     
@@ -18,7 +17,7 @@ const Name = (props) => {
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}, {detailedUser.age}</Text>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.text}>{detailedUser.address} </Text>
+              <Text style={styles.text}>{detailedUser.address} ({detailedUser.distance} km away)</Text>
               <Text style={styles.text}>{detailedUser.gender}</Text>
             </View>
           </View>
