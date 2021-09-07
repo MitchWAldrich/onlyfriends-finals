@@ -3,12 +3,11 @@ import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { StateContext } from '../../StateProvider.js';
-import { renderBubble } from '../styles/ChatMessagesStyles.js';
+import { renderComposer } from '../styles/ChatMessagesStyles.js';
 
 import { fullConversation, fullUserObject } from '../../src/helpers/selectors.js';
 
 import io from "socket.io-client";
-
 
 const ChatMessages = (props) => {
   const { state, sendMessage, socket } = useContext(StateContext);
@@ -19,7 +18,6 @@ const ChatMessages = (props) => {
   const [messages, setMessages] = useState([...conversation]);
   const fullSignedInUser = fullUserObject(state, user);
 
-  console.log("CONVO: ", conversation)
   // useEffect(() => {
   //   setMessages([
   //     {
@@ -66,9 +64,7 @@ const ChatMessages = (props) => {
       return () => {
         socket.off("SEND_MESSAGE")
       }
-  }, [])
-
-  
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -82,8 +78,9 @@ const ChatMessages = (props) => {
           avatar: fullSignedInUser.photos[0],
         }}
         showUserAvatar={true}
-        alwaysShowSend={true}
-        // renderBubble={renderBubble}
+        renderComposer={renderComposer}
+        messagesContainerStyle={{ backgroundColor: '#F4F7F7' }}
+
         // renderLoadEarlier={conversation}
       />
     </View>
@@ -96,26 +93,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF",
     width: '100%',
     justifyContent: 'center'
-  },
-  chatBubble: {
-    backgroundColor: '#3777f0',
-    padding: 10,
-    margin: 10,
-    borderRadius: 10,
-  },
-  chatText: {
-    color: '#FFFFFF'
-  },
-  messageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  textArea: { 
-    height: 40,
-    width:'85%', 
-    borderRadius:5,
-    borderColor: '#808080'
   }
 });
 
