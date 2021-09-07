@@ -8,6 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 const MatchButtons = (props) => {
   const { like, superLike, newUser } = props;
 
+
   return (
     <View style={styles.buttonContainer}>
       

@@ -18,7 +18,7 @@ export default function StateProvider(props) {
   const [ auth, setAuth ] = useState(false);
   const [ email, setEmail ] = useState('');
   const [socket, setSocket] = useState(undefined);
-  // const [messages, setMessages] =useState([]);
+  const [matches, setMatches] = useState(state.matches);
 
   useEffect(() => {
 
@@ -88,7 +88,7 @@ export default function StateProvider(props) {
     setAuth(false);
   }
 
-  const providerData = {state, setState, loading, login, logout, auth, setAuth, email, setEmail, sendMessage, socket};
+  const providerData = {state, setState, loading, login, logout, auth, setAuth, email, setEmail, sendMessage, socket, matches, setMatches};
 
   return (
     <StateContext.Provider value={providerData}>
@@ -98,3 +98,19 @@ export default function StateProvider(props) {
 };
 
 export const StateContext = createContext();
+
+// export function matchedUsers(user1, user2, bestFriend) {
+      
+//   return axios.post('http://localhost:8001/api/matches', {
+//     user1_id: user1.id,
+//     user2_id: user2.id,
+//     best_friend: bestFriend
+//   })
+//     .then(() => {
+//       console.log('I hope you match!')
+//       setState({...state, matches: [...state.matches, {id: state.matches.length + 1, user1_id: user1.id, user2_id: user2.id, best_friend: bestFriend}] })
+//     })
+//     .catch((e) => {
+//       throw e
+//     })
+// }

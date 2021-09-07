@@ -419,7 +419,6 @@ export function fullConversation(state, signedInUser, otherUser) {
     const fullSenderObject = fullUserObject(state, sender);
     
 
-
     return {
       _id: message.match_id,
       text: message.message,
@@ -504,8 +503,8 @@ export function inboxObjects(state, user) {
       'id': match.id,
       'userName': `${match.first_name} ${match.last_name.charAt(0)}`,
       'userImg': match.photos[0],
-      'messageTime': allConversationMessages[allConversationMessages.length - 1].sent_at,
-      'messageText': allConversationMessages[allConversationMessages.length - 1].message,
+      'messageTime': allConversationMessages.length > 0 ? allConversationMessages[allConversationMessages.length - 1].sent_at : null,
+      'messageText': allConversationMessages.length > 0 ? allConversationMessages[allConversationMessages.length - 1].message : null,
       'matchID': matchID
     }
 

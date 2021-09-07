@@ -1,8 +1,11 @@
+
+
 import axios from 'axios';
 
 
 export function matchedUsers(user1, user2, bestFriend) {
       
+
       return axios.post('http://localhost:8001/api/matches', {
         user1_id: user1.id,
         user2_id: user2.id,
@@ -10,6 +13,7 @@ export function matchedUsers(user1, user2, bestFriend) {
       })
         .then(() => {
           console.log('I hope you match!')
+          // setState({...state, matches: [...state.matches, {id: state.matches.length + 1, user1_id: user1.id, user2_id: user2.id, best_friend: bestFriend}] })
         })
         .catch((e) => {
           throw e

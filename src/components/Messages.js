@@ -1,29 +1,44 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, SafeAreaView, Image, ScrollView, TouchableOpacity } from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { View, StyleSheet, FlatList, Text, ActivityIndicator } from 'react-native';
 import { StateContext } from '../../StateProvider.js';
 import { useNavigation } from '@react-navigation/native';
-import { inboxObjects } from '../../src/helpers/selectors.js';
+import { inboxObjects, findMatchesByUser } from '../../src/helpers/selectors.js';
 import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard } from '../styles/MessagesStyles.js';
-
+import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
 
 const Messages = () => {
-  
+
+  const {newState, setNewState} = showMatchedUsers();
+
+  // VERY IMPORTANT TO RENDER NEW MATCHES TO INBOX(MESSAGES SCREEN)
+  if (newState.users === null) {
+      return (
+        <View >
+          <ActivityIndicator 
+            size="large"
+            loading={loading}
+            />
+        </View>
+      )
+  }
+
   const navigation = useNavigation();
-  
-  const { state } = useContext(StateContext);
+  const { state, loading } = useContext(StateContext);
   const { user } = state;
-  // console.log('state', state)
-  const inbox = inboxObjects(state, user);
-  console.log("INBOX:", inbox)
+
+  console.log("STATE: ", newState)
+  
+  const inbox = inboxObjects(newState, user);
+  const newMatches = findMatchesByUser(newState, user);
 
   return (
     <InboxContainer>
-      <NewMatchContainer>
+      {/* <NewMatchContainer>
         <FlatList
           data={inbox}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
+            <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
                 <NewUserInfoCard>
                   <UserImgGroup>
                     <UserImg source={item.userImg}/>
@@ -32,43 +47,36 @@ const Messages = () => {
             </NewMatches>
           )}
         />
-      </NewMatchContainer>
-      {/* <View>
-      <FlatList
-          contentContainerStyle={styles.newMatchContainer}
-          data={inbox}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
-                <View styles={styles.userInfoCard}>
-                  <View styles={styles.userImgWrapper}>
-                    <Image source={item.userImg} style={styles.userAvatar} />
-                  </View>
-                </View>
-            </TouchableOpacity>
-          )}
-        />
-      </View> */}
+      </NewMatchContainer> */}
 
       <View style={styles.container}>
         <FlatList
           data={inbox}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
-                <UserInfoCard>
-                  <UserImgGroup>
-                    <UserImg source={item.userImg}/>
-                  </UserImgGroup>
-                  <TextSection>
-                    <UserInfoText>
-                      <UserName>{item.userName}</UserName>
-                      <PostTime>{item.messageTime}</PostTime>
-                    </UserInfoText>
-                    <MessageText>{item.messageText}</MessageText>
-                  </TextSection>
-                </UserInfoCard>
-            </MessageCard>
+            item.messageText === null ?
+              <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
+                  <NewUserInfoCard>
+                    <UserImgGroup>
+                      <UserImg source={item.userImg}/>
+                    </UserImgGroup>
+                  </NewUserInfoCard>
+              </NewMatches>
+              :
+              <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
+                  <UserInfoCard>
+                    <UserImgGroup>
+                      <UserImg source={item.userImg}/>
+                    </UserImgGroup>
+                    <TextSection>
+                      <UserInfoText>
+                        <UserName>{item.userName}</UserName>
+                        <PostTime>{item.messageTime}</PostTime>
+                      </UserInfoText>
+                      <MessageText>{item.messageText}</MessageText>
+                    </TextSection>
+                  </UserInfoCard>
+              </MessageCard>
           )}
         />
       </View>

@@ -33,19 +33,18 @@ const Cards = function()  {
   //Card stack functionality and state
   const [index, setIndex] = useState(0);
 
-  const { state } = useContext(StateContext);
+  const { state, setState } = useContext(StateContext);
   const user = state.user;
-
-  const [matches, setMatches] = useState(state.matches);
   
-  const shuffleUsers = (usersArray) => {
+  
+   const shuffleUsers = (usersArray) => {
     let shuffledUsers = usersArray;
 
     if (mode === NAME) {
       shuffledUsers = shuffle(usersArray)
     }
     return shuffledUsers;
-  }
+    }
 
   const besties = () => {
     const potentialBesties = [];
@@ -111,30 +110,33 @@ const Cards = function()  {
   const like = () => {
     
     if (match) {
+
       matchedUsers(user, displayedUser, false) 
-      setMode(MATCHED)
       console.log('STATE MATCHES: ', state.matches)
-      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}])
+      // setState({...state, matches: [...state.matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
+      setMode(MATCHED)
+      console.log('MODE: ', mode)
+
       return
     } else {
-      potentialMatches(user.id, displayedUser.id, false); 
-      state.suggestedUser = null;
-      incrementUser(index);
-      return
+        potentialMatches(user.id, displayedUser.id, false); 
+        state.suggestedUser = null;
+        incrementUser(index);
+        return
+      }
     }
-  }
 
   const superLike = () => {
     
     if (match && match.best_friend === true) {
       matchedUsers(user, displayedUser, true) 
       setMode(SUPERMATCHED)
-      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: true}])
+      // setState({...state, matches: [...state,matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
       return
     } else if (match && match.best_friend === false) {
       matchedUsers(user, displayedUser, true) 
       setMode(MATCHED)
-      setMatches([...matches, {id: matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}])
+      // setState({...state, matches: [...state,matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
       return
     } else {
       state.suggestedUser = null;
@@ -156,7 +158,7 @@ const Cards = function()  {
       {mode === MATCHED && <Matched home={() => goHome()} detailedUser={displayedUser} user={fullUser} />}
       {mode === SUPERMATCHED && <SuperMatched home={() => goHome()} detailedUser={displayedUser} user={fullUser}/>}
       <MatchButtons 
-        like={() => like()} 
+        like={() => like()}
         superLike={() => superLike()} 
         user={user} 
         detailedUser={displayedUser} 
