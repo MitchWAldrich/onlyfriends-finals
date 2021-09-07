@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { SafeAreaView, TextInput, Button, Alert, StyleSheet } from "react-native";
+import { SafeAreaView, TextInput, Button, Alert, StyleSheet, ImageBackground } from "react-native";
 import { StateContext } from '../../StateProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -38,18 +38,20 @@ export default function LoginForm() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={email => setEmail(email)} />
-      <TextInput
-        secureTextEntry={true}
-        placeholder="Password" 
-        value={password} 
-        onChangeText={password => setPassword(password)}/>
-      <Button
-        title="Login"
-        onPress={onSubmit} />
+        <TextInput
+          style={styles.formStyling}
+          placeholder="Email"
+          value={email}
+          onChangeText={email => setEmail(email)} />
+        <TextInput
+          style={styles.formStyling}
+          secureTextEntry={true}
+          placeholder="Password" 
+          value={password} 
+          onChangeText={password => setPassword(password)}/>
+        <Button
+          title="Login"
+          onPress={onSubmit} />
     </SafeAreaView>
   );
 }
@@ -60,7 +62,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+    width: '100%'
+  },
+  formStyling: {
+    height: 40,
+    margin: 25,
+    borderBottomWidth: 1,
+    borderColor: '#545454',
+    padding: 10,
+    width: 200,
+    fontSize: 15
+  },
 });
 
 
