@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
-import { TextInput, StyleSheet, Text, View, Button } from 'react-native';
-import { StateContext } from '../../StateProvider.js';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-import { TypingAnimation } from 'react-native-typing-animation';
-import { fullConversation, fullUserObject } from '../../src/helpers/selectors.js';
-import io from "socket.io-client";
 
+import { StyleSheet, View } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
+import { StateContext } from '../../StateProvider.js';
+import { renderComposer } from '../styles/ChatMessagesStyles.js';
+
+import { fullConversation, fullUserObject } from '../../src/helpers/selectors.js';
+
+import io from "socket.io-client";
 
 const ChatMessages = (props) => {
   const { state, sendMessage, socket } = useContext(StateContext);
@@ -16,24 +18,7 @@ const ChatMessages = (props) => {
   const [messages, setMessages] = useState([...conversation]);
   const fullSignedInUser = fullUserObject(state, user);
 
-  console.log("CONVO: ", conversation)
-  // useEffect(() => {
-  //   setMessages([
-  //     {
-  //       _id: conversation.id,
-  //       text: conversation.message,
-  //       createdAt: new Date(),
-  //       user: {
-  //         _id: user.id, 
-  //         name: user.first_name,
-  //         avatar: fullSignedInUser.photos[0],
-  //       },
-  //     },
-  //   ])
-  // }, []);
-  
   // const appendOnSend = useCallback((msg = []) => {
-    
   //   const finalMessage = {...msg[0], receiverID: id, matchID: conversation[0].id}
   //   sendMessage(finalMessage)
     
@@ -54,16 +39,15 @@ const ChatMessages = (props) => {
   };
   
   useEffect(() => {
-        socket.on("SEND_MESSAGE", msg => {
-        // console.log("msgGRAB:", msg)
-        console.log("Message received!")
-        setMessages(prev => ([msg, ...prev]))
-      })
+    socket.on("SEND_MESSAGE", msg => {
+      console.log("Message received!")
+      setMessages(prev => ([msg, ...prev]))
+    })
       
-      return () => {
-        socket.off("SEND_MESSAGE")
-      }
-  }, [])
+    return () => {
+      socket.off("SEND_MESSAGE")
+    }
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -77,9 +61,8 @@ const ChatMessages = (props) => {
           avatar: fullSignedInUser.photos[0],
         }}
         showUserAvatar={true}
-        alwaysShowSend={true}
-
-        // renderLoadEarlier={conversation}
+        renderComposer={renderComposer}
+        messagesContainerStyle={{ backgroundColor: '#F4F7F7' }}
       />
     </View>
   );
@@ -91,26 +74,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF",
     width: '100%',
     justifyContent: 'center'
-  },
-  chatBubble: {
-    backgroundColor: '#3777f0',
-    padding: 10,
-    margin: 10,
-    borderRadius: 10,
-  },
-  chatText: {
-    color: '#FFFFFF'
-  },
-  messageContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  textArea: { 
-    height: 40,
-    width:'85%', 
-    borderRadius:5,
-    borderColor: '#808080'
   }
 });
 
