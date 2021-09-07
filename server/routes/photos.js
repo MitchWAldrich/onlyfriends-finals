@@ -14,9 +14,10 @@ module.exports = db => {
     db.query(`
       UPDATE photos
       SET photo1_url = $1, photo2_url = $2, photo3_url = $3, photo4_url = $4
-      WHERE user_id = user_id
-    `, [photo1_url, photo2_url, photo3_url, photo4_url])
-    .then((results) =>{
+      WHERE user_id = $5
+    `, [photo1_url, photo2_url, photo3_url, photo4_url, user_id])
+    console.log("REQBODY USER PHOTOS:", request.body)
+    .then((_results) =>{
       response.status(200)
     })
     .catch((err) => {
