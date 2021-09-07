@@ -43,81 +43,97 @@ const Profile = (props) => {
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
-        
-        <View style={{ alignSelf: "center" }}>
-          <View style={styles.profileImage}>
-            <Image 
-              source={{uri: detailedUser.photos[0]}} 
-              style={styles.image} 
-            />
-          </View>
+
+        <View>
           <View style={{ alignSelf: "center" }}>
+            <View style={styles.profileImage}>
+              <Image 
+                source={{uri: detailedUser.photos[0]}} 
+                style={styles.image} 
+              />
+            </View>
+            <View style={{ alignSelf: "center" }}>
 
-          <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
-            <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
+            <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
+              <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
+            </View>
+          </View>
+
+          <View style={{ alignSelf: "center", marginTop: 10}}>
+            <Pressable 
+              title="Edit Profile" 
+              onPress={() => navigation.navigate('Edit Profile')} 
+              style={styles.stylesButton}
+            >
+              <Text style={styles.stylesButtonText}>Edit Profile</Text>
+            </Pressable>
           </View>
         </View>
 
-        <View style={{ alignSelf: "center", marginTop: 10}}>
-          <Pressable 
-            title="Edit Profile" 
-            onPress={() => navigation.navigate('Edit Profile')} 
-            style={styles.editButton}
-          />
-        </View>
-
-        <View style={styles.textArea}>
-          <Text>Gender: {detailedUser.gender}</Text>
-        </View>
-
-        <View style={styles.textArea}>
-          <Text>Location: {detailedUser.address}</Text>
-        </View>
-
-        <View style={styles.textArea}>
-          <Text>Vaccinated: {detailedUser.vaccinated}</Text>
-        </View>
-
-        <View style={styles.textArea}>
-
-          <Text>Photos</Text>
-          <View style={styles.aboutMePhotos}>
-            <Image 
-              source={{uri: detailedUser.photos[0]}} 
-              style={styles.image}
-            />
+        <View>
+          <View style={styles.textArea}>
+            <Text style={styles.textSection}>Gender</Text>
+            <Text style={styles.textAnswer}>{detailedUser.gender}</Text>
           </View>
-          <View style={styles.aboutMePhotos}>
-            <Image 
-              source={{uri: detailedUser.photos[1]}} 
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.aboutMePhotos}>
-            <Image 
-              source={{uri: detailedUser.photos[2]}} 
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.aboutMePhotos}>
-            <Image 
-              source={{uri: detailedUser.photos[3]}} 
-              style={styles.image}
-            />
-          </View>
-        </View>
 
-        <View style={styles.textArea}>
-          <Text>About Me</Text>
-          <Text>{detailedUser.about_me}</Text>
-        </View>
+          <View style={styles.textArea}>
+            <Text style={styles.textSection}>Location</Text>
+            <Text style={styles.textAnswer}>{detailedUser.address}</Text>
+          </View>
 
-        <View style={styles.textArea}>
-          <Text>My Interests</Text>
-          <View>{userInterests}</View>
-        </View>
-        <View style={{ alignSelf: "center" }}>
-          <Button title="Logout" onPress={onSubmit} style={styles.editButton}/>
+          <View style={styles.textArea}>
+            <Text style={styles.textSection}>Vaccinated</Text>
+            <Text style={styles.textAnswer}>{detailedUser.vaccinated}</Text>
+          </View>
+
+          <View style={styles.textArea}>
+          <Text style={styles.textSection}>Photos</Text>
+            <View style={styles.aboutMePhotos}>
+              <Image 
+                source={{uri: detailedUser.photos[0]}} 
+                style={styles.image}
+              />
+            </View>
+            <View style={styles.aboutMePhotos}>
+              <Image 
+                source={{uri: detailedUser.photos[1]}} 
+                style={styles.image}
+              />
+            </View>
+            <View style={styles.aboutMePhotos}>
+              <Image 
+                source={{uri: detailedUser.photos[2]}} 
+                style={styles.image}
+              />
+            </View>
+            <View style={styles.aboutMePhotos}>
+              <Image 
+                source={{uri: detailedUser.photos[3]}} 
+                style={styles.image}
+              />
+            </View>
+          </View>
+
+          <View style={styles.textArea}>
+            <Text style={styles.textSection}>About Me</Text>
+            <Text style={styles.textAnswer}>{detailedUser.about_me}</Text>
+          </View>
+
+          <View style={styles.textArea}>
+            <Text style={styles.textSection}>My Interests</Text>
+            <View styles={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 20, marginTop: 20}}>{userInterests}</View>
+          </View>
+
+          <View style={{ alignSelf: "center", marginTop: 25 }}>
+            <Pressable 
+              title="Logout" 
+              onPress={onSubmit}
+              style={styles.stylesButton}
+            >
+              <Text style={styles.stylesButtonText}>Logout</Text>
+            </Pressable>
+          </View>
+
         </View>
        </ScrollView>
     </SafeAreaView>
@@ -144,17 +160,7 @@ const styles = StyleSheet.create({
     paddingTop: 20  
   },
   scrollView: {
-    marginHorizontal: 20,
-  },
-  text: {
-    fontFamily: "HelveticaNeue",
-    color: "#004d4d"
-  },
-  titleBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 10,
-    marginHorizontal: 16
+    marginHorizontal: 10,
   },
   profileImage: {
     width: 200,
@@ -177,42 +183,50 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontSize: 15
   },
-  editButton: { 
+  stylesButton: { 
     alignSelf: "center",
-    marginTop: 5,
+    marginTop: 2,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#003333',
     borderRadius: 90,
-    width: 180,
-    height: 50,
+    width: 150,
+    height: 40,
+    color: '#FFFFFF'
+  },
+  stylesButtonText: {
+    alignSelf: "center",
+    justifyContent: "center",
+    fontSize: 15,
     color: '#FFFFFF'
   },
   textArea: {
     marginLeft: 40,
     marginRight: 40,
     marginTop: 20,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    borderBottomWidth: 1,
+    borderBottomColor: "#d9d9d9",
   },
-  checkboxContainer: {
-    flexDirection: "row",
-    marginBottom: 10,
-    marginLeft: 5
+  textSection: {
+    fontSize: 15, 
+    fontWeight: 'bold'
   },
-  checkbox: {
-    alignSelf: "center"
-  },
-  buttonSaveCancel: {
-    flexDirection: "row",
-    alignSelf: "center"
+  textAnswer:{
+    fontSize: 16,
+    marginTop: 5,
+    alignContent: "center"
   },
   aboutMePhotos: {
     width: 125,
     height: 200,
-    flexDirection: "row",
-    flexWrap: "wrap"
+    flexDirection: "column",
+    flexWrap: "wrap",
+    marginTop: 25,
+    marginHorizontal: 0
   }
 });
 

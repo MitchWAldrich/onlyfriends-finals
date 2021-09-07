@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { SafeAreaView, TextInput, Button, Alert, StyleSheet, ImageBackground } from "react-native";
+import { SafeAreaView, TextInput, Button, Alert, StyleSheet, Pressable, Text } from "react-native";
 import { StateContext } from '../../StateProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -19,15 +19,14 @@ export default function LoginForm() {
   const onSubmit = async (event) => {
     for (const user of users) {
         if (email === user.email) {
-            if (password === user.password) {
-              const auth = true;
-              save(user, auth);
-              getData(state, user, setState, auth, setAuth);
+          if (password === user.password) {
+            const auth = true;
+            save(user, auth);
+            getData(state, user, setState, auth, setAuth);
           
             return
-          
+          }
         }
-      }
       
     }
   };
@@ -49,9 +48,13 @@ export default function LoginForm() {
           placeholder="Password" 
           value={password} 
           onChangeText={password => setPassword(password)}/>
-        <Button
-          title="Login"
-          onPress={onSubmit} />
+        <Pressable 
+          title="Login" 
+          onPress={onSubmit}
+          style={styles.stylesButton}
+          >
+            <Text style={styles.stylesButtonText}>Login</Text>
+          </Pressable>
     </SafeAreaView>
   );
 }
@@ -72,6 +75,25 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 200,
     fontSize: 15
+  },
+  stylesButton: { 
+    alignSelf: "center",
+    marginTop: 2,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#003333',
+    borderRadius: 90,
+    width: 150,
+    height: 40,
+    color: '#FFFFFF'
+  },
+  stylesButtonText: {
+    alignSelf: "center",
+    justifyContent: "center",
+    fontSize: 15,
+    color: '#FFFFFF'
   },
 });
 
