@@ -4,43 +4,13 @@ import { StateContext } from '../../StateProvider.js';
 import { useNavigation } from '@react-navigation/native';
 import { inboxObjects, findMatchesByUser } from '../../src/helpers/selectors.js';
 import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard } from '../styles/MessagesStyles.js';
-// import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
-
-import axios from 'axios';
+import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
 
 const Messages = () => {
-  const [newState, setNewState] = useState({
-    user: {},
-    users: null,
-    interests: {},
-    photos: {},
-    potentialMatches: {},
-    matches: {},
-    messages: []
-  })
-      
-  useEffect(() => {
 
+  const {newState, setNewState} = showMatchedUsers();
 
-    Promise.all([
-      axios.get('http://localhost:8001/api/users'),
-      axios.get('http://localhost:8001/api/interests'),
-      axios.get('http://localhost:8001/api/photos'),
-      axios.get('http://localhost:8001/api/potential-matches'),
-      axios.get('http://localhost:8001/api/matches'),
-      axios.get('http://localhost:8001/api/messages'),
-    ])
-      .then((all) => {
-        const [users, interests, photos, potentialMatches, matches, messages] = all;
-
-        setNewState(prev => ({ ...prev, users: users.data, interests: interests.data, photos: photos.data, messages: messages.data, potentialMatches: potentialMatches.data, matches: matches.data}))
-        
-      })
-      .catch(err => {
-        console.log(err.message)
-      })
-  }, []);
-
+  // VERY IMPORTANT TO RENDER NEW MATCHES TO INBOX(MESSAGES SCREEN)
   if (newState.users === null) {
       return (
         <View >
@@ -53,7 +23,6 @@ const Messages = () => {
   }
 
   const navigation = useNavigation();
-  // const { newState, setNewState } = showMatchedUsers();
   const { state, loading } = useContext(StateContext);
   const { user } = state;
 
