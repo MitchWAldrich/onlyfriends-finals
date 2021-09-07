@@ -2,7 +2,7 @@ import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, Pressable } from "react-native";
-import { Chip, Container, FormLabel } from '@material-ui/core'
+import { Chip, Grid } from '@material-ui/core'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { fullUserObject, userAge, getUserByEmail } from '../helpers/selectors.js';
@@ -27,7 +27,7 @@ const Profile = (props) => {
       key={id}
       label={interest}
       color="primary"
-      style={{backgroundColor:'#004d4d', width: 155, flexWrap: 'wrap'}}
+      style={{backgroundColor:'#004d4d', width: 120}}
     />)
   
   //Logout button function
@@ -88,29 +88,31 @@ const Profile = (props) => {
 
           <View style={styles.textArea}>
           <Text style={styles.textSection}>Photos</Text>
-            <View style={styles.aboutMePhotos}>
-              <Image 
-                source={{uri: detailedUser.photos[0]}} 
-                style={styles.image}
-              />
-            </View>
-            <View style={styles.aboutMePhotos}>
-              <Image 
-                source={{uri: detailedUser.photos[1]}} 
-                style={styles.image}
-              />
-            </View>
-            <View style={styles.aboutMePhotos}>
-              <Image 
-                source={{uri: detailedUser.photos[2]}} 
-                style={styles.image}
-              />
-            </View>
-            <View style={styles.aboutMePhotos}>
-              <Image 
-                source={{uri: detailedUser.photos[3]}} 
-                style={styles.image}
-              />
+          <View style={styles.picsContainer}>
+              <View style={styles.aboutMePhotos}>
+                <Image 
+                  source={{uri: detailedUser.photos[0]}} 
+                  style={styles.image}
+                />
+              </View>
+              <View style={styles.aboutMePhotos}>
+                <Image 
+                  source={{uri: detailedUser.photos[1]}} 
+                  style={styles.image}
+                />
+              </View>
+              <View style={styles.aboutMePhotos}>
+                <Image 
+                  source={{uri: detailedUser.photos[2]}} 
+                  style={styles.image}
+                />
+              </View>
+              <View style={styles.aboutMePhotos}>
+                <Image 
+                  source={{uri: detailedUser.photos[3]}} 
+                  style={styles.image}
+                />
+              </View>
             </View>
           </View>
 
@@ -121,7 +123,17 @@ const Profile = (props) => {
 
           <View style={styles.textArea}>
             <Text style={styles.textSection}>My Interests</Text>
-            <View styles={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: 20, marginTop: 20}}>{userInterests}</View>
+            <View style={{ marginBottom: 5, marginTop: 10}}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                style={{marginHorizontal: 5}}
+              >
+                {userInterests}
+              </Grid>
+            </View>
           </View>
 
           <View style={{ alignSelf: "center", marginTop: 25 }}>
@@ -218,16 +230,23 @@ const styles = StyleSheet.create({
   textAnswer:{
     fontSize: 16,
     marginTop: 5,
-    alignContent: "center"
+    alignContent: "center",
+    marginBottom: 5
   },
   aboutMePhotos: {
-    width: 125,
+    width: 130,
     height: 200,
     flexDirection: "column",
     flexWrap: "wrap",
     marginTop: 25,
-    marginHorizontal: 0
-  }
+    borderRadius: 50
+  },
+  picsContainer: {
+    flexDirection: 'row', 
+    flexWrap: 'wrap', 
+    justifyContent: "space-between", 
+    marginBottom: 5
+  },
 });
 
 export default Profile;
