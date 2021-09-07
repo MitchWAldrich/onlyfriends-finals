@@ -23,3 +23,4 @@ export const ProfileDetailsCard = styled.View`
   align-self: center;
   padding-top: 10px,
 `;
+

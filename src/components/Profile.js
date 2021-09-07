@@ -1,7 +1,7 @@
 import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
-import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, Pressable } from "react-native";
 import { Chip, Container, FormLabel } from '@material-ui/core'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -11,9 +11,6 @@ import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
 import { StateContext } from '../../StateProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { remove, getData } from '../helpers/persistLogin.js';
-
-
-import { ProfileCard, ProfileContainer, ScrollViewContainer, ProfileDetailsCard , ProfileDetails} from '../styles/ProfileStyles.js';
 
 const Profile = (props) => {
   const { state, setState, loading, logout, email, setEmail, setAuth } = useContext(StateContext)
@@ -30,6 +27,7 @@ const Profile = (props) => {
       key={id}
       label={interest}
       color="primary"
+      style={{backgroundColor:'#004d4d', width: 155, flexWrap: 'wrap'}}
     />)
   
   //Logout button function
@@ -43,27 +41,29 @@ const Profile = (props) => {
   //   getData();
   // }, [])
   return (
-    <ProfileContainer>
-       <ScrollViewContainer>
+    <SafeAreaView style={styles.container}>
+       <ScrollView style={styles.scrollView}>
         
-        <ProfileCard>
+        <View style={{ alignSelf: "center" }}>
           <View style={styles.profileImage}>
             <Image 
               source={{uri: detailedUser.photos[0]}} 
               style={styles.image} 
             />
           </View>
+          <View style={{ alignSelf: "center" }}>
 
-          <ProfileDetailsCard>
-            <View style={styles.profileDetails}>
-              {detailedUser.first_name}, {userAge(detailedUser)}
-            </View>
+          <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
             <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
-          </ProfileDetailsCard>
-        </ProfileCard>
+          </View>
+        </View>
 
         <View style={{ alignSelf: "center", marginTop: 10}}>
-          <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
+          <Pressable 
+            title="Edit Profile" 
+            onPress={() => navigation.navigate('Edit Profile')} 
+            style={styles.editButton}
+          />
         </View>
 
         <View style={styles.textArea}>
@@ -119,8 +119,8 @@ const Profile = (props) => {
         <View style={{ alignSelf: "center" }}>
           <Button title="Logout" onPress={onSubmit} style={styles.editButton}/>
         </View>
-       </ScrollViewContainer>
-    </ProfileContainer>
+       </ScrollView>
+    </SafeAreaView>
   );
   
 } else {
@@ -137,18 +137,18 @@ const Profile = (props) => {
 
 }
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: "#FFF",
-  //   width: '100%',
-  //   paddingTop: 20  
-  // },
-  // scrollView: {
-  //   marginHorizontal: 20,
-  // },
+  container: {
+    flex: 1,
+    backgroundColor: "#FFF",
+    width: '100%',
+    paddingTop: 20  
+  },
+  scrollView: {
+    marginHorizontal: 20,
+  },
   text: {
     fontFamily: "HelveticaNeue",
-    color: "#52575D"
+    color: "#004d4d"
   },
   titleBar: {
     flexDirection: "row",
@@ -179,18 +179,15 @@ const styles = StyleSheet.create({
   },
   editButton: { 
     alignSelf: "center",
-    marginTop: 10,
+    marginTop: 5,
     paddingTop: 10,
     paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: '#0087FF',
-    borderRadius: 25,
-    width: 'auto'
-  },
-  editButtonText: {
-    fontSize: 15,
-    fontWeight: 'bold',
+    backgroundColor: '#003333',
+    borderRadius: 90,
+    width: 180,
+    height: 50,
     color: '#FFFFFF'
   },
   textArea: {
