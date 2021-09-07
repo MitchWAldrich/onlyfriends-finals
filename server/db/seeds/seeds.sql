@@ -16,9 +16,10 @@ VALUES
 ('TJ', 'Jung', 'tj@email.com', 'password', '1995-02-16', 'Toronto', 'Male', 'Just a guy who loves to code', 'Aquarius', 'Yes'),
 ('Mona','Waseem', 'mona@email.com', 'password', '1988-07-01', 'Toronto', 'Female', 'An animal activist and an in the works developer!', 'Cancer', 'Yes'),
 ('Beatrice', 'Kwan', 'beakwan@email.com', 'password', '1994-10-31', 'Toronto', 'Female', 'Looking for friends to go dancing with!', 'Scorpio', 'Yes'),
-('Phil', 'Maye', 'phil@email.com', 'password', '1990-05-09', 'Toronto', 'Male', 'I do not want any friends', 'Taurus', 'Yes');
-
-
+('Phil', 'Maye', 'phil@email.com', 'password', '1990-05-09', 'Toronto', 'Male', 'I do not want any friends', 'Taurus', 'Yes'),
+('Kleir', 'Miranda', 'kleir@email.com', 'password', '1994-02-11', 'Mississauga', 'Female', 'Always looking for new food to try!', 'Aquarius', 'Yes'),
+('Rose', 'Gopez', 'rosie@email.com', 'password', '1993-05-09', 'Adelaide', 'Female', 'Who will be my next travel buddy?', 'Taurus', 'Yes'),
+('Chris', 'Reyes', 'chrisr@email.com', 'password', '1991-12-27', 'Toronto', 'Male', 'My last picture will make you want to be friends with me.', 'Capricorn', 'Yes');
 
 
 INSERT INTO photos (user_id, photo1_url, photo2_url, photo3_url, photo4_url)
@@ -39,7 +40,11 @@ VALUES
 (14, 'https://i.imgur.com/vRHygPK.jpg?1', 'https://i.imgur.com/vRHygPK.jpg?1', 'https://i.imgur.com/vRHygPK.jpg?1', 'https://i.imgur.com/vRHygPK.jpg?1'),
 (15, 'https://i.imgur.com/dZoIHZ2.jpg', 'https://i.imgur.com/cgKTkjf.jpg', 'https://i.imgur.com/DPsxtQC.jpg', 'https://i.imgur.com/l69ux1y.png'),
 (16, 'https://i.imgur.com/UEs6lC7.jpg?1', 'https://i.imgur.com/45Obbw6.jpg', 'https://i.imgur.com/TYrS0ap.jpg', 'https://i.imgur.com/dhhYSTw.jpg'), 
-(17, 'https://i.imgur.com/XzwdBsh.jpg', 'https://i.imgur.com/45Obbw6.jpg', 'https://i.imgur.com/3OpA5QS.jpg', 'https://i.imgur.com/0YFD3OB.jpg');
+(17, 'https://i.imgur.com/XzwdBsh.jpg', 'https://i.imgur.com/45Obbw6.jpg', 'https://i.imgur.com/3OpA5QS.jpg', 'https://i.imgur.com/0YFD3OB.jpg'),
+(18, 'https://i.imgur.com/GRr36Oj.jpg', 'https://i.imgur.com/KIHS4k9.jpg', 'https://i.imgur.com/zMCE3xe.jpg', 'https://i.imgur.com/3rLbTnI.jpg'),
+(19, 'https://i.imgur.com/ax88gMu.jpg', 'https://i.imgur.com/v5o3R7a.jpg', 'https://i.imgur.com/ZpMCBE9.jpg', 'https://i.imgur.com/qfCUjxF.jpg'),
+(20, 'https://i.imgur.com/AJdMtmk.jpg', 'https://i.imgur.com/wtcAy6b.jpg', 'https://i.imgur.com/c1mImcp.jpg', 'https://i.imgur.com/TSa89SG.jpg');
+
 
 INSERT INTO interests (user_id, reading, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out)
 VALUES 
@@ -59,8 +64,10 @@ VALUES
 (14, true, true, false, false, false, false, true, false, true, false, false, false),
 (15, false, true, false, true, true, true, false, false, false, false, true, true),
 (16, true, true, true, true, true, false, false, true, false, false, true, true),
-(17, false, true, true, false, true, true, true, false, false, true, false, true);
-
+(17, false, true, true, false, true, true, true, false, false, true, false, true),
+(18, true, true, false, false, true, true, true, true, false, false, true, false),
+(19, true, true, false, false, true, false, false, true, false, false, true, true),
+(20, false, false, false, false, true, true, false, true, false, false, true, true);
 
 
 INSERT INTO potential_matches (user1_id, user2_id, best_friend)
@@ -71,6 +78,7 @@ VALUES
 (1, 5, false),
 (4, 5, true),
 (2, 4, false);
+
 
 INSERT INTO matches (user1_id, user2_id, best_friend)
 VALUES 
