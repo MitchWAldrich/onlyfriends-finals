@@ -2,7 +2,7 @@ import React, { useState, Component, useEffect, useContext  } from "react";
 import axios from 'axios';
 
 import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator } from "react-native";
-import { Chip, FormLabel } from '@material-ui/core'
+import { Chip, Container, FormLabel } from '@material-ui/core'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { fullUserObject, userAge, getUserByEmail } from '../helpers/selectors.js';
@@ -11,6 +11,9 @@ import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
 import { StateContext } from '../../StateProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { remove, getData } from '../helpers/persistLogin.js';
+
+
+import { ProfileCard, ProfileContainer, ScrollViewContainer, ProfileDetailsCard , ProfileDetails} from '../styles/ProfileStyles.js';
 
 const Profile = (props) => {
   const { state, setState, loading, logout, email, setEmail, setAuth } = useContext(StateContext)
@@ -40,27 +43,29 @@ const Profile = (props) => {
   //   getData();
   // }, [])
   return (
-    <SafeAreaView style={styles.container}>
-       <ScrollView style={styles.scrollView}>
+    <ProfileContainer>
+       <ScrollViewContainer>
         
-        <View style={{ alignSelf: "center" }}>
+        <ProfileCard>
           <View style={styles.profileImage}>
             <Image 
               source={{uri: detailedUser.photos[0]}} 
               style={styles.image} 
             />
           </View>
-          <View style={{ alignSelf: "center" }}>
-          {/* <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text> */}
-          <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
+
+          <ProfileDetailsCard>
+            <View style={styles.profileDetails}>
+              {detailedUser.first_name}, {userAge(detailedUser)}
+            </View>
             <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
-          </View>
-        </View>
+          </ProfileDetailsCard>
+        </ProfileCard>
 
         <View style={{ alignSelf: "center", marginTop: 10}}>
           <Button title="Edit Profile" onPress={() => navigation.navigate('Edit Profile')} style={styles.editButton}/>
         </View>
-        {/* if edit profile is not clicked yet, render information saved */}
+
         <View style={styles.textArea}>
           <Text>Gender: {detailedUser.gender}</Text>
         </View>
@@ -114,8 +119,8 @@ const Profile = (props) => {
         <View style={{ alignSelf: "center" }}>
           <Button title="Logout" onPress={onSubmit} style={styles.editButton}/>
         </View>
-       </ScrollView>
-    </SafeAreaView>
+       </ScrollViewContainer>
+    </ProfileContainer>
   );
   
 } else {
@@ -132,23 +137,18 @@ const Profile = (props) => {
 
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF",
-    width: '100%',
-    paddingTop: 20  
-  },
-  scrollView: {
-    marginHorizontal: 20,
-  },
+  // container: {
+  //   flex: 1,
+  //   backgroundColor: "#FFF",
+  //   width: '100%',
+  //   paddingTop: 20  
+  // },
+  // scrollView: {
+  //   marginHorizontal: 20,
+  // },
   text: {
     fontFamily: "HelveticaNeue",
     color: "#52575D"
-  },
-  image: {
-    flex: 1,
-    height: undefined,
-    width: undefined,
   },
   titleBar: {
     flexDirection: "row",
@@ -166,7 +166,12 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     fontSize: 25,
     fontWeight: 'bold',
-    color:'#2D2D2D'
+    color:'#004d4d',
+  },
+  image: {
+    flex: 1,
+    height: undefined,
+    width: undefined,
   },
   starSign:{
     alignSelf: "center",

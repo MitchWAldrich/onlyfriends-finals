@@ -18,23 +18,7 @@ const ChatMessages = (props) => {
   const [messages, setMessages] = useState([...conversation]);
   const fullSignedInUser = fullUserObject(state, user);
 
-  // useEffect(() => {
-  //   setMessages([
-  //     {
-  //       _id: conversation.id,
-  //       text: conversation.message,
-  //       createdAt: new Date(),
-  //       user: {
-  //         _id: user.id, 
-  //         name: user.first_name,
-  //         avatar: fullSignedInUser.photos[0],
-  //       },
-  //     },
-  //   ])
-  // }, []);
-  
   // const appendOnSend = useCallback((msg = []) => {
-    
   //   const finalMessage = {...msg[0], receiverID: id, matchID: conversation[0].id}
   //   sendMessage(finalMessage)
     
@@ -55,15 +39,14 @@ const ChatMessages = (props) => {
   };
   
   useEffect(() => {
-        socket.on("SEND_MESSAGE", msg => {
-        // console.log("msgGRAB:", msg)
-        console.log("Message received!")
-        setMessages(prev => ([msg, ...prev]))
-      })
+    socket.on("SEND_MESSAGE", msg => {
+      console.log("Message received!")
+      setMessages(prev => ([msg, ...prev]))
+    })
       
-      return () => {
-        socket.off("SEND_MESSAGE")
-      }
+    return () => {
+      socket.off("SEND_MESSAGE")
+    }
   }, []);
 
   return (
@@ -80,8 +63,6 @@ const ChatMessages = (props) => {
         showUserAvatar={true}
         renderComposer={renderComposer}
         messagesContainerStyle={{ backgroundColor: '#F4F7F7' }}
-
-        // renderLoadEarlier={conversation}
       />
     </View>
   );
