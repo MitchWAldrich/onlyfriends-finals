@@ -349,6 +349,14 @@ export function allUserInterests(state, user) {
   }
 }
 
+export function interestStringManipulation(array) {
+  const removeUnderscores = array.map( string => string.replaceAll('_', ' '));
+  removeUnderscores.splice(removeUnderscores.indexOf('tv movies'), 1, 'TV & Movies');
+  removeUnderscores.splice(removeUnderscores.indexOf('arts culture'), 1, 'Arts & Culture');
+  const fixedStrings = removeUnderscores.map( word => (word[0].toUpperCase() + word.substring(1)))
+  return fixedStrings
+}
+
 export function fullUserObject(state, newUser) {
   const userObject = {
     'id': newUser.id,
@@ -367,7 +375,7 @@ export function fullUserObject(state, newUser) {
     
     if (category.user_id === newUser.id) {
       const userInterests = allUserInterests(state, newUser);
-      userObject['interests'] = userInterests
+      userObject['interests'] = interestStringManipulation(userInterests)
     }
   }
   
