@@ -36,9 +36,9 @@ const Profile = (props) => {
     setAuth(false);
   }
   
-  useEffect(() => {
-    getData();
-  }, [])
+  // useEffect(() => {
+  //   getData();
+  // }, [])
   return (
     <SafeAreaView style={styles.container}>
        <ScrollView style={styles.scrollView}>
