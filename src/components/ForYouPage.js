@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
 import ForYouList from './ForYouList';
-import { findUsersByInterest, fullUserObject, allUserInterests, shuffle, matchedIds, unmatchedUsers } from '../helpers/selectors.js';
+import { findUsersByInterest, fullUserObject, allUserInterests, shuffle, matchedIds, unmatchedUsers, interestStringManipulation } from '../helpers/selectors.js';
 import { StateContext } from "../../StateProvider";
 
 const ForYouPage = () => {
@@ -11,8 +11,9 @@ const ForYouPage = () => {
 
   const signedInInterests = allUserInterests(state, user)
 
-  const shuffledInterests = shuffle(signedInInterests)
-  
+  const stringManipulatedInterests = interestStringManipulation(signedInInterests)
+
+  const shuffledInterests = shuffle(stringManipulatedInterests)
   const categorizedInterests = shuffledInterests.map( interest => {
     
     const unwantedUserIds = matchedIds(state, user);
@@ -22,7 +23,8 @@ const ForYouPage = () => {
     const filteredWithoutSignedInUsers = filteredUsers.filter( person => person.id !== user.id )
     
     const detailedFilteredUsers = filteredWithoutSignedInUsers.map( user => fullUserObject({'photos': state.photos, 'users': state.users, 'interests': state.interests}, user));
-
+    
+    console.log('shuffledInterests', detailedFilteredUsers)
     const categorizedUsers = findUsersByInterest(detailedFilteredUsers, interest);
 
     return { interest, categorizedUsers } 
