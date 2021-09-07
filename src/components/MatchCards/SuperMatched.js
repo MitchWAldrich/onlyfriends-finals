@@ -22,7 +22,9 @@ const SuperMatched = (props) => {
           style={styles.photo} 
         />
       </View>
-      <Button title="Send a Message" onPress={() => navigation.navigate('Messages')} />
+      <Button title="Send a Message" onPress={() => {
+        home()
+        navigation.navigate('Messages')}} />
       <Button title="Find More Friends" onPress={home} />
     </SafeAreaView>
   )

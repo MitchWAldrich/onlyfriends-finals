@@ -19,14 +19,12 @@ const Interests = (props) => {
     
       <SafeAreaView style={styles.card}>
         <ImageBackground source={{uri: detailedUser.photos[2]}} style={styles.image}>
-        <View style={styles.navigateContainer}>
-          <Pressable onPress={back}>
+          <Pressable onPress={back} style={styles.navigateLeft}>
           <AntDesign name="arrowleft" size={20} color="#d6d6d6" />
           </Pressable>
-          <Pressable onPress={next} >
+          <Pressable onPress={next} style={styles.navigateRight}>
           <AntDesign name="arrowright" size={20} color="#d6d6d6" />
           </Pressable>
-        </View>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}</Text>
             <View style={{flexDirection: 'column'}}>
@@ -58,12 +56,17 @@ const styles = StyleSheet.create({
 
     elevation: 11,
   },
-  navigateContainer: {
-    flexDirection: 'row',
-    height: '40%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    zIndex: 1,
+  navigateRight: {
+    height: '100%',
+    position: 'absolute',
+    top: 300,
+    right: 0,
+  },
+  navigateLeft: {
+    height: '100%',
+    position: 'absolute',
+    top: 300,
+    left: 0,
   },
   image: {
     width: '100%',
