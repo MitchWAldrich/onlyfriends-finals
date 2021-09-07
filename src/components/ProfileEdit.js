@@ -8,6 +8,7 @@ import { allUserInterests, fullUserObject, userAge } from '../helpers/selectors.
 import { StateContext } from '../../StateProvider.js';
 import { remove, getData } from '../helpers/persistLogin.js';
 import * as ImagePicker from 'expo-image-picker';
+import editProfile from "../hooks/editProfile.js";
 
 import axios from 'axios';
 
@@ -18,22 +19,21 @@ const ProfileEdit = (props) => {
   console.log('dUs', detailedUser)
 
   const userInterests = state.interests.find(obj => obj.user_id === state.user.id);
-  console.log("USER INTERESTS:", userInterests);
   
-  const [value, onChangeValue] = useState({
+  const [gender, setGender] = useState({
     gender: detailedUser.gender,
   });
   
-  console.log("GENDER VALUE: ",value.gender);
+  console.log("GENDER VALUE: ",gender.gender);
   
   const handleGender = (event) => {
-    onChangeValue({...state, gender: event.target.value})
+    setGender({...state, gender: event.target.value})
   }
-
+  
   const [location, setLocation] = useState({
     address: detailedUser.address,
   });
-
+  
   const handleLocation = (event) => {
     setLocation({...state, address: event.target.value})
   };
@@ -42,13 +42,18 @@ const ProfileEdit = (props) => {
     vaccinated: detailedUser.vaccinated,
   });
   console.log("VAX VALUE: ",vaxxed.vaccinated);
-
+  
   const handleVaccinated = (event) => {
     setVaxxed({...state, vaccinated: event.target.value})
   }
-
-  const [image, setImage] = useState([null]);
-
+  
+  const [image, setImage] = useState({
+    photo1: detailedUser.photos[0],
+    photo2: detailedUser.photos[1],
+    photo3: detailedUser.photos[2],
+    photo4: detailedUser.photos[3],
+  });
+  
   useEffect(() => {
     (async () => {
       if (Platform.OS !== 'web') {
@@ -59,7 +64,7 @@ const ProfileEdit = (props) => {
       }
     })();
   }, []);
-
+  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -67,22 +72,22 @@ const ProfileEdit = (props) => {
       aspect: [4, 3],
       quality: 1,
     });
-
+    
     console.log(result);
-
+    
     if (!result.cancelled) {
       setImage(result.uri);
     }
   };
-
+  
   const [aboutMe, setAboutMe] = useState({
     about_me: detailedUser.about_me,
   });
-
+  
   const handleAboutMe = (event) => {
     setAboutMe({...state, about_me: event.target.value})
   }
-
+  
   const [interests, setInterests] = useState({
     reading: userInterests.reading,
     tv_movies: userInterests.tv_movies,
@@ -98,11 +103,18 @@ const ProfileEdit = (props) => {
     going_out: userInterests.going_out
   });
   
+  console.log("USER INTERESTS:", interests);
+
   const handleInterests = (event) => {
     setInterests({...state, interests: event.target.value})
   }
 
   const navigation = useNavigation(); 
+
+  const onSaveProfile = () => {
+    editProfile(state.user, gender, location, vaxxed, aboutMe, interests, image) 
+    navigation.navigate('Profile')
+  };
 
   if (state.user) { 
 
@@ -132,7 +144,7 @@ const ProfileEdit = (props) => {
     
         <View style={styles.buttonSaveCancel}>
             <View style={{marginRight:5}}>
-              <Button title="Save" onPress={() => navigation.navigate('Profile')} style={styles.editButton}/>
+              <Button title="Save" onPress={onSaveProfile} style={styles.editButton}/>
             </View>
             <View style={{marginLeft:5}}>
               <Button title="Cancel" onPress={() => navigation.navigate('Profile')} style={styles.editButton}/>
@@ -147,7 +159,7 @@ const ProfileEdit = (props) => {
                 <RadioGroup 
                   aria-label="gender" 
                   name="gender1" 
-                  value={value.gender}
+                  value={gender.gender}
                   onChange={handleGender} 
                 >
                   <FormControlLabel value="Female" control={<Radio />} label="Female" />
@@ -188,8 +200,14 @@ const ProfileEdit = (props) => {
           <View style={styles.textArea}>
             <FormLabel component="legend">Edit Photos</FormLabel>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <Button title="Upload Photo" onPress={pickImage} />
-              {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+              <Button title="+" onPress={pickImage} />
+              {image && <Image source={{ uri: image.photo1 }} style={{ width: 200, height: 200 }} />}
+              <Button title="+" onPress={pickImage} />
+              {image && <Image source={{ uri: image.photo2 }} style={{ width: 200, height: 200 }} />}
+              <Button title="+" onPress={pickImage} />
+              {image && <Image source={{ uri: image.photo3 }} style={{ width: 200, height: 200 }} />}
+              <Button title="+" onPress={pickImage} />
+              {image && <Image source={{ uri: image.photo4 }} style={{ width: 200, height: 200 }} />}
             </View>
           </View>
 
@@ -210,18 +228,18 @@ const ProfileEdit = (props) => {
           <View style={styles.textArea}>
             <FormControl component="fieldset">
                 <FormLabel component="legend">My Interests</FormLabel>
-                    <FormControlLabel value="reading" control={<Checkbox checked={interests.reading} onChange={event => setInterests({...interests, reading: event.target.value})} name="reading" />} label="Reading" />
-                    <FormControlLabel value="tv-movies" control={<Checkbox checked={interests.tv_movies} onChange={event => setInterests({...interests, tv_movies: event.target.value}) } name="tv-movies" />} label="TV and Movies" />
-                    <FormControlLabel value="fitness" control={<Checkbox checked={interests.fitness} onChange={event => setInterests({...interests, fitness: event.target.value}) } name="fitness" />} label="Fitness" />
-                    <FormControlLabel value="hiking" control={<Checkbox checked={interests.hiking} onChange={event => setInterests({...interests, hiking: event.target.value}) } name="hiking" />} label="Hiking" />
-                    <FormControlLabel value="arts-culture" control={<Checkbox checked={interests.arts_culture} onChange={event => setInterests({...interests, arts_culture: event.target.value}) } name="arts-culture" />} label="Arts and Culture" />
-                    <FormControlLabel value="music" control={<Checkbox checked={interests.music} onChange={event => setInterests({...interests, music: event.target.value}) } name="music" />} label="Music" />
-                    <FormControlLabel value="gaming" control={<Checkbox checked={interests.gaming} onChange={event => setInterests({...interests, gaming: event.target.value}) } name="gaming" />} label="Gaming" />
-                    <FormControlLabel value="travel" control={<Checkbox checked={interests.travel} onChange={event => setInterests({...interests, travel: event.target.value}) } name="travel" />} label="Travel" />
-                    <FormControlLabel value="studying-coworking" control={<Checkbox checked={interests.studying} onChange={event => setInterests({...interests, studying: event.target.value}) } name="studying" />} label="Studying and Coworking" />
-                    <FormControlLabel value="sports" control={<Checkbox checked={interests.sports} onChange={event => setInterests({...interests, sports: event.target.value}) } name="sports" />} label="Sports" />
-                    <FormControlLabel value="eating-out" control={<Checkbox checked={interests.eating_out} onChange={event => setInterests({...interests, eating_out: event.target.value}) } name="eating-out" />} label="Eating Out" />
-                    <FormControlLabel value="going-out" control={<Checkbox checked={interests.going_out} onChange={event => setInterests({...interests, going_out: event.target.value}) } name="going-out" />} label="Going Out" />
+                    <FormControlLabel value={interests.reading} control={<Checkbox checked={interests.reading} onChange={event => setInterests({...interests, reading: event.target.checked})} name="Reading" />} label="Reading" />
+                    <FormControlLabel value={interests.tv_movies} control={<Checkbox checked={interests.tv_movies} onChange={event => setInterests({...interests, tv_movies: event.target.checked}) } name="tv-movies" />} label="TV and Movies" />
+                    <FormControlLabel value={interests.fitness} control={<Checkbox checked={interests.fitness} onChange={event => setInterests({...interests, fitness: event.target.checked}) } name="fitness" />} label="Fitness" />
+                    <FormControlLabel value={interests.hiking} control={<Checkbox checked={interests.hiking} onChange={event => setInterests({...interests, hiking: event.target.checked}) } name="hiking" />} label="Hiking" />
+                    <FormControlLabel value={interests.arts_culture} control={<Checkbox checked={interests.arts_culture} onChange={event => setInterests({...interests, arts_culture: event.target.checked}) } name="arts-culture" />} label="Arts and Culture" />
+                    <FormControlLabel value={interests.music} control={<Checkbox checked={interests.music} onChange={event => setInterests({...interests, music: event.target.checked}) } name="music" />} label="Music" />
+                    <FormControlLabel value={interests.gaming} control={<Checkbox checked={interests.gaming} onChange={event => setInterests({...interests, gaming: event.target.checked}) } name="gaming" />} label="Gaming" />
+                    <FormControlLabel value={interests.travel} control={<Checkbox checked={interests.travel} onChange={event => setInterests({...interests, travel: event.target.checked}) } name="travel" />} label="Travel" />
+                    <FormControlLabel value={interests.studying}  control={<Checkbox checked={interests.studying} onChange={event => setInterests({...interests, studying: event.target.checked}) } name="studying" />} label="Studying and Coworking" />
+                    <FormControlLabel value={interests.sports} control={<Checkbox checked={interests.sports} onChange={event => setInterests({...interests, sports: event.target.checked}) } name="sports" />} label="Sports" />
+                    <FormControlLabel value={interests.eating_out} control={<Checkbox checked={interests.eating_out} onChange={event => setInterests({...interests, eating_out: event.target.checked}) } name="eating-out" />} label="Eating Out" />
+                    <FormControlLabel value={interests.going_out} control={<Checkbox checked={interests.going_out} onChange={event => setInterests({...interests, going_out: event.target.checked}) } name="going-out" />} label="Going Out" />
               </FormControl>
           </View>
        </ScrollView>
