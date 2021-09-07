@@ -368,7 +368,8 @@ export function fullUserObject(state, newUser) {
     'gender': newUser.gender,
     'age': userAge(newUser),
     'starsign': newUser.starsign,
-    'vaccinated': newUser.vaccinated
+    'vaccinated': newUser.vaccinated,
+    'distance': newUser.distance
   };
   
   for (let category of state.interests) {

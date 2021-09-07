@@ -1,25 +1,25 @@
-INSERT INTO users (first_name, last_name, email, password, date_of_birth, address, gender, about_me, starsign, vaccinated)
+INSERT INTO users (first_name, last_name, email, password, date_of_birth, address, gender, about_me, starsign, vaccinated, distance)
 VALUES 
-('Jordan', 'Peterson', 'jpete@email.com', 'password', '1992-02-15', 'Toronto', 'Non-Binary', 'I love going out and making new friends!', 'Aquarius', 'Yes'),
-('Yuti', 'Reswick', 'itsyuti@email.com', 'password', '1990-05-09', 'Brampton', 'Male', 'I live for the Raptors. Hit me up if you wanna shoot some hoops', 'Taurus', 'Yes'),
-('Eva', 'Bell', 'evab@email.com', 'password', '1998-10-23', 'Vancouver', 'Female', 'I love to hike and go on adventures!', 'Scorpio', 'Yes'),
-('Adrian', 'Williams', 'awills@email.com', 'password', '1994-03-19', 'Toronto', 'Male', 'Photography is my passion. Always down for a collab', 'Pisces', 'No'),
-('Alexa', 'Jones', 'alexajones@email.com', 'password', '1986-09-12', 'Scarborough', 'Undisclosed', 'Always looking for book recommendations! Let me know what you are reading', 'Virgo', 'Yes'),
-('Kelly', 'Chu', 'kelly@email.com', 'password', '1998-09-11', 'Toronto', 'Female', 'I only love three things: My dog, the beach, and making friends!', 'Virgo', 'Yes'),
-('Natasha', 'McMillan', 'natty@email.com', 'password', '1994-10-07', 'Vancouver', 'Female', 'Florist and aspiring author. Looking for a friend to share ideas with!', 'Libra', 'Yes'),
-('Matt', 'Powell', 'mattpow@email.com', 'password', '1993-12-27', 'Oakville', 'Male', 'Overall an easy going guy. Also a geek for Marvel and everything comics related.', 'Capricorn', 'Yes'),
-('Trish', 'Sawyer', 'trish@email.com', 'password', '1994-02-11', 'Toronto', 'Female', 'Happiness never goes out of style!', 'Aquarius', 'Yes'),
-('Sean', 'Porter', 'seanp@email.com', 'password', '1990-06-14', 'Toronto', 'Male', 'I’m awesome (don’t worry I think you are too).', 'Gemini', 'Yes'),
-('Kim', 'Sanchez', 'kimmy@email.com', 'password', '1998-09-01', 'Toronto', 'Female', 'Either reading or travelling.', 'Virgo', 'Yes'),
-('Kate', 'Sanchez', 'kate@email.com', 'password', '1999-10-07', 'Mississauga', 'Female', 'Lover of the outdoors, art, and travel.', 'Libra', 'Yes'),
-('Mohamed', 'Ali', 'mo@email.com', 'password', '1999-04-19', 'Mississauga', 'Male', 'Always down to make new friends.', 'Aries', 'Yes'),
-('TJ', 'Jung', 'tj@email.com', 'password', '1995-02-16', 'Toronto', 'Male', 'Just a guy who loves to code', 'Aquarius', 'Yes'),
-('Mona','Waseem', 'mona@email.com', 'password', '1988-07-01', 'Toronto', 'Female', 'An animal activist and an in the works developer!', 'Cancer', 'Yes'),
-('Beatrice', 'Kwan', 'beakwan@email.com', 'password', '1994-10-31', 'Toronto', 'Female', 'Looking for friends to go dancing with!', 'Scorpio', 'Yes'),
-('Phil', 'Maye', 'phil@email.com', 'password', '1990-05-09', 'Toronto', 'Male', 'I do not want any friends', 'Taurus', 'Yes'),
-('Kleir', 'Miranda', 'kleir@email.com', 'password', '1994-02-11', 'Mississauga', 'Female', 'Always looking for new food to try!', 'Aquarius', 'Yes'),
-('Rose', 'Gopez', 'rosie@email.com', 'password', '1993-05-09', 'Adelaide', 'Female', 'Who will be my next travel buddy?', 'Taurus', 'Yes'),
-('Chris', 'Reyes', 'chrisr@email.com', 'password', '1991-12-27', 'Toronto', 'Male', 'My last picture will make you want to be friends with me.', 'Capricorn', 'Yes');
+('Jordan', 'Peterson', 'jpete@email.com', 'password', '1992-02-15', 'Toronto', 'Non-Binary', 'I love going out and making new friends!', 'Aquarius', 'Yes', 27),
+('Yuti', 'Reswick', 'itsyuti@email.com', 'password', '1990-05-09', 'Brampton', 'Male', 'I live for the Raptors. Hit me up if you wanna shoot some hoops', 'Taurus', 'Yes', 22),
+('Eva', 'Bell', 'evab@email.com', 'password', '1998-10-23', 'Toronto', 'Female', 'I love to hike and go on adventures!', 'Scorpio', 'Yes', 24),
+('Adrian', 'Williams', 'awills@email.com', 'password', '1994-03-19', 'Toronto', 'Male', 'Photography is my passion. Always down for a collab', 'Pisces', 'No', 27),
+('Alexa', 'Jones', 'alexajones@email.com', 'password', '1986-09-12', 'Scarborough', 'Undisclosed', 'Always looking for book recommendations! Let me know what you are reading', 'Virgo', 'Yes', 51),
+('Kelly', 'Chu', 'kelly@email.com', 'password', '1998-09-11', 'Toronto', 'Female', 'I only love three things: My dog, the beach, and making friends!', 'Virgo', 'Yes', 26),
+('Natasha', 'McMillan', 'natty@email.com', 'password', '1994-10-07', 'Toronto', 'Female', 'Florist and aspiring author. Looking for a friend to share ideas with!', 'Libra', 'Yes', 24),
+('Matt', 'Powell', 'mattpow@email.com', 'password', '1993-12-27', 'Oakville', 'Male', 'Overall an easy going guy. Also a geek for Marvel and everything comics related.', 'Capricorn', 'Yes', 20),
+('Trish', 'Sawyer', 'trish@email.com', 'password', '1994-02-11', 'Toronto', 'Female', 'Happiness never goes out of style!', 'Aquarius', 'Yes', 25),
+('Sean', 'Porter', 'seanp@email.com', 'password', '1990-06-14', 'Toronto', 'Male', 'I’m awesome (don’t worry I think you are too).', 'Gemini', 'Yes', 28),
+('Kim', 'Sanchez', 'kimmy@email.com', 'password', '1998-09-01', 'Toronto', 'Female', 'Either reading or travelling.', 'Virgo', 'Yes', 25),
+('Kate', 'Sanchez', 'kate@email.com', 'password', '1999-10-07', 'Mississauga', 'Female', 'Lover of the outdoors, art, and travel.', 'Libra', 'Yes', 2),
+('Mohamed', 'Ali', 'mo@email.com', 'password', '1999-04-19', 'Mississauga', 'Male', 'Always down to make new friends.', 'Aries', 'Yes', 1),
+('TJ', 'Jung', 'tj@email.com', 'password', '1995-02-16', 'Toronto', 'Male', 'Just a guy who loves to code', 'Aquarius', 'Yes', 27),
+('Mona','Waseem', 'mona@email.com', 'password', '1988-07-01', 'Toronto', 'Female', 'An animal activist and an in the works developer!', 'Cancer', 'Yes', 26),
+('Beatrice', 'Kwan', 'beakwan@email.com', 'password', '1994-10-31', 'Toronto', 'Female', 'Looking for friends to go dancing with!', 'Scorpio', 'Yes', 29),
+('Phil', 'Maye', 'phil@email.com', 'password', '1990-05-09', 'Toronto', 'Male', 'I do not want any friends', 'Taurus', 'Yes', 29),
+('Kleir', 'Miranda', 'kleir@email.com', 'password', '1994-02-11', 'Mississauga', 'Female', 'Always looking for new food to try!', 'Aquarius', 'Yes', 0),
+('Rose', 'Gopez', 'rosie@email.com', 'password', '1993-05-09', 'Toronto', 'Female', 'Who will be my next travel buddy?', 'Taurus', 'Yes', 31),
+('Chris', 'Reyes', 'chrisr@email.com', 'password', '1991-12-27', 'Toronto', 'Male', 'My last picture will make you want to be friends with me.', 'Capricorn', 'Yes', 30);
 
 
 INSERT INTO photos (user_id, photo1_url, photo2_url, photo3_url, photo4_url)

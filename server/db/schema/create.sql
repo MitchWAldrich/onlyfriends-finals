@@ -16,7 +16,8 @@ CREATE TABLE users (
   gender VARCHAR(255) NOT NULL,
   about_me TEXT NOT NULL,
   starsign VARCHAR(255) NOT NULL,
-  vaccinated VARCHAR(50) NOT NULL
+  vaccinated VARCHAR(50) NOT NULL,
+  distance SMALLINT
 );
 
 CREATE TABLE photos (
