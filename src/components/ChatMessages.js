@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
-import { TextInput, StyleSheet, Text, View, Button } from 'react-native';
+
+import { StyleSheet, View } from 'react-native';
+import { GiftedChat } from 'react-native-gifted-chat';
 import { StateContext } from '../../StateProvider.js';
-import { GiftedChat, Bubble } from 'react-native-gifted-chat';
-import { TypingAnimation } from 'react-native-typing-animation';
+import { renderBubble } from '../styles/ChatMessagesStyles.js';
+
 import { fullConversation, fullUserObject } from '../../src/helpers/selectors.js';
+
 import io from "socket.io-client";
 
 
@@ -65,6 +68,8 @@ const ChatMessages = (props) => {
       }
   }, [])
 
+  
+
   return (
     <View style={styles.container}>
       <GiftedChat
@@ -78,7 +83,7 @@ const ChatMessages = (props) => {
         }}
         showUserAvatar={true}
         alwaysShowSend={true}
-
+        // renderBubble={renderBubble}
         // renderLoadEarlier={conversation}
       />
     </View>
