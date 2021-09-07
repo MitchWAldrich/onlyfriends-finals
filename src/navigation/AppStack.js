@@ -102,9 +102,19 @@ const Tab = createBottomTabNavigator();
 
  const MyTabs = ({navigation}) => {
     return (
-      <Tab.Navigator screenOptions={{ headerShown: true, headerTitleAlign: 'center' }}>
+      <Tab.Navigator 
+        screenOptions={{ headerShown: true, headerTitleAlign: 'center' }}
+        tabBarOptions={{
+          activeTintColor: '#004d4d',
+          inactiveTintColor: '#d9d9d9',
+          style: {
+            borderTopColor: '#666666',
+            elevation: 0,
+          },
+        }}
+      >
         <Tab.Screen 
-          name="Profile" // THIS IS WHAT SHOWS UP ON TOP, we need the onlyFriends logo to replace this
+          name="Profile"
           component={ProfileStack}
           options={{
             tabBarLabel: 'Profile',
