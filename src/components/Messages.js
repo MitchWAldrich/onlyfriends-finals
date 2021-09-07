@@ -30,58 +30,126 @@ const Messages = () => {
   
   const inbox = inboxObjects(newState, user);
   const newMatches = findMatchesByUser(newState, user);
+  console.log('inbox', inbox)
+  let checkValues;
+  let withMessages = [];
+  let withoutMessages = [];
 
-  return (
-    <InboxContainer>
-      {/* <NewMatchContainer>
-        <FlatList
-          data={inbox}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
-                <NewUserInfoCard>
-                  <UserImgGroup>
-                    <UserImg source={item.userImg}/>
-                  </UserImgGroup>
-                </NewUserInfoCard>
-            </NewMatches>
-          )}
-        />
-      </NewMatchContainer> */}
+  for (const match of inbox ) {
+    // checkValues = Object.values(match)
+    // console.log('vals', checkValues)
+    if (match.messageText === null) {
+      withoutMessages.push(match)
+    } else {
+      withMessages.push(match)
+    }
+  }
+console.log('with', withMessages)
+console.log('without', withoutMessages)
+      return (
+        <InboxContainer>
+          {/* <NewMatchContainer>
+            <FlatList
+              data={inbox}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
+                    <NewUserInfoCard>
+                      <UserImgGroup>
+                        <UserImg source={item.userImg}/>
+                      </UserImgGroup>
+                    </NewUserInfoCard>
+                </NewMatches>
+              )}
+            />
+          </NewMatchContainer> */}
+    
+          <View style={styles.container}>
+            <FlatList
+              horizontal={true}
+              data={withoutMessages}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
+                // item.messageText === null ?
+                <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
+                      <NewUserInfoCard>
+                        <UserImgGroup>
+                          <UserImg source={item.userImg}/>
+                        </UserImgGroup>
+                      </NewUserInfoCard>
+                  </NewMatches>
+                  // :
+                  // <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
+                  //     <UserInfoCard>
+                  //       <UserImgGroup>
+                  //         <UserImg source={item.userImg}/>
+                  //       </UserImgGroup>
+                  //       <TextSection>
+                  //         <UserInfoText>
+                  //           <UserName>{item.userName}</UserName>
+                  //           <PostTime>{item.messageTime}</PostTime>
+                  //         </UserInfoText>
+                  //         <MessageText>{item.messageText}</MessageText>
+                  //       </TextSection>
+                  //     </UserInfoCard>
+                  // </MessageCard>
+              )}
+            />
+          </View>
+            {/* <NewMatchContainer>
+              <FlatList
+                data={inbox}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                  <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
+                      <NewUserInfoCard>
+                        <UserImgGroup>
+                          <UserImg source={item.userImg}/>
+                        </UserImgGroup>
+                      </NewUserInfoCard>
+                  </NewMatches>
+                )}
+              />
+            </NewMatchContainer> */}
+      
+            <View style={styles.container}>
+              <FlatList
+                data={withMessages}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => (
+                  // item.messageText === null ?
+                  //     horizontal={true}
+                  // <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
+                  //       <NewUserInfoCard>
+                  //         <UserImgGroup>
+                  //           <UserImg source={item.userImg}/>
+                  //         </UserImgGroup>
+                  //       </NewUserInfoCard>
+                  //   </NewMatches>
+                  //   :
+                    <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
+                        <UserInfoCard>
+                          <UserImgGroup>
+                            <UserImg source={item.userImg}/>
+                          </UserImgGroup>
+                          <TextSection>
+                            <UserInfoText>
+                              <UserName>{item.userName}</UserName>
+                              <PostTime>{item.messageTime}</PostTime>
+                            </UserInfoText>
+                            <MessageText>{item.messageText}</MessageText>
+                          </TextSection>
+                        </UserInfoCard>
+                    </MessageCard>
+                )}
+              />
+            </View>
+          </InboxContainer>
+        )
+      
+                
+              
 
-      <View style={styles.container}>
-        <FlatList
-          data={inbox}
-          keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            item.messageText === null ?
-              <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
-                  <NewUserInfoCard>
-                    <UserImgGroup>
-                      <UserImg source={item.userImg}/>
-                    </UserImgGroup>
-                  </NewUserInfoCard>
-              </NewMatches>
-              :
-              <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
-                  <UserInfoCard>
-                    <UserImgGroup>
-                      <UserImg source={item.userImg}/>
-                    </UserImgGroup>
-                    <TextSection>
-                      <UserInfoText>
-                        <UserName>{item.userName}</UserName>
-                        <PostTime>{item.messageTime}</PostTime>
-                      </UserInfoText>
-                      <MessageText>{item.messageText}</MessageText>
-                    </TextSection>
-                  </UserInfoCard>
-              </MessageCard>
-          )}
-        />
-      </View>
-    </InboxContainer>
-  )
 }
 
 const styles = StyleSheet.create({
@@ -91,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-  },
+  }
 });
 //   item: {
 //     padding: 20,

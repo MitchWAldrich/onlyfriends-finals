@@ -32,9 +32,9 @@ export default function LoginForm() {
     }
   };
   
-  useEffect(() => {
-    getData();
-  }, [])
+  // useEffect(() => {
+  //   getData();
+  // }, [])
 
   return (
     <SafeAreaView style={styles.container}>

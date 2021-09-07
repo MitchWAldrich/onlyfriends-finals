@@ -349,6 +349,14 @@ export function allUserInterests(state, user) {
   }
 }
 
+export function interestStringManipulation(array) {
+  const removeUnderscores = array.map( string => string.replaceAll('_', ' '));
+  removeUnderscores.splice(removeUnderscores.indexOf('tv movies'), 1, 'TV & Movies');
+  removeUnderscores.splice(removeUnderscores.indexOf('arts culture'), 1, 'Arts & Culture');
+  const fixedStrings = removeUnderscores.map( word => (word[0].toUpperCase() + word.substring(1)))
+  return fixedStrings
+}
+
 export function fullUserObject(state, newUser) {
   const userObject = {
     'id': newUser.id,
@@ -367,7 +375,7 @@ export function fullUserObject(state, newUser) {
     
     if (category.user_id === newUser.id) {
       const userInterests = allUserInterests(state, newUser);
-      userObject['interests'] = userInterests
+      userObject['interests'] = interestStringManipulation(userInterests)
     }
   }
   
@@ -480,12 +488,12 @@ export function inboxObjects(state, user) {
   
   const userMatches = findMatchesByUser(state, user);
 
-  const allConversationMessages = [];
   console.log("UserMatches: ", userMatches);
-
+  
   let matchID;
   // this is the user id of your matched friend
   for (const match of userMatches) {
+    const allConversationMessages = [];
 
     for (const conversationID of state.matches) {
       if ((conversationID.user1_id === user.id && conversationID.user2_id === match.id) || (conversationID.user1_id === match.id && conversationID.user2_id === user.id)) {
@@ -495,10 +503,11 @@ export function inboxObjects(state, user) {
 
     for (const message of state.messages) {
       if (message.match_id === matchID) {
+        console.log('pushAllCon', allConversationMessages)
         allConversationMessages.push(message);
       }
     }
-    // console.log('convoMessages', allConversationMessages)
+    console.log('convoMessages', allConversationMessages)
     const conversation = {
       'id': match.id,
       'userName': `${match.first_name} ${match.last_name.charAt(0)}`,
@@ -508,6 +517,7 @@ export function inboxObjects(state, user) {
       'matchID': matchID
     }
 
+    console.log('beforePush', inboxObject)
     inboxObject.push(conversation)
     
   }
