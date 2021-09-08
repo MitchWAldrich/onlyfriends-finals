@@ -142,14 +142,14 @@ const ProfileEdit = (props) => {
         </View>
 
     
-        <View style={styles.buttonSaveCancel}>
+        <View style={{flexDirection: 'row', justifyContent: 'center', alignContent: 'space-between'}}>
             <View style={{marginRight:5}}>
               <Pressable
                 title="Save" onPress={() => {
                 onSaveProfile()
                 navigation.navigate('Profile')}
                 } 
-                style={styles.editButton}
+                style={styles.stylesButton}
               >
                 <Text style={styles.stylesButtonText}>Save</Text>
               </Pressable>
@@ -158,7 +158,7 @@ const ProfileEdit = (props) => {
               <Pressable 
                 title="Cancel" 
                 onPress={() => navigation.navigate('Profile')} 
-                style={styles.editButton}
+                style={styles.stylesButton}
               >
                 <Text style={styles.stylesButtonText}>Cancel</Text>
               </Pressable>
@@ -326,19 +326,29 @@ const styles = StyleSheet.create({
   checkbox: {
     alignSelf: "center"
   },
-  buttonSaveCancel: {
-    flexDirection: "row",
-    alignSelf: "center",
-    marginTop: 10,
-  },
   aboutMePhotos: {
     width: 125,
     height: 200,
     flexDirection: "row",
     flexWrap: "wrap"
   },
-  stylesButtonText: {
+  stylesButton: { 
     alignSelf: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    marginTop: 5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#003333',
+    borderRadius: 90,
+    width: 110,
+    height: 40,
+    color: '#FFFFFF'
+  },
+  stylesButtonText: {
+    alignItems: "center",
     justifyContent: "center",
     fontSize: 15,
     color: '#FFFFFF'

@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
 
     elevation: 11,
+    marginTop: 15,
   },
   navigateLeft: {
     height: '100%',
