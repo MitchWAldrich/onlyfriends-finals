@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { inboxObjects, findMatchesByUser } from '../../src/helpers/selectors.js';
 import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard, NoMessageMatches, YesMessageMatches, NoMessageHeader, YesMessageHeader } from '../styles/MessagesStyles.js';
 import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
+import {useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
+
 
 const Messages = () => {
 
@@ -65,7 +67,7 @@ console.log('without', withoutMessages)
           </NewMatchContainer> */}
     
     <NoMessageMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
-      <NoMessageHeader>Don't keep your new friend waiting:</NoMessageHeader>
+      <NoMessageHeader>"Don't keep your new friend waiting:"</NoMessageHeader>
             <FlatList
               horizontal={true}
               data={withoutMessages}
@@ -152,9 +154,6 @@ console.log('without', withoutMessages)
             </View>
           </InboxContainer>
         )
-      
-                
-              
 
 }
 
