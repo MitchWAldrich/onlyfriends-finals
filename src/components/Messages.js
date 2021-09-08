@@ -74,8 +74,8 @@ console.log('without', withoutMessages)
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
                 // item.messageText === null ?
-                
-                      
+               
+                     
                         <UserImgGroup>
                           <UserImg source={item.userImg}/>
                         </UserImgGroup>
@@ -132,6 +132,7 @@ console.log('without', withoutMessages)
                   //       </NewUserInfoCard>
                   //   </NewMatches>
                   //   :
+
                     <YesMessageMatches>
                       <MessageCard onPress={() => navigation.navigate  ('Chat', { userName: item.userName, id:item.id,   matchID:item.matchID })}>
                           <UserInfoCard>

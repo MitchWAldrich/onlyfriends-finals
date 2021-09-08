@@ -6,21 +6,18 @@ import { AntDesign } from '@expo/vector-icons';
 const Name = (props) => {
   const {next, detailedUser} = props;
 
- console.log(detailedUser);
   
   return (
     
       <SafeAreaView style={styles.card}>
         <ImageBackground source={{uri: detailedUser.photos[0]}} style={styles.image}>
-          <View style={styles.navigateContainer}>
-          <Pressable onPress={next} >
+          <Pressable onPress={next} style={styles.navigateRight}>
           <AntDesign name="arrowright" size={20} color="#d6d6d6" />
           </Pressable>
-          </View>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}, {detailedUser.age}</Text>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.text}>{detailedUser.address} (4km away)</Text>
+              <Text style={styles.text}>{detailedUser.address} ({detailedUser.distance} km away)</Text>
               <Text style={styles.text}>{detailedUser.gender}</Text>
             </View>
           </View>
@@ -49,10 +46,11 @@ const styles = StyleSheet.create({
 
     elevation: 11,
   },
-  navigateContainer: {
-    height: '75%',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+  navigateRight: {
+    height: '100%',
+    position: 'absolute',
+    top: 300,
+    right: 0,
   },
   image: {
     width: '100%',

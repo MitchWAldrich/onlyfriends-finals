@@ -9,10 +9,6 @@ const Matched = (props) => {
   const navigation = useNavigation();
 
   
-  // const onPress = () => {
-  //   setState({...state, matches: [...state.matches, {id: state.matches.length + 1, user1_id: user.id, user2_id: displayedUser.id, best_friend: false}]})
-  //   return 
-  // };
   
 
   return (
@@ -30,6 +26,7 @@ const Matched = (props) => {
         />
       </View>
       <Button title="Send a Message" onPress={() => {
+        home()
         navigation.navigate('Messages')
       }}/>
       <Button title="Find More Friends" onPress={home} />
