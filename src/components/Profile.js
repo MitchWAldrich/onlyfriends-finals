@@ -50,7 +50,7 @@ const Profile = (props) => {
       key={id}
       label={interest}
       color="primary"
-      style={{backgroundColor:'#004d4d', width: 120}}
+      style={{backgroundColor:'#004d4d', width: 120, marginBottom: 5}}
     />)
   
   //Logout button function
