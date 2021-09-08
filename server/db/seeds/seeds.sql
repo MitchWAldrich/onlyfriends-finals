@@ -19,7 +19,17 @@ VALUES
 ('Phil', 'Maye', 'phil@email.com', 'password', '1990-05-09', 'Toronto', 'Male', 'I do not want any friends', 'Taurus', 'Yes', 29),
 ('Kleir', 'Miranda', 'kleir@email.com', 'password', '1994-02-11', 'Mississauga', 'Female', 'Always looking for new food to try!', 'Aquarius', 'Yes', 0),
 ('Rose', 'Gopez', 'rosie@email.com', 'password', '1993-05-09', 'Toronto', 'Female', 'Who will be my next travel buddy?', 'Taurus', 'Yes', 31),
-('Chris', 'Reyes', 'chrisr@email.com', 'password', '1991-12-27', 'Toronto', 'Male', 'My last picture will make you want to be friends with me.', 'Capricorn', 'Yes', 30);
+('Chris', 'Reyes', 'chrisr@email.com', 'password', '1991-12-27', 'Toronto', 'Male', 'My last picture will make you want to be friends with me.', 'Capricorn', 'Yes', 30),
+('Jessica', 'de Bruyn', 'jess@email.com', 'password', '1982-08-24', 'Toronto', 'Female', 'I like Disney, theatre and various cheeses', 'Virgo', 'Yes', 30),
+('Afsan', 'Khan', 'afsan@email.com', 'password', '1994-07-04', 'Mississauga', 'Male', 'Always happy to make friends.', 'Cancer', 'Yes', 20),
+('David', 'Eaton', 'dave@email.com', 'password', '1989-07-03', 'Toronto', 'Male', 'Ready to make new friends!', 'Cancer', 'Yes', 29),
+('Maureen', 'Ferguson', 'maureen@email.com', 'password', '1989-04-12', 'Toronto', 'Female', 'Fun loving musician.', 'Capricorn', 'Yes', 26),
+('Chelsea', 'Oray', 'chels@email.com', 'password', '1993-09-11', 'Ajax', 'Female', 'Looking for a friend to cook with!', 'Virgo', 'Yes', 40),
+('Mathias', 'Memmel', 'mathias@email.com', 'password', '1994-04-04', 'Toronto', 'Male', 'Law student, musician, and forever foodie! I spent most of the pandemic pretending that I run a Michelin-starred restaurant', 'Aries', 'Yes', 30),
+('Grace', 'Keenleyside', 'grace@email.com', 'password', '1989-09-27', 'Toronto', 'Female', 'I like running, baking, singing, movies, theatre, singing, and laughing with my favourite people.', 'Libra', 'Yes', 28),
+('Yaw', 'Attuah', 'yaw@email.com', 'password', '1982-05-20', 'Toronto', 'Male', 'I am super busy. A dad and a fun guy.', 'Taurus', 'Yes', 25),
+('Andrew', 'Bray', 'andrewb@email.com', 'password', '1987-06-28', 'Toronto', 'Male', 'Do not let the High School Teacher title fool you. Once the bell rings, this guy is ready to PARTY.', 'Cancer', 'Yes', 32);
+
 
 
 INSERT INTO photos (user_id, photo1_url, photo2_url, photo3_url, photo4_url)
@@ -43,7 +53,16 @@ VALUES
 (17, 'https://i.imgur.com/XzwdBsh.jpg', 'https://i.imgur.com/45Obbw6.jpg', 'https://i.imgur.com/3OpA5QS.jpg', 'https://i.imgur.com/0YFD3OB.jpg'),
 (18, 'https://i.imgur.com/GRr36Oj.jpg', 'https://i.imgur.com/KIHS4k9.jpg', 'https://i.imgur.com/zMCE3xe.jpg', 'https://i.imgur.com/3rLbTnI.jpg'),
 (19, 'https://i.imgur.com/ax88gMu.jpg', 'https://i.imgur.com/v5o3R7a.jpg', 'https://i.imgur.com/ZpMCBE9.jpg', 'https://i.imgur.com/qfCUjxF.jpg'),
-(20, 'https://i.imgur.com/AJdMtmk.jpg', 'https://i.imgur.com/wtcAy6b.jpg', 'https://i.imgur.com/c1mImcp.jpg', 'https://i.imgur.com/TSa89SG.jpg');
+(20, 'https://i.imgur.com/AJdMtmk.jpg', 'https://i.imgur.com/wtcAy6b.jpg', 'https://i.imgur.com/c1mImcp.jpg', 'https://i.imgur.com/TSa89SG.jpg'),
+(21, 'https://i.imgur.com/0RlQTkb.jpg', 'https://i.imgur.com/prmnsi8.jpg', 'https://i.imgur.com/eWzDoEl.jpg', 'https://i.imgur.com/TaQ3df8.jpg'),
+(22, 'https://i.imgur.com/B4C9o64.jpg', 'https://i.imgur.com/hoG9hta.jpg', 'https://i.imgur.com/NnBGHdE.jpg', 'https://i.imgur.com/02PgN4H.jpg'),
+(23, 'https://i.imgur.com/O1DJZ7X.jpg', 'https://i.imgur.com/w8PkqDo.jpg', 'https://i.imgur.com/zpYv7wj.jpg', 'https://i.imgur.com/mlzyUI6.jpg'),
+(24, 'https://i.imgur.com/qH9vmb7.jpg', 'https://i.imgur.com/vNlKwvE.jpg', 'https://i.imgur.com/Wj5IS9S.jpg', 'https://i.imgur.com/pfDcbvm.jpg'),
+(25, 'https://i.imgur.com/SJeRCkU.png', 'https://i.imgur.com/NgaI1aS.png', 'https://i.imgur.com/pnLSZJx.png', 'https://i.imgur.com/nqRDi0W.png'),
+(26, 'https://i.imgur.com/clKwNAf.jpg', 'https://i.imgur.com/jor3HS2.jpg', 'https://i.imgur.com/Ph83Fx5.jpg', 'https://i.imgur.com/WIOUUk4.jpg'),
+(27, 'https://i.imgur.com/DUfA1Pv.jpg', 'https://i.imgur.com/6iFbrf8.jpg', 'https://i.imgur.com/OdCPsTc.jpg', 'https://i.imgur.com/90K56nq.jpg'),
+(28, 'https://i.imgur.com/X3GVkts.jpg', 'https://i.imgur.com/Xu6Hj7Q.jpgv', 'https://i.imgur.com/dJmQ5sP.jpg', 'https://i.imgur.com/xuSfApR.jpg'),
+(29, 'https://i.imgur.com/SehavKG.jpg', 'https://i.imgur.com/ESaKlG3.jpg', 'https://i.imgur.com/Ok3UdpP.png', 'https://i.imgur.com/XKoLMw9.jpg');
 
 
 INSERT INTO interests (user_id, reading, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out)
@@ -67,8 +86,16 @@ VALUES
 (17, false, true, true, false, true, true, true, false, false, true, false, true),
 (18, true, true, false, false, true, true, true, true, false, false, true, false),
 (19, true, true, false, false, true, false, false, true, false, false, true, true),
-(20, false, false, false, false, true, true, false, true, false, false, true, true);
-
+(20, false, false, false, false, true, true, false, true, false, false, true, true),
+(21, true, true, false, true, true, true, false, true, true, false, true, true),
+(22, true, true, false, false, true, true, true, true, true, true, true, false),
+(23, true, true, false, false, true, true, false, true, false, false, true, false),
+(24, false, false, true, true, true, true, false, false, false, false, true, true),
+(25, true, true, false, true, true, true, false, true, false, false, true, false),
+(26, true, false, false, false, true, true, true, false, true, false, false, true),
+(27, false, true, true, true, true, true, false, true, false, false, true, false),
+(28, false, true, true, false, false, true, false, true, false, true, false, false),
+(29, true, true, true, true, true, true, false, false, false, true, true, true);
 
 INSERT INTO potential_matches (user1_id, user2_id, best_friend)
 VALUES 
@@ -77,17 +104,38 @@ VALUES
 (1, 4, false),
 (1, 5, false),
 (4, 5, true),
-(2, 4, false);
-
+(2, 4, false),
+(19, 18, true),
+(16, 18, false),
+(12, 18, false),
+(10, 18, false),
+(24, 18, false),
+(6, 18, true),
+(14, 18, false),
+(2, 18, false),
+(22, 18, false),
+(27, 18, false),
+(29, 18, false);
 
 INSERT INTO matches (user1_id, user2_id, best_friend)
 VALUES 
 (1, 2, false),
 (1, 3, false),
-(1, 4, false);
+(1, 4, false),
+(18, 19, true),
+(18, 17, false),
+(18, 2, false),
+(18, 1, false),
+(16, 17, true),
+(16, 3, false),
+(16, 5, false),
+(16, 8, false);
 
 INSERT INTO messages (match_id, sender_id, receiver_id, message, sent_at)
 VALUES
 (1, 2, 1, 'I think my other friend and I are watching the Raps tonight. Want to come with us?', '2021-08-19 10:23:54'),
 (2, 3, 1, 'I might visit Toronto next week. We can go for a hike!', '2021-08-19 08:30:01'),
-(3, 4, 1, 'Let me know when you want to link up and take some pictures xx', '2021-08-22 23:23:54');
+(3, 4, 1, 'Let me know when you want to link up and take some pictures xx', '2021-08-22 23:23:54'),
+(3, 1, 4, 'Sure. Down whenever.', '2021-08-24 23:23:54'),
+(4, 18, 19, 'Omg you went to the Van Gogh exhibit?!', '2021-08-22 23:24:54'),
+(4, 19, 18, 'Yeah it was so pretty', '2021-08-22 23:26:54');
