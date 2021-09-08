@@ -74,8 +74,8 @@ console.log('without', withoutMessages)
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
                 // item.messageText === null ?
-                
-                      
+               
+                     
                         <UserImgGroup>
                           <UserImg source={item.userImg}/>
                         </UserImgGroup>
