@@ -3,15 +3,13 @@ import { View, StyleSheet, FlatList, Text, ActivityIndicator } from 'react-nativ
 import { StateContext } from '../../StateProvider.js';
 import { useNavigation } from '@react-navigation/native';
 import { inboxObjects, findMatchesByUser } from '../../src/helpers/selectors.js';
-import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard, NoMessageMatches, YesMessageMatches, NoMessageHeader, YesMessageHeader } from '../styles/MessagesStyles.js';
+import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard, NoMessageMatches, YesMessageMatches, NoMessageHeader, YesMessageHeader, NoMessageContainer, YesMessageContainer } from '../styles/MessagesStyles.js';
 import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
 import {useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
 
 
 const Messages = () => {
-
   const {newState, setNewState} = showMatchedUsers();
-
   const [loading, setLoading] = useState(false);
   
   // VERY IMPORTANT TO RENDER NEW MATCHES TO INBOX(MESSAGES SCREEN)
@@ -55,8 +53,10 @@ const Messages = () => {
   }
 console.log('with', withMessages)
 console.log('without', withoutMessages)
-      return (
-        <InboxContainer>
+      
+
+  return (
+    <InboxContainer>
           {/* <NewMatchContainer>
             <FlatList
               data={inbox}
@@ -72,23 +72,22 @@ console.log('without', withoutMessages)
               )}
             />
           </NewMatchContainer> */}
-    
-    
-      <NoMessageHeader>"Don't keep your new friend waiting:"</NoMessageHeader>
-            <FlatList
-              horizontal={true}
-              data={withoutMessages}
-              keyExtractor={item => item.id}
-              renderItem={({ item }) => (
-                // item.messageText === null ?
-               
-                    <NoMessageMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
-                        <UserImgGroup>
-                          <UserImg source={item.userImg}/>
-                        </UserImgGroup>
-                  </NoMessageMatches>
-              )}
-            />    
+      <NoMessageContainer>
+        <NoMessageHeader>Don't keep your new friend waiting:</NoMessageHeader>
+          <FlatList
+            horizontal={true}
+            data={withoutMessages}
+            keyExtractor={item => item.id}
+            renderItem={({ item }) => (
+                  // item.messageText === null ?
+              <NoMessageMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
+                <UserImgGroup>
+                  <UserImg source={item.userImg}/>
+                </UserImgGroup>
+              </NoMessageMatches>
+            )}
+          />
+      </NoMessageContainer>
                   {/* // :
                   // <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
                   //     <UserInfoCard>
@@ -123,12 +122,12 @@ console.log('without', withoutMessages)
               />
             </NewMatchContainer> */}
       
-            <View>
-            <YesMessageHeader>Keep the conversation going:</YesMessageHeader>
-              <FlatList
-                data={withMessages}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
+        <YesMessageContainer>
+          <YesMessageHeader>Keep the conversation going:</YesMessageHeader>
+            <FlatList
+              data={withMessages}
+              keyExtractor={item => item.id}
+              renderItem={({ item }) => (
                   // item.messageText === null ?
                   //     horizontal={true}
                   // <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
@@ -139,29 +138,27 @@ console.log('without', withoutMessages)
                   //       </NewUserInfoCard>
                   //   </NewMatches>
                   //   :
-                    <YesMessageMatches>
-                      <MessageCard onPress={() => navigation.navigate  ('Chat', { userName: item.userName, id:item.id,   matchID:item.matchID })}>
-                          <UserInfoCard>
-                            <UserImgGroup>
-                              <UserImg source={item.userImg}/>
-                            </UserImgGroup>
-                            <TextSection>
-                              <UserInfoText>
-                                <UserName>{item.userName}</UserName>
-                                <PostTime>{item.messageTime}</PostTime>
-                              </UserInfoText>
-                              <MessageText>{item.messageText}</MessageText>
-                            </TextSection>
-                          </UserInfoCard>
-                      </MessageCard>
-                    </YesMessageMatches>
-
-                )}
+                <YesMessageMatches>
+                  <MessageCard onPress={() => navigation.navigate  ('Chat', { userName: item.userName, id:item.id,   matchID:item.matchID })}>
+                    <UserInfoCard>
+                      <UserImgGroup>
+                        <UserImg source={item.userImg}/>
+                      </UserImgGroup>
+                      <TextSection>
+                        <UserInfoText>
+                          <UserName>{item.userName}</UserName>
+                          <PostTime>{item.messageTime}</PostTime>
+                        </UserInfoText>
+                        <MessageText>{item.messageText}</MessageText>
+                      </TextSection>
+                    </UserInfoCard>
+                  </MessageCard>
+                </YesMessageMatches>
+              )}
               />
-            </View>
-          </InboxContainer>
-        )
-
+          </YesMessageContainer>
+        </InboxContainer>
+  )
 }
 
 const styles = StyleSheet.create({
