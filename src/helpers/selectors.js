@@ -308,7 +308,6 @@ const state = {
 ]
 };
 
-
 export function getUserById(state, id) {
   for (const user of state.users) {
     if (user.id === id) {
@@ -319,88 +318,99 @@ export function getUserById(state, id) {
 
 export function shuffle(array) {
   var currentIndex = array.length,  randomIndex;
-
+  
   while (currentIndex != 0) {
-
+    
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-
+    
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
-  }
-
-  return array;
-}
-
-
-export function allUserInterests(state, user) {
-  
- for (const category of state.interests) {
-   
-   if (category.user_id === user.id) {
-     const interestsArray = Object.entries((category));
-     
-     const trueInterests = interestsArray.filter(([key, value]) => value === true)
-
-     const filteredInterests = trueInterests.map( arr => arr[0])
-     
-     return filteredInterests
-   }
-  }
-}
-
-export function interestStringManipulation(array) {
-  const removeUnderscores = array.map( string => string.replaceAll('_', ' '));
-  removeUnderscores.splice(removeUnderscores.indexOf('tv movies'), 1, 'TV & Movies');
-  removeUnderscores.splice(removeUnderscores.indexOf('arts culture'), 1, 'Arts & Culture');
-  const fixedStrings = removeUnderscores.map( word => (word[0].toUpperCase() + word.substring(1)))
-  return fixedStrings
-}
-
-export function fullUserObject(state, newUser) {
-  const userObject = {
-    'id': newUser.id,
-    'first_name': newUser.first_name,
-    'last_name': newUser.last_name,
-    'date_of_birth': newUser.date_of_birth,
-    'about_me': newUser.about_me,
-    'address': newUser.address,
-    'gender': newUser.gender,
-    'age': userAge(newUser),
-    'starsign': newUser.starsign,
-    'vaccinated': newUser.vaccinated,
-    'distance': newUser.distance
-  };
-  
-  for (let category of state.interests) {
+    }
     
-    if (category.user_id === newUser.id) {
-      const userInterests = allUserInterests(state, newUser);
-      userObject['interests'] = interestStringManipulation(userInterests)
-    }
+    return array;
   }
   
-  for (let photo of state.photos) {
+  
+  export function allUserInterests(state, user) {
     
-    if (photo.user_id === newUser.id) {
-      const userPhotos = [];
-      userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo3_url, photo.photo4_url);
-      userObject['photos'] = userPhotos;
+    for (const category of state.interests) {
+      
+      if (category.user_id === user.id) {
+        const interestsArray = Object.entries((category));
+        
+        const trueInterests = interestsArray.filter(([key, value]) => value === true)
+        
+        const filteredInterests = trueInterests.map( arr => arr[0])
+        
+        return filteredInterests
+      }
     }
   }
   
+  export function interestStringManipulation(array) {
+    const removeUnderscores = array.map( string => string.replaceAll('_', ' '));
+    removeUnderscores.splice(removeUnderscores.indexOf('tv movies'), 1, 'TV & Movies');
+    removeUnderscores.splice(removeUnderscores.indexOf('arts culture'), 1, 'Arts & Culture');
+    const fixedStrings = removeUnderscores.map( word => (word[0].toUpperCase() + word.substring(1)))
+    return fixedStrings
+  }
   
-  return userObject 
-}
+  export function fullUserObject(state, newUser) {
+    const userObject = {
+      'id': newUser.id,
+      'first_name': newUser.first_name,
+      'last_name': newUser.last_name,
+      'date_of_birth': newUser.date_of_birth,
+      'about_me': newUser.about_me,
+      'address': newUser.address,
+      'gender': newUser.gender,
+      'age': userAge(newUser),
+      'starsign': newUser.starsign,
+      'vaccinated': newUser.vaccinated,
+      'distance': newUser.distance
+    };
+    
+    for (let category of state.interests) {
+      
+      if (category.user_id === newUser.id) {
+        const userInterests = allUserInterests(state, newUser);
+        userObject['interests'] = interestStringManipulation(userInterests)
+      }
+    }
+    
+    for (let photo of state.photos) {
+      
+      if (photo.user_id === newUser.id) {
+        const userPhotos = [];
+        userPhotos.push(photo.photo1_url, photo.photo2_url, photo.photo3_url, photo.photo4_url);
+        userObject['photos'] = userPhotos;
+      }
+    }
+    
+    
+    return userObject 
+  }
+  
+  export function updateUser(state, signedInUser) {
+    for (const user of state.users) {
 
-export function getMatchIdByUserIds(matches, signedInUser, otherUser) {
-  let matchID;
-  
-  for (const conversationID of matches) {
-    if ((conversationID.user1_id === signedInUser.id && conversationID.user2_id === otherUser.id) || (conversationID.user1_id === otherUser.id && conversationID.user2_id === signedInUser.id)) {
-      matchID = conversationID.id;
+      if (user.id === signedInUser.id) {
+        signedInUser = user;
+        return signedInUser;
+      }
+
     }
   }
+  
+  export function getMatchIdByUserIds(matches, signedInUser, otherUser) {
+    let matchID;
+    
+    for (const conversationID of matches) {
+      if ((conversationID.user1_id === signedInUser.id && conversationID.user2_id === otherUser.id) || (conversationID.user1_id === otherUser.id && conversationID.user2_id === signedInUser.id)) {
+        matchID = conversationID.id;
+      }
+    }
   return matchID;
 }
 
