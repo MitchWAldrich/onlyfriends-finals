@@ -18,7 +18,7 @@ flex: 1;
   flex-direction: column;
 `;
 
-export const NoMessageMatches = styled.View`
+export const NoMessageMatches = styled.TouchableOpacity`
 
 justify-content: flex-start;
   width: 90%;

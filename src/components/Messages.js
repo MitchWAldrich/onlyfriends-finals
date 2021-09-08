@@ -66,7 +66,7 @@ console.log('without', withoutMessages)
             />
           </NewMatchContainer> */}
     
-    <NoMessageMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
+    
       <NoMessageHeader>"Don't keep your new friend waiting:"</NoMessageHeader>
             <FlatList
               horizontal={true}
@@ -75,13 +75,13 @@ console.log('without', withoutMessages)
               renderItem={({ item }) => (
                 // item.messageText === null ?
                
-                     
+                    <NoMessageMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
                         <UserImgGroup>
                           <UserImg source={item.userImg}/>
                         </UserImgGroup>
-              )}
-                  />    
                   </NoMessageMatches>
+              )}
+            />    
                   {/* // :
                   // <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
                   //     <UserInfoCard>
