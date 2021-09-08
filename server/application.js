@@ -16,6 +16,7 @@ const interests = require("./routes/interests");
 const matches = require("./routes/matches");
 const potentialMatches = require("./routes/potential_matches");
 const messages = require("./routes/messages");
+const hangouts = require("./routes/hangouts");
 
 function read(file) {
   return new Promise((resolve, reject) => {
@@ -46,6 +47,7 @@ module.exports = function application(
   app.use("/api", matches(db));
   app.use("/api", potentialMatches(db));
   app.use("/api", messages(db));
+  app.use("/api", hangouts(db));
 
 
     Promise.all([

@@ -9,7 +9,8 @@ export default function showMatchedUsers() {
     photos: {},
     potentialMatches: {},
     matches: {},
-    messages: []
+    messages: [],
+    hangouts: {}
   })
       
   useEffect(() => {
@@ -20,10 +21,11 @@ export default function showMatchedUsers() {
       axios.get('http://localhost:8001/api/potential-matches'),
       axios.get('http://localhost:8001/api/matches'),
       axios.get('http://localhost:8001/api/messages'),
+      axios.get('http://localhost:8001/api/hangouts'),
     ])
       .then((all) => {
-        const [users, interests, photos, potentialMatches, matches, messages] = all;
-        setNewState(prev => ({ ...prev, users: users.data, interests: interests.data, photos: photos.data, messages: messages.data, potentialMatches: potentialMatches.data, matches: matches.data}))
+        const [users, interests, photos, potentialMatches, matches, messages, hangouts] = all;
+        setNewState(prev => ({ ...prev, users: users.data, interests: interests.data, photos: photos.data, messages: messages.data, potentialMatches: potentialMatches.data, matches: matches.data, hangouts: hangouts.data}))
       })
       .catch(err => {
         console.log(err.message)

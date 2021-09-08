@@ -355,6 +355,15 @@ export function shuffle(array) {
     const fixedStrings = removeUnderscores.map( word => (word[0].toUpperCase() + word.substring(1)))
     return fixedStrings
   }
+
+  export function getHangoutsObjectByInterest(state, interest) {
+    
+    for (const hangout of state.hangouts) {
+      if (hangout.interest === interest) {
+        return hangout;
+      }
+    }
+  }
   
   export function fullUserObject(state, newUser) {
     const userObject = {
@@ -390,6 +399,22 @@ export function shuffle(array) {
     
     
     return userObject 
+  }
+
+  export function getMutualInterests(state, signedInUser, otherUser) {
+    const mutualInterests = [];
+    const fullSignedInUser = fullUserObject(state, signedInUser);
+    const signedInUserInterests = allUserInterests(state, fullSignedInUser);
+    const otherUserInterests = allUserInterests(state, otherUser);
+
+    for (const interest of signedInUserInterests) {
+      if (otherUserInterests.includes(interest)) {
+        mutualInterests.push(interest);
+      }
+    }
+
+    return mutualInterests;
+
   }
   
   export function updateUser(state, signedInUser) {

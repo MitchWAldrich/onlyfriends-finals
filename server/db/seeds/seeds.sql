@@ -158,3 +158,20 @@ VALUES
 (18, 29, 30, 'Wow, you live so close. We should meet up in the living room.', '2021-09-08T05:31:44.293Z'),
 (13, 8, 30, 'Yah, I am SO excited to hang out!', '2021-09-08T06:37:44.293Z'),
 (14, 24, 30, 'Hey, want to go for a walk in High Park!?', '2021-09-08T07:31:44.293Z');
+
+INSERT INTO hangouts (interest, action_text, link)
+VALUES
+('Reading', 'You might like this book...', 'https://toronto.thewordonthestreet.ca/?gclid=CjwKCAjwvuGJBhB1EiwACU1AiXtT50O0XtRN5DLYRD9o-U47bHVe_bybPhfCHOeCQgHgE8M0dS9O7BoC3NEQAvD_BwE'),
+('TV & Movies', 'Catch a movie outside!', 'https://www.topictureshow.com/'),
+('Fitness', 'Try a group workout', 'https://www.eventbrite.ca/e/sweat-squad-tickets-145942988407?aff=ebdssbdestsearch'),
+('Hiking', 'You will love this trail...', 'https://greatruns.com/toronto-toronto-beltline-trail/'),
+('Arts & Culture', 'A day at the museum', 'https://ago.ca/'),
+('Music', 'Checkout a concert', 'https://admitone.com/events/jordy-toronto-7204752'),
+('Gaming', 'Play some fun games!', 'https://www.jackboxgames.com/'),
+('Travel', 'Fun local travel options', 'https://www.atlasobscura.com/things-to-do/ontario'),
+('Studying', 'Studying is better with two', 'https://www.meetup.com/topics/study-group/ca/on/toronto/' ),
+('Sports', 'Catch a ball game', 'https://www.mlb.com/bluejays/tickets'),
+('Eating out', 'Best Pizza Caesars in town', 'https://scoreonking.com/#masthead'),
+('Going out', 'Dance the night away!', 'https://www.clubcrawlers.com/toronto/nightclubs');
+
+
