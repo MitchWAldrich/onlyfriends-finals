@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, View, Button, StyleSheet, Image, Alert } from 'react-native';
+import { SafeAreaView, Text, View, Button, StyleSheet, Image, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -22,6 +22,7 @@ const SuperMatched = (props) => {
           style={styles.photo} 
         />
       </View>
+      <Button title="Go on a hike" onPress={() => Linking.openURL('https://greatruns.com/toronto-toronto-beltline-trail/')} /> 
       <Button title="Send a Message" onPress={() => {
         home()
         navigation.navigate('Messages')}} />

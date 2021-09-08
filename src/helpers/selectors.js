@@ -391,6 +391,22 @@ export function shuffle(array) {
     
     return userObject 
   }
+
+  export function getMutualInterests(state, signedInUser, otherUser) {
+    const mutualInterests = [];
+    const fullSignedInUser = fullUserObject(state, signedInUser);
+    const signedInUserInterests = allUserInterests(state, fullSignedInUser);
+    const otherUserInterests = allUserInterests(state, otherUser);
+
+    for (const interest of signedInUserInterests) {
+      if (otherUserInterests.includes(interest)) {
+        mutualInterests.push(interest);
+      }
+    }
+
+    return mutualInterests;
+
+  }
   
   export function updateUser(state, signedInUser) {
     for (const user of state.users) {
