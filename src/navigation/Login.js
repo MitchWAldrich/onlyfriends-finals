@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -13,8 +13,9 @@ export default function Login() {
   return (
       <View style={styles.container}>
         <Text style={{marginTop: 50, fontSize: 40, fontWeight: 'bold', color: '#004040'}}> onlyFriends </Text>
+        <Image source={require("../../public/images/LogIn.jpg")} style={styles.profileImage}/>
         <LoginForm />
-        <Text style={{marginBottom: 100, fontSize: 15}} onPress={() => navigation.navigate('Signup')}>
+        <Text style={{marginBottom: 70, fontSize: 15}} onPress={() => navigation.navigate('Signup')}>
           Not a friend yet? Sign up.
         </Text>
       </View>
@@ -28,5 +29,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  profileImage: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    overflow: "hidden",
+    marginTop: 60,
   },
 });

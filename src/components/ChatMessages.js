@@ -31,9 +31,20 @@ const ChatMessages = (props) => {
   //     socket.off("SEND_MESSAGE")
   //   }
   // }, []);
+  const getMatchId = (state, signedInUser, otherUser) => {
+    let matchID
+    for (const conversationID of state.matches) {
+      if ((conversationID.user1_id === signedInUser.id && conversationID.user2_id === otherUser.id) || (conversationID.user1_id === otherUser.id && conversationID.user2_id === signedInUser.id)) {
+        matchID = conversationID.id;
+      }
+    }
+    return matchID
+  }
+
+  const getConvoId = getMatchId(state, user, otherUser);
 
   const onSend = (msg) => {
-    const finalMessage = {...msg[0], receiverID: otherUser.id, matchID: conversation[0]._id}
+    const finalMessage = {...msg[0], receiverID: otherUser.id, matchID: getConvoId};
     console.log("FINAL MESSAGE: ", finalMessage)
     sendMessage(finalMessage)
   };
