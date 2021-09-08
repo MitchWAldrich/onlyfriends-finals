@@ -28,7 +28,8 @@ VALUES
 ('Mathias', 'Memmel', 'mathias@email.com', 'password', '1994-04-04', 'Toronto', 'Male', 'Law student, musician, and forever foodie! I spent most of the pandemic pretending that I run a Michelin-starred restaurant', 'Aries', 'Yes', 30),
 ('Grace', 'Keenleyside', 'grace@email.com', 'password', '1989-09-27', 'Toronto', 'Female', 'I like running, baking, singing, movies, theatre, singing, and laughing with my favourite people.', 'Libra', 'Yes', 28),
 ('Yaw', 'Attuah', 'yaw@email.com', 'password', '1982-05-20', 'Toronto', 'Male', 'I am super busy. A dad and a fun guy.', 'Taurus', 'Yes', 25),
-('Andrew', 'Bray', 'andrewb@email.com', 'password', '1987-06-28', 'Toronto', 'Male', 'Do not let the High School Teacher title fool you. Once the bell rings, this guy is ready to PARTY.', 'Cancer', 'Yes', 32);
+('Andrew', 'Bray', 'andrewb@email.com', 'password', '1987-06-28', 'Toronto', 'Male', 'Do not let the High School Teacher title fool you. Once the bell rings, this guy is ready to PARTY.', 'Cancer', 'Yes', 34),
+('Mitch', 'Aldrich', 'mitch@email.com', 'password', '1987-07-04', 'Toronto', 'Male', 'Always up for an adventure. Where are we going?!', 'Cancer', 'Yes', 34);
 
 
 
@@ -62,8 +63,8 @@ VALUES
 (26, 'https://i.imgur.com/clKwNAf.jpg', 'https://i.imgur.com/jor3HS2.jpg', 'https://i.imgur.com/Ph83Fx5.jpg', 'https://i.imgur.com/WIOUUk4.jpg'),
 (27, 'https://i.imgur.com/DUfA1Pv.jpg', 'https://i.imgur.com/6iFbrf8.jpg', 'https://i.imgur.com/OdCPsTc.jpg', 'https://i.imgur.com/90K56nq.jpg'),
 (28, 'https://i.imgur.com/X3GVkts.jpg', 'https://i.imgur.com/Xu6Hj7Q.jpgv', 'https://i.imgur.com/dJmQ5sP.jpg', 'https://i.imgur.com/xuSfApR.jpg'),
-(29, 'https://i.imgur.com/SehavKG.jpg', 'https://i.imgur.com/ESaKlG3.jpg', 'https://i.imgur.com/Ok3UdpP.png', 'https://i.imgur.com/XKoLMw9.jpg');
-
+(29, 'https://i.imgur.com/SehavKG.jpg', 'https://i.imgur.com/ESaKlG3.jpg', 'https://i.imgur.com/Ok3UdpP.png', 'https://i.imgur.com/XKoLMw9.jpg'),
+(30, 'https://i.imgur.com/PfShFXQ.jpg', 'https://i.imgur.com/7c7E3yY.jpg', 'https://i.imgur.com/5MBgan7.jpg', 'https://i.imgur.com/ouUMejP.jpg');
 
 INSERT INTO interests (user_id, reading, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out)
 VALUES 
@@ -95,7 +96,9 @@ VALUES
 (26, true, false, false, false, true, true, true, false, true, false, false, true),
 (27, false, true, true, true, true, true, false, true, false, false, true, false),
 (28, false, true, true, false, false, true, false, true, false, true, false, false),
-(29, true, true, true, true, true, true, false, false, false, true, true, true);
+(29, true, true, true, true, true, true, false, false, false, true, true, true),
+(30, false, true, true, true, true, true, true, true, false, true, true, true);
+
 
 INSERT INTO potential_matches (user1_id, user2_id, best_friend)
 VALUES 
@@ -116,7 +119,12 @@ VALUES
 (22, 18, false),
 (27, 18, false),
 (29, 18, false),
-(21, 18, false);
+(21, 18, false),
+(30, 18, true),
+(30, 1, false),
+(30, 3, false),
+(30, 16, true),
+(30, 22, false);
 
 
 INSERT INTO matches (user1_id, user2_id, best_friend)
@@ -132,7 +140,14 @@ VALUES
 (16, 3, false),
 (16, 5, false),
 (16, 8, false),
-(18, 21, false);
+(18, 21, false),
+(30, 8, true),
+(30, 24, true),
+(30, 26, false),
+(30, 27, false),
+(30, 28, true),
+(30, 29, true);
+
 
 INSERT INTO messages (match_id, sender_id, receiver_id, message, sent_at)
 VALUES
@@ -148,4 +163,7 @@ VALUES
 (8, 16, 17, 'what takeout should we get?', '2021-09-08T06:28:04.058Z'),
 (5, 18, 17, 'what did you and bea get for takeout?', '2021-09-08T06:31:22.734Z'),
 (6, 18, 2, 'cool pics!', '2021-09-08T06:31:31.704Z'),
-(7, 18, 1, 'omg, that pizza looks so yummy', '2021-09-08T06:31:44.293Z');
+(7, 18, 1, 'omg, that pizza looks so yummy', '2021-09-08T06:31:44.293Z'),
+(18, 29, 30, 'Wow, you live so close. We should meet up in the living room.', '2021-09-08T05:31:44.293Z'),
+(13, 8, 30, 'Yah, I am SO excited to hang out!', '2021-09-08T06:37:44.293Z'),
+(14, 24, 30, 'Hey, want to go for a walk in High Park!?', '2021-09-08T07:31:44.293Z');
