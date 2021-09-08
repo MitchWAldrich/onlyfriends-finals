@@ -5,12 +5,14 @@ import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Button, Activi
 import { Chip, Grid } from '@material-ui/core'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { fullUserObject, userAge, getUserByEmail } from '../helpers/selectors.js';
+import { fullUserObject, userAge, updateUser, getUserByEmail } from '../helpers/selectors.js';
 import { isVaccinated } from '../helpers/isVaccinated.js';
 import { vaccinatedDisplay } from '../helpers/vaccinatedDisplay.js'
 import { StateContext } from '../../StateProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { remove, getData } from '../helpers/persistLogin.js';
+import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
+
 
 const Profile = (props) => {
   const { state, setState, loading, logout, email, setEmail, setAuth } = useContext(StateContext)
@@ -19,7 +21,28 @@ const Profile = (props) => {
 
   if (state.user) { 
 
-  const detailedUser = fullUserObject({'users': state.users, 'interests': state.interests, 'photos': state.photos}, state.user)
+  const {newState, setNewState} = showMatchedUsers();
+  const [loading, setLoading] = useState(false);
+  // VERY IMPORTANT TO RENDER NEW MATCHES TO INBOX(MESSAGES SCREEN)
+  if (newState.users === null) {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    
+    return (
+      <View >
+          <ActivityIndicator 
+            size="large"
+            loading={loading}
+            />
+        </View>
+      )
+    }
+    
+  state.user = updateUser(newState, state.user); 
+
+  const detailedUser = fullUserObject({'users': newState.users, 'interests': newState.interests, 'photos': newState.photos}, state.user)
   console.log('dUs', detailedUser)
   
   const userInterests = detailedUser.interests.map((interest, id) =>
