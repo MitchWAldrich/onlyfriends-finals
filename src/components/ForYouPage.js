@@ -1,28 +1,53 @@
-import React, { useContext } from "react";
-import { StyleSheet, View, Text, ScrollView, SafeAreaView } from "react-native";
+import React, { useContext, useState } from "react";
+import { StyleSheet, View, Text, ScrollView, SafeAreaView, ActivityIndicator } from "react-native";
 import ForYouList from './ForYouList';
-import { findUsersByInterest, fullUserObject, allUserInterests, shuffle, matchedIds, unmatchedUsers, interestStringManipulation } from '../helpers/selectors.js';
+import { findUsersByInterest, fullUserObject, allUserInterests, shuffle, matchedIds, unmatchedUsers, interestStringManipulation, updateUser } from '../helpers/selectors.js';
 import { StateContext } from "../../StateProvider";
+import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
+
 
 const ForYouPage = () => {
+
+  const {newState, setNewState} = showMatchedUsers();
+  const [loading, setLoading] = useState(false);
+  
+  // VERY IMPORTANT TO RENDER NEW MATCHES TO INBOX(MESSAGES SCREEN)
+  if (newState.users === null) {
+    // setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    
+    return (
+      <View >
+          <ActivityIndicator 
+            size="large"
+            loading={loading}
+            />
+        </View>
+      )
+    }
   
   const { state } = useContext(StateContext)
-  const { user } = state;
+  // const { user } = state;
 
-  const signedInInterests = allUserInterests(state, user)
+  state.user = updateUser(newState, state.user); 
+
+
+  const signedInInterests = allUserInterests(newState, state.user)
 
   const stringManipulatedInterests = interestStringManipulation(signedInInterests)
 
   const shuffledInterests = shuffle(stringManipulatedInterests)
   const categorizedInterests = shuffledInterests.map( interest => {
     
-    const unwantedUserIds = matchedIds(state, user);
+    const unwantedUserIds = matchedIds(newState, state.user);
     
-    const filteredUsers = unmatchedUsers(unwantedUserIds, state.users);
+    const filteredUsers = unmatchedUsers(unwantedUserIds, newState.users);
     
-    const filteredWithoutSignedInUsers = filteredUsers.filter( person => person.id !== user.id )
+    const filteredWithoutSignedInUsers = filteredUsers.filter( person => person.id !== state.user.id )
     
-    const detailedFilteredUsers = filteredWithoutSignedInUsers.map( user => fullUserObject({'photos': state.photos, 'users': state.users, 'interests': state.interests}, user));
+    const detailedFilteredUsers = filteredWithoutSignedInUsers.map( user => fullUserObject({'photos': newState.photos, 'users': newState.users, 'interests': newState.interests}, user));
     
     console.log('shuffledInterests', detailedFilteredUsers)
     const categorizedUsers = findUsersByInterest(detailedFilteredUsers, interest);
