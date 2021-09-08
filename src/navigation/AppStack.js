@@ -113,47 +113,47 @@ const Tab = createBottomTabNavigator();
           },
         }}
       >
-        <Tab.Screen 
-          name="Profile"
-          component={ProfileStack}
-          options={{
-            tabBarLabel: 'Profile',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-circle-outline" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Main"
-          component={MainScreen}
-          options={{
-            tabBarLabel: 'Main',
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign name="home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Messages"
-          component={MessageStack}
-          options={{
-            tabBarLabel: 'Messages',
-            headerShown: false,
-            tabBarIcon: ({ color, size }) => (
-              <AntDesign name="message1" color={color} size={size} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="For You"
-          component={FYPScreen}
-          options={{
-            tabBarLabel: 'For You',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="people-circle-outline" color={color} size={size} />
-            ),
-          }}
-        />
+          <Tab.Screen
+            name="Main"
+            component={MainScreen}
+            options={{
+              tabBarLabel: 'Main',
+              tabBarIcon: ({ color, size }) => (
+                <AntDesign name="home" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Messages"
+            component={MessageStack}
+            options={{
+              tabBarLabel: 'Messages',
+              headerShown: false,
+              tabBarIcon: ({ color, size }) => (
+                <AntDesign name="message1" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="For You"
+            component={FYPScreen}
+            options={{
+              tabBarLabel: 'For You',
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="people-circle-outline" color={color} size={size} />
+              ),
+            }}
+          />
+          <Tab.Screen 
+            name="Profile"
+            component={ProfileStack}
+            options={{
+              tabBarLabel: 'Profile',
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="person-circle-outline" color={color} size={size} />
+              ),
+            }}
+          />
         </Tab.Navigator>
     );
 }

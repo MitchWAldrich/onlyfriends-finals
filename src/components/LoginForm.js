@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { SafeAreaView, TextInput, Button, Alert, StyleSheet, Pressable, Text } from "react-native";
+import { SafeAreaView, TextInput, Button, Alert, StyleSheet, Pressable, Text, View } from "react-native";
 import { StateContext } from '../../StateProvider.js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -37,8 +37,9 @@ export default function LoginForm() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <View style={{marginBottom:80}}>
         <TextInput
-          style={styles.formStyling}
+          style={styles.formEmailStyling}
           placeholder="Email"
           value={email}
           onChangeText={email => setEmail(email)} />
@@ -54,7 +55,8 @@ export default function LoginForm() {
           style={styles.stylesButton}
           >
             <Text style={styles.stylesButtonText}>Login</Text>
-          </Pressable>
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 }
@@ -65,11 +67,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%'
+    width: '100%',
+    margin: 0,
+  },
+  formEmailStyling: {
+    height: 40,
+    borderBottomWidth: 1,
+    borderColor: '#545454',
+    padding: 10,
+    width: 200,
+    fontSize: 15
   },
   formStyling: {
     height: 40,
-    margin: 25,
+    marginTop: 25,
+    marginBottom: 35,
     borderBottomWidth: 1,
     borderColor: '#545454',
     padding: 10,
