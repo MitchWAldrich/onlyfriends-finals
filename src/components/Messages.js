@@ -132,7 +132,6 @@ console.log('without', withoutMessages)
                   //       </NewUserInfoCard>
                   //   </NewMatches>
                   //   :
-
                     <YesMessageMatches>
                       <MessageCard onPress={() => navigation.navigate  ('Chat', { userName: item.userName, id:item.id,   matchID:item.matchID })}>
                           <UserInfoCard>

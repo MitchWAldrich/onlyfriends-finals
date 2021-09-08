@@ -25,7 +25,7 @@ const ForYouListItem = (props, {navigation}) => {
       }>
         <Image
         source={{uri: props.photo}}
-        style={{width: 100, height: 100, borderRadius: 25}}
+        style={{width: 129, height: 129, borderRadius: 25}}
         />
       </Pressable>
       <Text>{props.name}, {props.age}</Text>
