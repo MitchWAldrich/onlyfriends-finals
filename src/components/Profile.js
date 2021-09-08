@@ -25,7 +25,7 @@ const Profile = (props) => {
   const [loading, setLoading] = useState(false);
   // VERY IMPORTANT TO RENDER NEW MATCHES TO INBOX(MESSAGES SCREEN)
   if (newState.users === null) {
-    setLoading(true);
+    // setLoading(true);
     setTimeout(() => {
       setLoading(false);
     }, 1500);
