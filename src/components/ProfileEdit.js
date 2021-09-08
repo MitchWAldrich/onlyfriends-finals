@@ -112,8 +112,8 @@ const ProfileEdit = (props) => {
   const navigation = useNavigation(); 
 
   const onSaveProfile = () => {
-    editProfile(state.user, gender, location, vaxxed, aboutMe, interests, image) 
-    navigation.navigate('Profile')
+    editProfile(state.user, gender, location, vaxxed, aboutMe, interests, image)
+    setState({...state, user: state.user}) 
   };
 
   if (state.user) { 
@@ -144,7 +144,11 @@ const ProfileEdit = (props) => {
     
         <View style={styles.buttonSaveCancel}>
             <View style={{marginRight:5}}>
-              <Button title="Save" onPress={onSaveProfile} style={styles.editButton}/>
+              <Button title="Save" onPress={() => {
+                onSaveProfile()
+                navigation.navigate('Profile')}
+                } 
+                style={styles.editButton}/>
             </View>
             <View style={{marginLeft:5}}>
               <Button title="Cancel" onPress={() => navigation.navigate('Profile')} style={styles.editButton}/>
