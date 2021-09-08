@@ -12,20 +12,27 @@ const Messages = () => {
 
   const {newState, setNewState} = showMatchedUsers();
 
+  const [loading, setLoading] = useState(false);
+  
   // VERY IMPORTANT TO RENDER NEW MATCHES TO INBOX(MESSAGES SCREEN)
   if (newState.users === null) {
-      return (
-        <View >
+    // setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    
+    return (
+      <View >
           <ActivityIndicator 
             size="large"
             loading={loading}
             />
         </View>
       )
-  }
-
-  const navigation = useNavigation();
-  const { state, loading } = useContext(StateContext);
+    }
+    
+    const navigation = useNavigation();
+    const { state } = useContext(StateContext);
   const { user } = state;
 
   console.log("STATE: ", newState)
