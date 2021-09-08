@@ -115,7 +115,9 @@ VALUES
 (2, 18, false),
 (22, 18, false),
 (27, 18, false),
-(29, 18, false);
+(29, 18, false),
+(21, 18, false);
+
 
 INSERT INTO matches (user1_id, user2_id, best_friend)
 VALUES 
@@ -129,7 +131,8 @@ VALUES
 (16, 17, true),
 (16, 3, false),
 (16, 5, false),
-(16, 8, false);
+(16, 8, false),
+(18, 21, false);
 
 INSERT INTO messages (match_id, sender_id, receiver_id, message, sent_at)
 VALUES
