@@ -76,8 +76,7 @@ const Profile = (props) => {
               />
             </View>
             <View style={{ alignSelf: "center" }}>
-
-            <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
+              <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
               <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
             </View>
           </View>

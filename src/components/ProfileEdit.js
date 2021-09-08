@@ -2,7 +2,7 @@ import React, { useState, Component, useEffect, useContext  } from "react";
 
 import { StyleSheet, Text, TextInput, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, Platform, Pressable } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Chip, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, TextField, Checkbox } from '@material-ui/core';
+import { Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, TextField, Checkbox } from '@material-ui/core';
 import { useNavigation } from '@react-navigation/native';
 import { allUserInterests, fullUserObject, userAge } from '../helpers/selectors.js';
 import { StateContext } from '../../StateProvider.js';
@@ -127,22 +127,22 @@ const ProfileEdit = (props) => {
        <ScrollView style={styles.scrollView}>
 
       {/* DETAILS UNDER THIS SECTION CANNOT BE EDITED */}
-        <View style={{ alignSelf: "center", marginTop: 10 }}>
-          <View style={styles.profileImage}>
-            <Image 
-              source={{uri: detailedUser.photos[0]}} 
-              style={styles.image} 
-            />
-          </View>
-          <View style={{ alignSelf: "center" }}>
-          {/* <Text style={styles.profileDetails}>{user.first_name}, {userAge(user)}</Text> */}
-          <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
-            <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
+        <View>
+          <View style={{ alignSelf: "center", marginTop: 10 }}>
+            <View style={styles.profileImage}>
+              <Image 
+                source={{uri: detailedUser.photos[0]}} 
+                style={styles.image} 
+              />
+            </View>
+            <View style={{ alignSelf: "center" }}>
+              <Text style={styles.profileDetails}>{detailedUser.first_name}, {userAge(detailedUser)}</Text>
+              <Text style={styles.starSign}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} color="black" /></Text>
+            </View>
           </View>
         </View>
-
     
-        <View style={{flexDirection: 'row', justifyContent: 'center', alignContent: 'space-between'}}>
+        <View style={{flexDirection: 'row', justifyContent: 'center', alignContent: 'space-between', marginTop: 10}}>
             <View style={{marginRight:5}}>
               <Pressable
                 title="Save" onPress={() => {
@@ -276,7 +276,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFF",
-    width: '100%'
+    width: '100%',
+    paddingTop: 10
   },
   scrollView: {
     marginHorizontal: 20,
@@ -306,7 +307,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     fontSize: 25,
     fontWeight: 'bold',
-    color:'#2D2D2D'
+    color:'#004d4d',
   },
   starSign:{
     alignSelf: "center",

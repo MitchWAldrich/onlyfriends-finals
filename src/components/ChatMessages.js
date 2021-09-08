@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { StyleSheet, View, useNavigation } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { StateContext } from '../../StateProvider.js';
-import { renderComposer } from '../styles/ChatMessagesStyles.js';
+import { renderComposer, renderBubble } from '../styles/ChatMessagesStyles.js';
 
 import { fullConversation, fullUserObject } from '../../src/helpers/selectors.js';
 
@@ -75,6 +75,7 @@ const ChatMessages = (props) => {
         showUserAvatar={true}
         renderComposer={renderComposer}
         messagesContainerStyle={{ backgroundColor: '#F4F7F7' }}
+        renderBubble={renderBubble}
       />
     </View>
   );

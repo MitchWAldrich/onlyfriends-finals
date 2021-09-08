@@ -1,5 +1,5 @@
 import React from 'react';
-import { Composer } from 'react-native-gifted-chat';
+import { Composer, Bubble } from 'react-native-gifted-chat';
 
 export const renderComposer = (props) => (
   <Composer
@@ -18,3 +18,17 @@ export const renderComposer = (props) => (
     }}
   />
 );
+
+// export const renderBubble = (props) => {
+//     <Bubble
+//         {...props}
+//         wrapperStyle={{
+//           right: {
+//             backgroundColor: '#2e64e5'
+//           }
+//         }}
+//         textStyle={{
+//           right: '#fff'
+//         }}
+//     />
+//   }
