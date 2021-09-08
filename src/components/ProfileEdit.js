@@ -1,6 +1,6 @@
 import React, { useState, Component, useEffect, useContext  } from "react";
 
-import { StyleSheet, Text, TextInput, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, Platform  } from "react-native";
+import { StyleSheet, Text, TextInput, View, SafeAreaView, Image, ScrollView, Button, ActivityIndicator, Platform, Pressable } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Chip, Radio, RadioGroup, FormControl, FormControlLabel, FormLabel, TextField, Checkbox } from '@material-ui/core';
 import { useNavigation } from '@react-navigation/native';
@@ -142,16 +142,26 @@ const ProfileEdit = (props) => {
         </View>
 
     
-        <View style={styles.buttonSaveCancel}>
+        <View style={{flexDirection: 'row', justifyContent: 'center', alignContent: 'space-between'}}>
             <View style={{marginRight:5}}>
-              <Button title="Save" onPress={() => {
+              <Pressable
+                title="Save" onPress={() => {
                 onSaveProfile()
                 navigation.navigate('Profile')}
                 } 
-                style={styles.editButton}/>
+                style={styles.stylesButton}
+              >
+                <Text style={styles.stylesButtonText}>Save</Text>
+              </Pressable>
             </View>
             <View style={{marginLeft:5}}>
-              <Button title="Cancel" onPress={() => navigation.navigate('Profile')} style={styles.editButton}/>
+              <Pressable 
+                title="Cancel" 
+                onPress={() => navigation.navigate('Profile')} 
+                style={styles.stylesButton}
+              >
+                <Text style={styles.stylesButtonText}>Cancel</Text>
+              </Pressable>
             </View>
         </View>
 
@@ -316,17 +326,33 @@ const styles = StyleSheet.create({
   checkbox: {
     alignSelf: "center"
   },
-  buttonSaveCancel: {
-    flexDirection: "row",
-    alignSelf: "center",
-    marginTop: 10,
-  },
   aboutMePhotos: {
     width: 125,
     height: 200,
     flexDirection: "row",
     flexWrap: "wrap"
-  }
+  },
+  stylesButton: { 
+    alignSelf: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    marginTop: 5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#003333',
+    borderRadius: 90,
+    width: 110,
+    height: 40,
+    color: '#FFFFFF'
+  },
+  stylesButtonText: {
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 15,
+    color: '#FFFFFF'
+  },
 });
 
 export default ProfileEdit;
