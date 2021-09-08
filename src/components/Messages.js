@@ -3,7 +3,7 @@ import { View, StyleSheet, FlatList, Text, ActivityIndicator } from 'react-nativ
 import { StateContext } from '../../StateProvider.js';
 import { useNavigation } from '@react-navigation/native';
 import { inboxObjects, findMatchesByUser } from '../../src/helpers/selectors.js';
-import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard } from '../styles/MessagesStyles.js';
+import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard, NoMessageMatches, YesMessageMatches, NoMessageHeader, YesMessageHeader } from '../styles/MessagesStyles.js';
 import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
 
 const Messages = () => {
@@ -64,21 +64,23 @@ console.log('without', withoutMessages)
             />
           </NewMatchContainer> */}
     
-          <View style={styles.container}>
+    <NoMessageMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
+      <NoMessageHeader>Don't keep your new friend waiting:</NoMessageHeader>
             <FlatList
               horizontal={true}
               data={withoutMessages}
               keyExtractor={item => item.id}
               renderItem={({ item }) => (
                 // item.messageText === null ?
-                <NewMatches onPress={() => navigation.navigate('Chat', { userName: item.userName, id: item.id, matchID:item.matchID  })}>
-                      <NewUserInfoCard>
+                
+                      
                         <UserImgGroup>
                           <UserImg source={item.userImg}/>
                         </UserImgGroup>
-                      </NewUserInfoCard>
-                  </NewMatches>
-                  // :
+              )}
+                  />    
+                  </NoMessageMatches>
+                  {/* // :
                   // <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
                   //     <UserInfoCard>
                   //       <UserImgGroup>
@@ -94,8 +96,8 @@ console.log('without', withoutMessages)
                   //     </UserInfoCard>
                   // </MessageCard>
               )}
-            />
-          </View>
+            /></InboxContainer> */}
+          
             {/* <NewMatchContainer>
               <FlatList
                 data={inbox}
@@ -112,7 +114,8 @@ console.log('without', withoutMessages)
               />
             </NewMatchContainer> */}
       
-            <View style={styles.container}>
+            <View>
+            <YesMessageHeader>Keep the conversation going:</YesMessageHeader>
               <FlatList
                 data={withMessages}
                 keyExtractor={item => item.id}
@@ -127,20 +130,23 @@ console.log('without', withoutMessages)
                   //       </NewUserInfoCard>
                   //   </NewMatches>
                   //   :
-                    <MessageCard onPress={() => navigation.navigate('Chat', { userName: item.userName, id:item.id, matchID:item.matchID })}>
-                        <UserInfoCard>
-                          <UserImgGroup>
-                            <UserImg source={item.userImg}/>
-                          </UserImgGroup>
-                          <TextSection>
-                            <UserInfoText>
-                              <UserName>{item.userName}</UserName>
-                              <PostTime>{item.messageTime}</PostTime>
-                            </UserInfoText>
-                            <MessageText>{item.messageText}</MessageText>
-                          </TextSection>
-                        </UserInfoCard>
-                    </MessageCard>
+                    <YesMessageMatches>
+                      <MessageCard onPress={() => navigation.navigate  ('Chat', { userName: item.userName, id:item.id,   matchID:item.matchID })}>
+                          <UserInfoCard>
+                            <UserImgGroup>
+                              <UserImg source={item.userImg}/>
+                            </UserImgGroup>
+                            <TextSection>
+                              <UserInfoText>
+                                <UserName>{item.userName}</UserName>
+                                <PostTime>{item.messageTime}</PostTime>
+                              </UserInfoText>
+                              <MessageText>{item.messageText}</MessageText>
+                            </TextSection>
+                          </UserInfoCard>
+                      </MessageCard>
+                    </YesMessageMatches>
+
                 )}
               />
             </View>
