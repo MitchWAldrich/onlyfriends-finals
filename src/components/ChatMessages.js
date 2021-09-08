@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, useNavigation } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { StateContext } from '../../StateProvider.js';
 import { renderComposer } from '../styles/ChatMessagesStyles.js';
@@ -9,7 +9,7 @@ import { fullConversation, fullUserObject } from '../../src/helpers/selectors.js
 
 import io from "socket.io-client";
 
-const ChatMessages = (props) => {
+const ChatMessages = (props, {navigation}) => {
   const { state, sendMessage, socket } = useContext(StateContext);
   const { user, users } = state;
   const { id } = props
@@ -17,6 +17,8 @@ const ChatMessages = (props) => {
   const conversation = fullConversation(state, user, otherUser).reverse();
   const [messages, setMessages] = useState([...conversation]);
   const fullSignedInUser = fullUserObject(state, user);
+
+  
 
   // const appendOnSend = useCallback((msg = []) => {
   //   const finalMessage = {...msg[0], receiverID: id, matchID: conversation[0].id}

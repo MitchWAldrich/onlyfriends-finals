@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, SafeAreaView, Button } from 'react-native';
 import { StateContext } from '../../StateProvider';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
-import Login from './Login';
 
+
+
+import Login from './Login';
 import ForYouPage from '../../src/components/ForYouPage';
 import Profile from '../../src/components/Profile'
 import ProfileEdit from '../../src/components/ProfileEdit';
@@ -20,6 +23,7 @@ import SignUp from './Signup';
 
 export default function AppStack() {
   const { auth } = useContext(StateContext);
+  const navigation = useNavigation();
 
   function ProfileScreen() {
     return (
@@ -70,7 +74,12 @@ export default function AppStack() {
       </SafeAreaView>
     );
   }
-  
+  // const resetAction = NavigationActions.replace({
+  //   index: 0,
+  //   actions: [NavigationActions.navigate('Messages')],
+  // })
+  const [refresh, setRefresh] = useState('');
+
 const Stack = createStackNavigator();
 
   const MessageStack = ({navigation}) => (
@@ -82,11 +91,20 @@ const Stack = createStackNavigator();
         options={({route}) => ({
           title: route.params.userName,
           headerBackTitleVisible: false,
-          headerTitleAlign: 'center'
+          headerTitleAlign: 'center',
+          headerLeft: () => (
+            <Button
+              onPress={() => setRefresh('refreshed!')}
+              title="Back"
+              color="#004D4D"
+            />
+          ),
         })}
+
       />
     </Stack.Navigator>
   );
+  
 
   const ProfileStack = ({navigation}) => (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
