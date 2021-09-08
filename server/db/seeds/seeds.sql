@@ -138,4 +138,11 @@ VALUES
 (3, 4, 1, 'Let me know when you want to link up and take some pictures xx', '2021-08-22 23:23:54'),
 (3, 1, 4, 'Sure. Down whenever.', '2021-08-24 23:23:54'),
 (4, 18, 19, 'Omg you went to the Van Gogh exhibit?!', '2021-08-22 23:24:54'),
-(4, 19, 18, 'Yeah it was so pretty', '2021-08-22 23:26:54');
+(4, 19, 18, 'Yeah it was so pretty', '2021-08-22 23:26:54'),
+(9, 16, 3, 'hey girl, whats up', '2021-09-08T06:27:02.992Z'),
+(10, 16, 5, 'hey Alexa, turn on lights', '2021-09-08T06:27:29.975Z'),
+(11, 16, 8, 'happy birthday, matt!', '2021-09-08T06:27:48.356Z'),
+(8, 16, 17, 'what takeout should we get?', '2021-09-08T06:28:04.058Z'),
+(5, 18, 17, 'what did you and bea get for takeout?', '2021-09-08T06:31:22.734Z'),
+(6, 18, 2, 'cool pics!', '2021-09-08T06:31:31.704Z'),
+(7, 18, 1, 'omg, that pizza looks so yummy', '2021-09-08T06:31:44.293Z');
