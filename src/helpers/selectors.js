@@ -355,6 +355,15 @@ export function shuffle(array) {
     const fixedStrings = removeUnderscores.map( word => (word[0].toUpperCase() + word.substring(1)))
     return fixedStrings
   }
+
+  export function getHangoutsObjectByInterest(state, interest) {
+    
+    for (const hangout of state.hangouts) {
+      if (hangout.interest === interest) {
+        return hangout;
+      }
+    }
+  }
   
   export function fullUserObject(state, newUser) {
     const userObject = {

@@ -1,12 +1,51 @@
-import React from 'react';
-import { SafeAreaView, Text, View, Button, StyleSheet, Image, Linking } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, Text, View, Button, StyleSheet, Image, Linking, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { getMutualInterests, updateUser, getHangoutsObjectByInterest, interestStringManipulation } from '../..//helpers/selectors';
+import showMatchedUsers from '../..//hooks/showMatchedUsers';
 
 
 const SuperMatched = (props) => {
+  const { newState } = showMatchedUsers();
   const { home, detailedUser, user } = props;
+  const [loading, setLoading] = useState(false);
+  
+  if (newState.users === null) {
+    // setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+    
+    return (
+      <View >
+          <ActivityIndicator 
+            size="large"
+            loading={loading}
+            />
+        </View>
+      )
+    }
+    
   
   const navigation = useNavigation();
+
+  const newUser = updateUser(newState, user); 
+
+  const mutualInterests = getMutualInterests(newState, newUser, detailedUser);
+
+  const stringManipulatedInterests = interestStringManipulation(mutualInterests);
+
+  const interestSuggestions = stringManipulatedInterests.map( interest => {
+    const hangoutSuggestion = getHangoutsObjectByInterest(newState, interest);
+    return (
+    <View>
+      <Text>{hangoutSuggestion.action_text}</Text>
+      <Button title={hangoutSuggestion.interest} onPress={() => Linking.openURL(hangoutSuggestion.link)} />
+    </View>
+    )
+  })
+
+  const limitedSuggestions = interestSuggestions.slice(0, 3)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -22,7 +61,10 @@ const SuperMatched = (props) => {
           style={styles.photo} 
         />
       </View>
-      <Button title="Go on a hike" onPress={() => Linking.openURL('https://greatruns.com/toronto-toronto-beltline-trail/')} /> 
+      <View>
+        <Text>Suggested Best Friend Hangs</Text>
+      {limitedSuggestions}
+      </View>
       <Button title="Send a Message" onPress={() => {
         home()
         navigation.navigate('Messages')}} />
