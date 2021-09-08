@@ -8,48 +8,55 @@ import * as Font from 'expo-font';
   //   Puritan_400Regular
   // })
 
-
 export const InboxContainer = styled.SafeAreaView`
-display: flex;  
-flex: 1;
+  display: flex;  
+  flex: 1;
   padding-left: 15px;
   padding-right: 0px;
+  margin-top: 10px;
   width:100%;
   flex-direction: column;
+  background-color: #F5F5F5;
+`;
+
+export const NoMessageContainer = styled.View`
+  justify-content: flex-start;
+  width: 94%;
+  margin-left: 5px;
+  border-bottom-width: 1px;
+  border-bottom-color: #c4c4c4;
 `;
 
 export const NoMessageMatches = styled.TouchableOpacity`
-
-justify-content: flex-start;
+  justify-content: flex-start;
   width: 90%;
-  
   margin-left: 5px;
-  margin-bottom: 10px;
-  margin-right: 5px;
-
-  border-bottom-width: 1px;
-  border-bottom-color: #color: #004D4D;;
+  margin-bottom: 5px;
 `;
-
+  
 export const NoMessageHeader = styled.Text`
-margin-top: 5px;
-font-size: 16px;
-font-family: Puritan_400Regular;
+  margin-top: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #003333;
+`;
+export const YesMessageContainer = styled.View`
+  margin-top: 12.5px;
 `;
 
 export const YesMessageMatches = styled.View`
-
-justify-content: flex-start;
+  justify-content: flex-start;
   width: 90%;
   margin-left: 5px;
-  
 `;
 
 export const YesMessageHeader = styled.Text`
-margin-top: 5px;
-margin-bottom: 5px;
-font-size: 16px;
-font-family: Puritan_400Regular;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #003333;
 `;
 
 export const NewUserInfoCard = styled.View`
@@ -60,15 +67,15 @@ export const NewUserInfoCard = styled.View`
 `;
 
 export const NewUserImgGroup = styled.View`
-padding-top: 15px;
-padding-bottom: 15px;
+  padding-top: 15px;
+  padding-bottom: 5px;
 `;
-
 
 export const MessageCard = styled.TouchableOpacity`
   width: 90%;
   margin-left: 25px;
   margin-right: 15px;
+  margin-bottom: 5px;
 `;
 
 export const UserInfoCard = styled.View`
@@ -101,8 +108,6 @@ export const TextSection = styled.View`
   margin-left: 15px;
   margin-right: 5px;
   width: 90%;
-  border-top-width: 1px;
-  border-top-color: #004D4D;
   border-bottom-width: 1px;
   border-bottom-color: #004D4D;
 `;
@@ -126,6 +131,6 @@ export const PostTime = styled.Text`
 
 export const MessageText = styled.Text`
   font-size: 14px;
-  font-family: Roboto_400Regular;
   color: #333333;
+  margin-top: 3px;
 `;

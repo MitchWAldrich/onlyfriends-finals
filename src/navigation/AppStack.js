@@ -95,8 +95,9 @@ const Stack = createStackNavigator();
           headerLeft: () => (
             <Button
               onPress={() => setRefresh('refreshed!')}
-              title="Back"
+              title='<'
               color="#004D4D"
+              style={{marginLeft: 10}}
             />
           ),
         })}
