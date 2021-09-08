@@ -64,7 +64,7 @@ VALUES
 (27, 'https://i.imgur.com/DUfA1Pv.jpg', 'https://i.imgur.com/6iFbrf8.jpg', 'https://i.imgur.com/OdCPsTc.jpg', 'https://i.imgur.com/90K56nq.jpg'),
 (28, 'https://i.imgur.com/X3GVkts.jpg', 'https://i.imgur.com/Xu6Hj7Q.jpgv', 'https://i.imgur.com/dJmQ5sP.jpg', 'https://i.imgur.com/xuSfApR.jpg'),
 (29, 'https://i.imgur.com/SehavKG.jpg', 'https://i.imgur.com/ESaKlG3.jpg', 'https://i.imgur.com/Ok3UdpP.png', 'https://i.imgur.com/XKoLMw9.jpg'),
-(30, 'https://i.imgur.com/PfShFXQ.jpg', 'https://i.imgur.com/7c7E3yY.jpg', 'https://i.imgur.com/5MBgan7.jpg', 'https://i.imgur.com/ouUMejP.jpg');
+(30, 'https://i.imgur.com/PfShFXQ.jpg', 'https://i.imgur.com/2wyIH9T.jpg', 'https://i.imgur.com/5MBgan7.jpg', 'https://i.imgur.com/ouUMejP.jpg');
 
 INSERT INTO interests (user_id, reading, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out)
 VALUES 
@@ -108,18 +108,8 @@ VALUES
 (1, 5, false),
 (4, 5, true),
 (2, 4, false),
-(19, 18, true),
-(16, 18, false),
-(12, 18, false),
-(10, 18, false),
-(24, 18, false),
 (6, 18, true),
 (14, 18, false),
-(2, 18, false),
-(22, 18, false),
-(27, 18, false),
-(29, 18, false),
-(21, 18, false),
 (30, 18, true),
 (30, 1, false),
 (30, 3, false),
@@ -146,7 +136,8 @@ VALUES
 (30, 26, false),
 (30, 27, false),
 (30, 28, true),
-(30, 29, true);
+(30, 29, true),
+(18, 6, false);
 
 
 INSERT INTO messages (match_id, sender_id, receiver_id, message, sent_at)
@@ -156,7 +147,6 @@ VALUES
 (3, 4, 1, 'Let me know when you want to link up and take some pictures xx', '2021-08-22 23:23:54'),
 (3, 1, 4, 'Sure. Down whenever.', '2021-08-24 23:23:54'),
 (4, 18, 19, 'Omg you went to the Van Gogh exhibit?!', '2021-08-22 23:24:54'),
-(4, 19, 18, 'Yeah it was so pretty', '2021-08-22 23:26:54'),
 (9, 16, 3, 'hey girl, whats up', '2021-09-08T06:27:02.992Z'),
 (10, 16, 5, 'hey Alexa, turn on lights', '2021-09-08T06:27:29.975Z'),
 (11, 16, 8, 'happy birthday, matt!', '2021-09-08T06:27:48.356Z'),
