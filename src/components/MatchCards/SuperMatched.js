@@ -38,7 +38,7 @@ const SuperMatched = (props) => {
   const interestSuggestions = stringManipulatedInterests.map( interest => {
     const hangoutSuggestion = getHangoutsObjectByInterest(newState, interest);
     return (
-    <View style={{marginTop: 10}}>
+    <View>
       <Text style={{alignContent: 'center', fontSize: 12}}>{hangoutSuggestion.action_text}</Text>
       <Pressable 
           title="Hangout Suggestion" 
@@ -47,10 +47,7 @@ const SuperMatched = (props) => {
         >
           <Text style={styles.stylesButtonSuggestionsText}>{hangoutSuggestion.interest}</Text>
       </Pressable>
-      {/* <Button title={hangoutSuggestion.interest} onPress={() => Linking.openURL(hangoutSuggestion.link)} /> */}
     </View>
-
-    
     )
   })
 
@@ -58,10 +55,8 @@ const SuperMatched = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{justifyContent: 'center', alignItems: "center"}}>
-        <Text style={styles.header}>You're now BEST friends!</Text>
-        <Text style={styles.text}>You and {detailedUser.first_name} are besties</Text>
-      </View>
+      <Text style={styles.header}>You're now BEST friends!</Text>
+      <Text style={styles.text}>You and {detailedUser.first_name} are besties</Text>
       <View style={styles.imageContainer}>
         <Image 
           source={{uri: user.photos[0]}}
@@ -93,19 +88,19 @@ const SuperMatched = (props) => {
         </Pressable>
       </View>
 
-      <View styles={{marginTop: 15}}>
-        <View styles={{ color: '#004040', marginTop: 5, fontWeight: 'bold'}}>
-          <Text style={{justifyContent: 'center', marginTop: 10}}>Suggested Best Friend Hangs</Text>
+      <View style={{marginTop: 5, justifyContent: 'center',}}>
+        <View styles={{ color: '#004040', fontWeight: 'bold'}}>
+          <Text>Suggested Best Friend Hangs</Text>
         </View>
-        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignItems: 'center'}}>{limitedSuggestions}</View>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignItems: 'center'}}>
+          {limitedSuggestions}
+        </View>
       </View>
-      {/* <Button title="Send a Message" onPress={() => {
-        home()
-        navigation.navigate('Messages')}} />
-      <Button title="Find More Friends" onPress={home} /> */}
+
     </SafeAreaView>
   )
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -115,16 +110,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    fontSize: 33,
+    fontSize: 30,
     fontWeight: 'bold',
     color:'#004d4d',
   },
   text: {
-    fontSize: 20,
-    alignContent:'center',
+    fontSize: 22,
     justifyContent: 'center',
     alignItems: 'center',
-    color: '#002626',
+    color: 'teal',
   },
   imageContainer: {
     flexDirection: 'row',
@@ -151,7 +145,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#003333',
     borderRadius: 90,
     width: 185,
-    height: 35,
+    height: 45,
   },
   stylesButtonTextMessage: {
     alignSelf: "center",
@@ -178,22 +172,23 @@ const styles = StyleSheet.create({
     color: '#FFFFFF'
   },
   stylesButtonSuggestions: { 
-    alignSelf: "center",
     marginTop: 2,
-    paddingTop: 10,
-    paddingBottom: 10,
     paddingLeft: 20,
     paddingRight: 20,
     backgroundColor: '#004d4d',
     borderRadius: 90,
     width: 125,
     height: 25,
+    alignSelf:'center',
+    alignContent:'center',
+    justifyContent: 'center',
   },
   stylesButtonSuggestionsText: {
-    alignSelf: "center",
     alignItems: 'center',
-    justifyContent: "center",
-    fontSize: 10,
+    alignSelf:'center',
+    alignContent:'center',
+    justifyContent: 'center',
+    fontSize: 12,
     color: '#FFFFFF'
   },
 });

@@ -213,15 +213,23 @@ const ProfileEdit = (props) => {
 
           <View style={styles.textArea}>
             <FormLabel component="legend">Edit Photos</FormLabel>
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <Button title="+" onPress={pickImage} />
-              {image && <Image source={{ uri: image.photo1 }} style={{ width: 200, height: 200 }} />}
-              <Button title="+" onPress={pickImage} />
-              {image && <Image source={{ uri: image.photo2 }} style={{ width: 200, height: 200 }} />}
-              <Button title="+" onPress={pickImage} />
-              {image && <Image source={{ uri: image.photo3 }} style={{ width: 200, height: 200 }} />}
-              <Button title="+" onPress={pickImage} />
-              {image && <Image source={{ uri: image.photo4 }} style={{ width: 200, height: 200 }} />}
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection:'row', flexWrap: 'wrap' }}>
+              <View style={{margin:5}}>
+                <Button title="+" onPress={pickImage} color='#006666'/>
+                {image && <Image source={{ uri: image.photo1 }} style={{ width: 140, height: 140 }} />}
+              </View>
+              <View style={{margin:5}}>
+                <Button title="+" onPress={pickImage} color='#006666'/>
+                {image && <Image source={{ uri: image.photo2 }} style={{ width: 140, height: 140 }} />}
+              </View>
+              <View style={{margin:5}}>
+                <Button title="+" onPress={pickImage} color='#006666'/>
+                {image && <Image source={{ uri: image.photo3 }} style={{ width: 140, height: 140 }} />}
+              </View>
+              <View style={{margin:5}}>
+                <Button title="+" onPress={pickImage} color='#006666'/>
+                {image && <Image source={{ uri: image.photo4 }} style={{ width: 140, height: 140 }} />}
+              </View>
             </View>
           </View>
 
