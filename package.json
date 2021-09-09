@@ -31,6 +31,7 @@
     "moment": "^2.29.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-moment": "^1.1.1",
     "react-native": "0.63.4",
     "react-native-animated-radio-button": "^2.0.6",
     "react-native-animated-radio-button-group": "^1.0.0",
