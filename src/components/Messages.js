@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { inboxObjects, findMatchesByUser } from '../../src/helpers/selectors.js';
 import { InboxContainer, MessageCard, UserImg, UserImgGroup, TextSection, UserInfoCard, UserInfoText, MessageText, UserName, PostTime, NewMatches, NewMatchContainer, NewUserInfoCard, NoMessageMatches, YesMessageMatches, NoMessageHeader, YesMessageHeader, NoMessageContainer, YesMessageContainer } from '../styles/MessagesStyles.js';
 import showMatchedUsers from  '../../src/hooks/showMatchedUsers';
+import Moment from 'react-moment';
 import {useFonts, Roboto_400Regular } from '@expo-google-fonts/roboto';
 
 
@@ -29,8 +30,8 @@ const Messages = () => {
       )
     }
     
-    const navigation = useNavigation();
-    const { state } = useContext(StateContext);
+  const navigation = useNavigation();
+  const { state } = useContext(StateContext);
   const { user } = state;
 
   console.log("STATE: ", newState)
@@ -51,8 +52,16 @@ const Messages = () => {
       withMessages.push(match)
     }
   }
-console.log('with', withMessages)
-console.log('without', withoutMessages)
+  console.log('with', withMessages)
+  console.log('without', withoutMessages)
+
+  // const dateFormat = () => {
+  //   const messageSentAt = inboxObjects.messageTime;
+
+  //   return (
+  //     <Moment fromNow>{messageSentAt}</Moment>
+  //   )
+  // }
       
 
   return (
@@ -73,7 +82,7 @@ console.log('without', withoutMessages)
             />
           </NewMatchContainer> */}
       <NoMessageContainer>
-        <NoMessageHeader>Don't keep your new friend waiting:</NoMessageHeader>
+        <NoMessageHeader>Don't keep your new friend waiting</NoMessageHeader>
           <FlatList
             horizontal={true}
             data={withoutMessages}
@@ -123,7 +132,7 @@ console.log('without', withoutMessages)
             </NewMatchContainer> */}
       
         <YesMessageContainer>
-          <YesMessageHeader>Keep the conversation going:</YesMessageHeader>
+          <YesMessageHeader>Keep the conversation going</YesMessageHeader>
             <FlatList
               data={withMessages}
               keyExtractor={item => item.id}
@@ -147,7 +156,7 @@ console.log('without', withoutMessages)
                       <TextSection>
                         <UserInfoText>
                           <UserName>{item.userName}</UserName>
-                          <PostTime>{item.messageTime}</PostTime>
+                          <PostTime><Moment fromNow>{item.messageTime}</Moment></PostTime>
                         </UserInfoText>
                         <MessageText>{item.messageText}</MessageText>
                       </TextSection>
