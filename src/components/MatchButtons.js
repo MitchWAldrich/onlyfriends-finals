@@ -1,8 +1,8 @@
 import React from "react";
-import { View, StyleSheet, Pressable } from "react-native";
+import { View, StyleSheet, Pressable, Text } from "react-native";
 
 import { Entypo } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const MatchButtons = (props) => {
@@ -17,7 +17,8 @@ const MatchButtons = (props) => {
       </Pressable>
 
       <Pressable style={styles.buttonSuperlike} onPress={superLike}>
-      <FontAwesome name="star" size={40} color="#3AB4CC" />  
+      <MaterialCommunityIcons name="human-greeting" size={45} color="#3AB4CC" />
+      {/* <FontAwesome name="star" size={40} color="#3AB4CC" />   */}
       </Pressable>
 
       <Pressable style={styles.button} onPress={like}>
@@ -73,6 +74,11 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
 
     elevation: 13,
+  },
+  bffStyle: {
+    size:40, 
+    color:"#3AB4CC",
+    fontWeight: 'bold'
   }
   
 })
