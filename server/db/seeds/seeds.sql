@@ -29,7 +29,9 @@ VALUES
 ('Grace', 'Keenleyside', 'grace@email.com', 'password', '1989-09-27', 'Toronto', 'Female', 'I like running, baking, singing, movies, theatre, singing, and laughing with my favourite people.', 'Libra', 'Yes', 28),
 ('Yaw', 'Attuah', 'yaw@email.com', 'password', '1982-05-20', 'Toronto', 'Male', 'I am super busy. A dad and a fun guy.', 'Taurus', 'Yes', 25),
 ('Andrew', 'Bray', 'andrewb@email.com', 'password', '1987-06-28', 'Toronto', 'Male', 'Do not let the High School Teacher title fool you. Once the bell rings, this guy is ready to PARTY.', 'Cancer', 'Yes', 34),
-('Mitch', 'Aldrich', 'mitch@email.com', 'password', '1987-07-04', 'Toronto', 'Male', 'Always up for an adventure. Where are we going?!', 'Cancer', 'Yes', 34);
+('Mitch', 'Aldrich', 'mitch@email.com', 'password', '1987-07-04', 'Toronto', 'Male', 'Always up for an adventure. Where are we going?!', 'Cancer', 'Yes', 34),
+('Jennifer', 'Krabbe', 'jenk@email.com', 'password', '1988-01-01', 'Etobicoke', 'Female', 'I am a mom of 1 looking to make more mom friends!', 'Capricorn', 'Yes', 33),
+('Amelia', 'Pipher Cayne', 'amelia@email.com', 'password', '1991-02-07', 'Pelham', 'Female', 'I’m a music educator turned stay at home mom! I’m that plant-based, low waste, Montessori inspired and casual homeschooling mom.', 'Aquarius', 'Yes', 30);
 
 
 
@@ -64,7 +66,10 @@ VALUES
 (27, 'https://i.imgur.com/DUfA1Pv.jpg', 'https://i.imgur.com/6iFbrf8.jpg', 'https://i.imgur.com/OdCPsTc.jpg', 'https://i.imgur.com/90K56nq.jpg'),
 (28, 'https://i.imgur.com/X3GVkts.jpg', 'https://i.imgur.com/Xu6Hj7Q.jpgv', 'https://i.imgur.com/dJmQ5sP.jpg', 'https://i.imgur.com/xuSfApR.jpg'),
 (29, 'https://i.imgur.com/SehavKG.jpg', 'https://i.imgur.com/ESaKlG3.jpg', 'https://i.imgur.com/Ok3UdpP.png', 'https://i.imgur.com/XKoLMw9.jpg'),
-(30, 'https://i.imgur.com/PfShFXQ.jpg', 'https://i.imgur.com/2wyIH9T.jpg', 'https://i.imgur.com/5MBgan7.jpg', 'https://i.imgur.com/ouUMejP.jpg');
+(30, 'https://i.imgur.com/PfShFXQ.jpg', 'https://i.imgur.com/2wyIH9T.jpg', 'https://i.imgur.com/5MBgan7.jpg', 'https://i.imgur.com/ouUMejP.jpg'),
+(31, 'https://i.imgur.com/am8KTnf.jpg', 'https://i.imgur.com/Pv2bXoz.jpg', 'https://i.imgur.com/IVYHiZZ.jpg', 'https://i.imgur.com/T6hhadu.jpg'),
+(32, 'https://i.imgur.com/qGx0acJ.jpg', 'https://i.imgur.com/RHdErS6.jpg', 'https://i.imgur.com/IVYHiZZ.jpg', 'https://i.imgur.com/OYT3z4B.jpg');
+
 
 INSERT INTO interests (user_id, reading, tv_movies, fitness, hiking, arts_culture, music, gaming, travel, studying, sports, eating_out, going_out)
 VALUES 
@@ -97,7 +102,9 @@ VALUES
 (27, false, true, true, true, true, true, false, true, false, false, true, false),
 (28, false, true, true, false, false, true, false, true, false, true, false, false),
 (29, true, true, true, true, true, true, false, false, false, true, true, true),
-(30, false, true, true, true, true, true, true, true, false, true, true, true);
+(30, false, true, true, true, true, true, true, true, false, true, true, true),
+(31, true, true, false, true, true, true, false, true, false, false, false, false),
+(32, false, true, true, false, true, true, false, true, false, false, true, false);
 
 
 INSERT INTO potential_matches (user1_id, user2_id, best_friend)
@@ -115,7 +122,9 @@ VALUES
 (30, 1, false),
 (30, 3, false),
 (30, 16, true),
-(30, 22, false);
+(30, 22, false),
+(31, 30, true),
+(32, 30, false);
 
 
 INSERT INTO matches (user1_id, user2_id, best_friend)

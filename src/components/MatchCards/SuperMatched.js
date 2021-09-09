@@ -179,8 +179,8 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     backgroundColor: '#004d4d',
     borderRadius: 90,
-    width: 125,
-    height: 25,
+    width: 140,
+    height: 30,
     alignSelf:'center',
     alignContent:'center',
     justifyContent: 'center',
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     alignContent:'center',
     justifyContent: 'center',
-    fontSize: 12,
+    fontSize: 14,
     color: '#FFFFFF'
   },
 });
