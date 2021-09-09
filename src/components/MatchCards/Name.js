@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
   
   card: {
     width: '90%',
-    height: '85%',
+    height: '80%',
     borderRadius: 10,
     backgroundColor: '#fefefe',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
 
     elevation: 11,
-    marginTop: 15,
+    marginTop: 18,
   },
   navigateRight: {
     height: '100%',
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   name: {
-    fontSize: 30,
+    fontSize: 40,
     color: 'white',
     fontWeight: 'bold',
     textShadowColor: '#525252',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    fontSize: 18,
+    fontSize: 26,
     color: 'white',
     lineHeight: 25,
     textShadowColor: '#525252',

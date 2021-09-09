@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View, Button, StyleSheet, Image, Linking, ActivityIndicator } from 'react-native';
+import { SafeAreaView, Text, View, Button, StyleSheet, Image, Linking, ActivityIndicator, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getMutualInterests, updateUser, getHangoutsObjectByInterest, interestStringManipulation } from '../..//helpers/selectors';
 import showMatchedUsers from '../..//hooks/showMatchedUsers';
@@ -39,13 +39,19 @@ const SuperMatched = (props) => {
     const hangoutSuggestion = getHangoutsObjectByInterest(newState, interest);
     return (
     <View>
-      <Text>{hangoutSuggestion.action_text}</Text>
-      <Button title={hangoutSuggestion.interest} onPress={() => Linking.openURL(hangoutSuggestion.link)} />
+      <Text style={{alignContent: 'center', fontSize: 12}}>{hangoutSuggestion.action_text}</Text>
+      <Pressable 
+          title="Hangout Suggestion" 
+          onPress={() => Linking.openURL(hangoutSuggestion.link)}
+          style={styles.stylesButtonSuggestions}
+        >
+          <Text style={styles.stylesButtonSuggestionsText}>{hangoutSuggestion.interest}</Text>
+      </Pressable>
     </View>
     )
   })
 
-  const limitedSuggestions = interestSuggestions.slice(0, 3)
+  const limitedSuggestions = interestSuggestions.slice(0, 4)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -61,14 +67,36 @@ const SuperMatched = (props) => {
           style={styles.photo} 
         />
       </View>
-      <View>
-        <Text>Suggested Best Friend Hangs</Text>
-      {limitedSuggestions}
+
+      <View styles={{marginTop: 7, marginBottom: 10}}>
+        <Pressable 
+          title="Send a Message" 
+          onPress={() => {
+            home()
+            navigation.navigate('Messages')
+          }}
+          style={styles.stylesButtonMessage}
+        >
+          <Text style={styles.stylesButtonTextMessage}>Send a Message</Text>
+        </Pressable>
+        <Pressable 
+          title="Find More Friends" 
+          onPress={home}
+          style={styles.stylesButtonFind}
+        >
+          <Text style={styles.stylesButtonTextFind}>Find More Friends</Text>
+        </Pressable>
       </View>
-      <Button title="Send a Message" onPress={() => {
-        home()
-        navigation.navigate('Messages')}} />
-      <Button title="Find More Friends" onPress={home} />
+
+      <View style={{marginTop: 5, justifyContent: 'center',}}>
+        <View styles={{ color: '#004040', fontWeight: 'bold'}}>
+          <Text>Suggested Best Friend Hangs</Text>
+        </View>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignItems: 'center'}}>
+          {limitedSuggestions}
+        </View>
+      </View>
+
     </SafeAreaView>
   )
 };
@@ -83,8 +111,8 @@ const styles = StyleSheet.create({
   },
   header: {
     fontSize: 30,
-    color: 'teal',
     fontWeight: 'bold',
+    color:'#004d4d',
   },
   text: {
     fontSize: 22,
@@ -94,16 +122,75 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    margintTop: 7,
+    marginBottom: 7
   },
   photo: {
-    width: 150,
-    height: 150,
-    borderRadius: '50%',
+    width: 180,
+    height: 180,
+    borderRadius: '60%',
     overflow: 'hidden',
-  }
+    margin: 5
+  },
+  stylesButtonMessage: { 
+    alignSelf: "center",
+    marginTop: 2,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#003333',
+    borderRadius: 90,
+    width: 185,
+    height: 45,
+  },
+  stylesButtonTextMessage: {
+    alignSelf: "center",
+    justifyContent: "center",
+    fontSize: 18,
+    color: '#FFFFFF'
+  },
+  stylesButtonFind: { 
+    alignSelf: "center",
+    marginTop: 5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#003333',
+    borderRadius: 90,
+    width: 150,
+    height: 35,
+  },
+  stylesButtonTextFind: {
+    alignSelf: "center",
+    justifyContent: "center",
+    fontSize: 13,
+    color: '#FFFFFF'
+  },
+  stylesButtonSuggestions: { 
+    marginTop: 2,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#004d4d',
+    borderRadius: 90,
+    width: 125,
+    height: 25,
+    alignSelf:'center',
+    alignContent:'center',
+    justifyContent: 'center',
+  },
+  stylesButtonSuggestionsText: {
+    alignItems: 'center',
+    alignSelf:'center',
+    alignContent:'center',
+    justifyContent: 'center',
+    fontSize: 12,
+    color: '#FFFFFF'
+  },
 });
 
 export default SuperMatched;
