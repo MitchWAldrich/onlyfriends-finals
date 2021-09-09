@@ -86,12 +86,13 @@ const SuperMatched = (props) => {
         >
           <Text style={styles.stylesButtonTextFind}>Find More Friends</Text>
         </Pressable>
+        <Text styles={{ color: '#004040', fontWeight: 'bold', margintTop: 15}}>Suggested Best Friend Hangs</Text>
       </View>
 
       <View style={{marginTop: 5, justifyContent: 'center',}}>
-        <View styles={{ color: '#004040', fontWeight: 'bold'}}>
-          <Text>Suggested Best Friend Hangs</Text>
-        </View>
+        {/* <View styles={{justifyContent: 'center'}}>
+ 
+        </View> */}
         <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignItems: 'center'}}>
           {limitedSuggestions}
         </View>
@@ -164,6 +165,7 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     width: 150,
     height: 35,
+    marginBottom: 25
   },
   stylesButtonTextFind: {
     alignSelf: "center",
