@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Pressable } from "react-native";
+import { Chip, Grid } from '@material-ui/core'
 import InterestTag from "./InterestTag";
 import { AntDesign } from '@expo/vector-icons';
 
@@ -11,7 +12,15 @@ const Interests = (props) => {
   
 
   const parsedInterests = detailedUser.interests.map((interest) => {
-    return (<InterestTag interest={interest} key={interest}/>)
+    return (
+      <Chip
+        key={interest}
+        label={interest}
+        color="primary"
+        style={{backgroundColor:'#005a5a', width: 108, marginBottom: 5, color: '#FFFFFF', opacity: .85, fontSize: 12, fontWeight: 'bold'}}
+      />
+      // <InterestTag interest={interest} key={interest}/>)
+    )
   })
 
 
@@ -27,8 +36,16 @@ const Interests = (props) => {
           </Pressable>
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}</Text>
-            <View style={{flexDirection: 'column'}}>
-              <View>{parsedInterests}</View>
+            <View style={{flexDirection: 'row'}}>
+              <Grid
+                container
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                style={{marginHorizontal: 5, marginVertical: 5}}
+              >
+                {parsedInterests}
+              </Grid>
             </View>
           </View>
         </ImageBackground>
@@ -41,11 +58,11 @@ const styles = StyleSheet.create({
   
   card: {
     width: '90%',
-    height: '85%',
+    height: '80%',
     borderRadius: 10,
     backgroundColor: '#fefefe',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -55,7 +72,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6.68,
 
     elevation: 11,
-    marginTop: 15,
+    marginTop: 18,
   },
   navigateRight: {
     height: '100%',
@@ -81,7 +98,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   name: {
-    fontSize: 30,
+    fontSize: 40,
     color: 'white',
     fontWeight: 'bold',
     textShadowColor: '#525252',
@@ -91,10 +108,10 @@ const styles = StyleSheet.create({
     },
     textShadowOpacity: 0.36,
     textShadowRadius: 6.68,
-
+    marginBottom: 5
   },
   text: {
-    fontSize: 18,
+    fontSize: 20,
     color: 'white',
     lineHeight: 25,
     textShadowColor: '#525252',

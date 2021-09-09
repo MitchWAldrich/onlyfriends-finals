@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, View, Button, StyleSheet, Image, Linking, ActivityIndicator } from 'react-native';
+import { SafeAreaView, Text, View, Button, StyleSheet, Image, Linking, ActivityIndicator, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { getMutualInterests, updateUser, getHangoutsObjectByInterest, interestStringManipulation } from '../..//helpers/selectors';
 import showMatchedUsers from '../..//hooks/showMatchedUsers';
@@ -38,10 +38,19 @@ const SuperMatched = (props) => {
   const interestSuggestions = stringManipulatedInterests.map( interest => {
     const hangoutSuggestion = getHangoutsObjectByInterest(newState, interest);
     return (
-    <View>
-      <Text>{hangoutSuggestion.action_text}</Text>
-      <Button title={hangoutSuggestion.interest} onPress={() => Linking.openURL(hangoutSuggestion.link)} />
+    <View style={{marginTop: 10}}>
+      <Text style={{alignContent: 'center'}}>{hangoutSuggestion.action_text}</Text>
+      <Pressable 
+          title="Hangout Suggestion" 
+          onPress={() => Linking.openURL(hangoutSuggestion.link)}
+          style={styles.stylesButtonSuggestions}
+        >
+          <Text style={styles.stylesButtonSuggestionsText}>{hangoutSuggestion.interest}</Text>
+      </Pressable>
+      {/* <Button title={hangoutSuggestion.interest} onPress={() => Linking.openURL(hangoutSuggestion.link)} /> */}
     </View>
+
+    
     )
   })
 
@@ -49,8 +58,10 @@ const SuperMatched = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>You're now BEST friends!</Text>
-      <Text style={styles.text}>You and {detailedUser.first_name} are besties</Text>
+      <View style={{marginBottom: 5, alignItems: "center"}}>
+        <Text style={styles.header}>You're now BEST friends!</Text>
+        <Text style={styles.text}>You and {detailedUser.first_name} are besties</Text>
+      </View>
       <View style={styles.imageContainer}>
         <Image 
           source={{uri: user.photos[0]}}
@@ -61,18 +72,40 @@ const SuperMatched = (props) => {
           style={styles.photo} 
         />
       </View>
-      <View>
-        <Text>Suggested Best Friend Hangs</Text>
-      {limitedSuggestions}
+
+      <View styles={{marginTop: 7, marginBottom: 10}}>
+        <Pressable 
+          title="Send a Message" 
+          onPress={() => {
+            home()
+            navigation.navigate('Messages')
+          }}
+          style={styles.stylesButtonMessage}
+        >
+          <Text style={styles.stylesButtonTextMessage}>Send a Message</Text>
+        </Pressable>
+        <Pressable 
+          title="Find More Friends" 
+          onPress={home}
+          style={styles.stylesButtonFind}
+        >
+          <Text style={styles.stylesButtonTextFind}>Find More Friends</Text>
+        </Pressable>
       </View>
-      <Button title="Send a Message" onPress={() => {
+
+      <View styles={{marginTop: 15}}>
+        <View styles={{ color: '#004040', marginTop: 5, fontWeight: 'bold'}}>
+          <Text>Suggested Best Friend Hangs</Text>
+        </View>
+        <View>{limitedSuggestions}</View>
+      </View>
+      {/* <Button title="Send a Message" onPress={() => {
         home()
         navigation.navigate('Messages')}} />
-      <Button title="Find More Friends" onPress={home} />
+      <Button title="Find More Friends" onPress={home} /> */}
     </SafeAreaView>
   )
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -82,28 +115,85 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    fontSize: 30,
-    color: 'teal',
+    fontSize: 33,
     fontWeight: 'bold',
+    color:'#004d4d',
   },
   text: {
-    fontSize: 22,
+    fontSize: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    color: 'teal',
+    color: '#002626',
   },
   imageContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    margintTop: 7,
+    marginBottom: 7
   },
   photo: {
-    width: 150,
-    height: 150,
-    borderRadius: '50%',
+    width: 180,
+    height: 180,
+    borderRadius: '60%',
     overflow: 'hidden',
-  }
+    margin: 5
+  },
+  stylesButtonMessage: { 
+    alignSelf: "center",
+    marginTop: 2,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#003333',
+    borderRadius: 90,
+    width: 200,
+    height: 45,
+  },
+  stylesButtonTextMessage: {
+    alignSelf: "center",
+    justifyContent: "center",
+    fontSize: 20,
+    color: '#FFFFFF'
+  },
+  stylesButtonFind: { 
+    alignSelf: "center",
+    marginTop: 5,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#003333',
+    borderRadius: 90,
+    width: 180,
+    height: 40,
+  },
+  stylesButtonTextFind: {
+    alignSelf: "center",
+    justifyContent: "center",
+    fontSize: 15,
+    color: '#FFFFFF'
+  },
+  stylesButtonSuggestions: { 
+    alignSelf: "center",
+    marginTop: 2,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
+    backgroundColor: '#004d4d',
+    borderRadius: 90,
+    width: 180,
+    height: 40,
+  },
+  stylesButtonSuggestionsText: {
+    alignSelf: "center",
+    justifyContent: "center",
+    fontSize: 15,
+    color: '#FFFFFF'
+  },
 });
 
 export default SuperMatched;

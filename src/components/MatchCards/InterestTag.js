@@ -3,7 +3,7 @@ import { Text, StyleSheet } from 'react-native';
 
 const InterestTag = (props) => {
   return (
-    <Text style={styles.text}>
+    <Text>
       {props.interest}
     </Text>
   );
