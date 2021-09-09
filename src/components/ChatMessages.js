@@ -75,7 +75,7 @@ const ChatMessages = (props) => {
         showUserAvatar={true}
         renderComposer={renderComposer}
         messagesContainerStyle={{ backgroundColor: '#F4F7F7' }}
-        renderBubble={renderBubble}
+        // renderBubble={renderBubble}
       />
     </View>
   );

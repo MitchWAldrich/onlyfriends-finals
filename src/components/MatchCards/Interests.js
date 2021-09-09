@@ -17,7 +17,7 @@ const Interests = (props) => {
         key={interest}
         label={interest}
         color="primary"
-        style={{backgroundColor:'#005a5a', width: 108, marginBottom: 5, color: '#FFFFFF', opacity: .85, fontSize: 12, fontWeight: 'bold'}}
+        style={{backgroundColor:'#005a5a', width: 108, marginBottom: 5, color: '#FFFFFF', fontSize: 12, fontWeight: 'bold'}}
       />
       // <InterestTag interest={interest} key={interest}/>)
     )
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   text: {
-    fontSize: 20,
+    fontSize: 26,
     color: 'white',
     lineHeight: 25,
     textShadowColor: '#525252',

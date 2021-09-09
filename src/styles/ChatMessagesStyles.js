@@ -1,5 +1,6 @@
+import { teal } from '@material-ui/core/colors';
 import React from 'react';
-import { Composer, Bubble } from 'react-native-gifted-chat';
+import { Composer, Bubble, MessageText } from 'react-native-gifted-chat';
 
 export const renderComposer = (props) => (
   <Composer
@@ -19,16 +20,66 @@ export const renderComposer = (props) => (
   />
 );
 
-// export const renderBubble = (props) => {
-//     <Bubble
-//         {...props}
-//         wrapperStyle={{
-//           right: {
-//             backgroundColor: '#2e64e5'
-//           }
-//         }}
-//         textStyle={{
-//           right: '#fff'
-//         }}
-//     />
-//   }
+export const renderBubble = () => {
+
+  return (
+    <Bubble
+      // renderTime={() => <Text>Time</Text>}
+      // renderTicks={() => <Text>Ticks</Text>}
+      containerStyle={{
+        left: { borderColor: 'teal', borderWidth: 8, backgroundColor: 'teal', color: 'white' },
+        right: {borderColor: 'pink', borderWidth: 8, backgroundColor: 'pink', color: 'white'},
+      }}
+      // textStyle={{
+      //   left: {color: 'white'},
+      //   right: {color: 'white'},
+      // }}
+      renderMessageText={() => {
+        return (
+          <MessageText
+            textStyle={{
+              left: { color: 'white' }, // Does not change dynamically
+              right: { color: 'white' },
+            }}
+          />
+        );
+      }}
+      // bottomContainerStyle={{
+      //   left: { borderColor: 'purple', borderWidth: 4 },
+      //   right: {},
+      // }}
+      // tickStyle={{}}
+
+      // containerToNextStyle={{
+      //   left: { borderColor: 'navy', borderWidth: 4 },
+      //   right: {},
+      // }}
+      // containerToPreviousStyle={{
+      //   left: { borderColor: 'mediumorchid', borderWidth: 4 },
+      //   right: {},
+      // }}
+
+    //   wrapperStyle={{
+    //     right: {
+    //         backgroundColor: "teal",
+    //         borderRadius: 30,
+    //         borderBottomRightRadius: 30,
+    //         marginBottom: 10,
+    //         padding: 5,
+    //         right: 15,
+    //         justifyContent: "flex-end",
+    //         alignSelf: 'stretch',
+    //         marginLeft: 0,
+    //         alignSelf: "center"
+    //     },
+    //     left: {
+    //         backgroundColor: "green",
+    //         borderRadius: 30,
+    //         marginBottom: 20,
+    //         padding: 5,
+    //         left: -30
+    //     }
+    // }}
+    />
+  )
+};

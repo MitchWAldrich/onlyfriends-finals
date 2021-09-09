@@ -39,7 +39,7 @@ const SuperMatched = (props) => {
     const hangoutSuggestion = getHangoutsObjectByInterest(newState, interest);
     return (
     <View style={{marginTop: 10}}>
-      <Text style={{alignContent: 'center'}}>{hangoutSuggestion.action_text}</Text>
+      <Text style={{alignContent: 'center', fontSize: 12}}>{hangoutSuggestion.action_text}</Text>
       <Pressable 
           title="Hangout Suggestion" 
           onPress={() => Linking.openURL(hangoutSuggestion.link)}
@@ -54,11 +54,11 @@ const SuperMatched = (props) => {
     )
   })
 
-  const limitedSuggestions = interestSuggestions.slice(0, 3)
+  const limitedSuggestions = interestSuggestions.slice(0, 4)
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{marginBottom: 5, alignItems: "center"}}>
+      <View style={{justifyContent: 'center', alignItems: "center"}}>
         <Text style={styles.header}>You're now BEST friends!</Text>
         <Text style={styles.text}>You and {detailedUser.first_name} are besties</Text>
       </View>
@@ -95,9 +95,9 @@ const SuperMatched = (props) => {
 
       <View styles={{marginTop: 15}}>
         <View styles={{ color: '#004040', marginTop: 5, fontWeight: 'bold'}}>
-          <Text>Suggested Best Friend Hangs</Text>
+          <Text style={{justifyContent: 'center', marginTop: 10}}>Suggested Best Friend Hangs</Text>
         </View>
-        <View>{limitedSuggestions}</View>
+        <View style={{flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-around', alignItems: 'center'}}>{limitedSuggestions}</View>
       </View>
       {/* <Button title="Send a Message" onPress={() => {
         home()
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    alignContent:'center',
     justifyContent: 'center',
     alignItems: 'center',
     color: '#002626',
@@ -149,13 +150,13 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     backgroundColor: '#003333',
     borderRadius: 90,
-    width: 200,
-    height: 45,
+    width: 185,
+    height: 35,
   },
   stylesButtonTextMessage: {
     alignSelf: "center",
     justifyContent: "center",
-    fontSize: 20,
+    fontSize: 18,
     color: '#FFFFFF'
   },
   stylesButtonFind: { 
@@ -167,13 +168,13 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     backgroundColor: '#003333',
     borderRadius: 90,
-    width: 180,
-    height: 40,
+    width: 150,
+    height: 35,
   },
   stylesButtonTextFind: {
     alignSelf: "center",
     justifyContent: "center",
-    fontSize: 15,
+    fontSize: 13,
     color: '#FFFFFF'
   },
   stylesButtonSuggestions: { 
@@ -185,13 +186,14 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     backgroundColor: '#004d4d',
     borderRadius: 90,
-    width: 180,
-    height: 40,
+    width: 125,
+    height: 25,
   },
   stylesButtonSuggestionsText: {
     alignSelf: "center",
+    alignItems: 'center',
     justifyContent: "center",
-    fontSize: 15,
+    fontSize: 10,
     color: '#FFFFFF'
   },
 });

@@ -83,8 +83,27 @@ export default function AppStack() {
 const Stack = createStackNavigator();
 
   const MessageStack = ({navigation}) => (
-    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center'}}>
-      <Stack.Screen name="Messages" component={MessagesScreen}/>
+    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center', 
+        headerStyle: {
+          backgroundColor: '#004d4d',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }} 
+        tabBarOptions={{
+          activeTintColor: '#004d4d',
+          inactiveTintColor: '#d9d9d9',
+          style: {
+            borderTopColor: '#666666',
+            elevation: 0,
+          },
+        }}>
+
+      <Stack.Screen 
+        name="Messages" 
+        component={MessagesScreen}/>
       <Stack.Screen
         name="Chat"
         component={({route}) => ChatScreen(route.params.id)}
@@ -97,7 +116,7 @@ const Stack = createStackNavigator();
               onPress={() => setRefresh('refreshed!')}
               title='<'
               color="#004D4D"
-              style={{marginLeft: 10}}
+              style={{marginLeft: 10, size: 20}}
             />
           ),
         })}
@@ -109,7 +128,7 @@ const Stack = createStackNavigator();
 
   const ProfileStack = ({navigation}) => (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Profile" component={ProfileScreen}  />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen
         name="Edit Profile"
         component={ProfileEditScreen}
@@ -122,10 +141,17 @@ const Tab = createBottomTabNavigator();
  const MyTabs = ({navigation}) => {
     return (
       <Tab.Navigator 
-        screenOptions={{ headerShown: true, headerTitleAlign: 'center' }}
+        screenOptions={{ headerShown: true, headerTitleAlign: 'center', headerStyle: {
+          backgroundColor: '#004d4d',
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }
+      }} 
         tabBarOptions={{
-          activeTintColor: '#004d4d',
-          inactiveTintColor: '#d9d9d9',
+          activeTintColor: '#6ea9a8',
+          inactiveTintColor: '#004d4d',
           style: {
             borderTopColor: '#666666',
             elevation: 0,

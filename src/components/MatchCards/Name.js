@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    fontSize: 20,
+    fontSize: 26,
     color: 'white',
     lineHeight: 25,
     textShadowColor: '#525252',

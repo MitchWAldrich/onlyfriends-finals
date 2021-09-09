@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, SafeAreaView, Text, ImageBackground, View, Pressable } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Extras = (props) => {
   const { back, detailedUser } = props;
@@ -15,7 +15,7 @@ const Extras = (props) => {
           <View style={styles.innerText}>
             <Text style={styles.name}>{detailedUser.first_name}</Text>
             <View style={{flexDirection: 'column'}}>
-              <Text style={styles.text}>{detailedUser.starsign}</Text>
+              <Text style={styles.text}>{detailedUser.starsign} <MaterialCommunityIcons name={`zodiac-${detailedUser.starsign.toLowerCase()}`} size={26}/></Text>
               <Text style={styles.text}>Vaccinated: {detailedUser.vaccinated}</Text>
             </View>
           </View>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
 
   },
   text: {
-    fontSize: 20,
+    fontSize: 26,
     color: 'white',
     lineHeight: 25,
     textShadowColor: '#525252',
